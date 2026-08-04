@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WaygroundQuiz - Ôn Tập Kiến Trúc Máy Tính</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- MathJax for rendering LaTeX math formulas -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-effects">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- TOP BAR GLOBAL CONTROLS -->
+    <header class="top-nav">
+      <div class="logo-area" id="logoBtn">
+        <i class="fa-solid fa-bolt logo-icon"></i>
+        <span class="logo-text">Wayground<span class="logo-accent">Quiz</span></span>
+      </div>
+      <div class="nav-controls">
+        <button id="theoryNavBtn" class="secondary-btn btn-sm">
+          <i class="fa-solid fa-book-open"></i>
+          <span>Ôn Lý Thuyết</span>
+        </button>
+        <button id="soundToggleBtn" class="icon-btn" title="Bật/Tắt Âm Thanh">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <button id="themeToggleBtn" class="icon-btn" title="Chế độ Tối/Sáng">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- 1. LOBBY VIEW (CHỌN ĐỀ THI & LÝ THUYẾT) -->
+    <main id="lobbyView" class="view active">
+      <div class="hero-section">
+        <div class="badge-tag"><i class="fa-solid fa-graduation-cap"></i> Học Phần: Kiến Trúc Máy Tính</div>
+        <h1 class="hero-title">Ôn Tập Cuối Kỳ <span class="gradient-text">Kiến Trúc Máy Tính</span></h1>
+        <p class="hero-desc">Hệ thống ôn luyện trắc nghiệm tương tác cao gồm 3 mã đề thi chuẩn (101, 202, 303) kèm tổng hợp lý thuyết 7 chương chi tiết.</p>
+      </div>
+
+      <!-- THEORY HERO BANNER BUTTON -->
+      <div class="theory-banner" id="openTheoryBannerBtn">
+        <div class="theory-banner-content">
+          <div class="theory-banner-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+          <div class="theory-banner-text">
+            <h2>Ôn Tập Lý Thuyết 7 Chương</h2>
+            <p>Tổng hợp công thức, khái niệm ISA, Pipeline, Cache, Chuẩn IEEE 754 và thuật toán bù 2.</p>
+          </div>
+        </div>
+        <button class="primary-btn">
+          <span>Khám Phá Lý Thuyết</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> Chọn Mã Đề Luyện Tập</h2>
+
+      <div class="exams-grid">
+        <!-- ĐỀ 101 CARD -->
+        <div class="exam-card" data-exam-id="1">
+          <div class="card-banner banner-1">
+            <span class="exam-tag">MÃ ĐỀ 101</span>
+            <i class="fa-solid fa-brain card-bg-icon"></i>
+          </div>
+          <div class="card-body">
+            <h2 class="exam-title">Đề Thi 01 - Mã Đề 101</h2>
+            <p class="exam-info">65 câu trắc nghiệm bao quát toàn bộ 7 chương, thiết kế chuẩn cấu trúc đề thi chính thức.</p>
+            <div class="exam-meta">
+              <span><i class="fa-solid fa-list-check"></i> <strong class="q-count-1">65</strong> câu hỏi</span>
+              <span><i class="fa-solid fa-clock"></i> 20 giây/câu</span>
+            </div>
+            <div class="card-footer">
+              <div class="high-score">High Score: <span id="highScore1">0</span> điểm</div>
+              <button class="btn-play primary-btn">
+                <span>Bắt Đầu</span>
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ĐỀ 202 CARD -->
+        <div class="exam-card" data-exam-id="2">
+          <div class="card-banner banner-2">
+            <span class="exam-tag">MÃ ĐỀ 202</span>
+            <i class="fa-solid fa-microchip card-bg-icon"></i>
+          </div>
+          <div class="card-body">
+            <h2 class="exam-title">Đề Thi 02 - Mã Đề 202</h2>
+            <p class="exam-info">65 câu hỏi rèn luyện tư duy nhanh, tính toán hiệu năng TCPU, MIPS và Cache.</p>
+            <div class="exam-meta">
+              <span><i class="fa-solid fa-list-check"></i> <strong class="q-count-2">65</strong> câu hỏi</span>
+              <span><i class="fa-solid fa-clock"></i> 20 giây/câu</span>
+            </div>
+            <div class="card-footer">
+              <div class="high-score">High Score: <span id="highScore2">0</span> điểm</div>
+              <button class="btn-play primary-btn">
+                <span>Bắt Đầu</span>
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ĐỀ 303 CARD -->
+        <div class="exam-card" data-exam-id="3">
+          <div class="card-banner banner-3">
+            <span class="exam-tag">MÃ ĐỀ 303</span>
+            <i class="fa-solid fa-network-wired card-bg-icon"></i>
+          </div>
+          <div class="card-body">
+            <h2 class="exam-title">Đề Thi 03 - Mã Đề 303</h2>
+            <p class="exam-info">65 câu trắc nghiệm xáo trộn giúp kiểm tra độ nhẫn nại và mức độ thuộc bài 100%.</p>
+            <div class="exam-meta">
+              <span><i class="fa-solid fa-list-check"></i> <strong class="q-count-3">65</strong> câu hỏi</span>
+              <span><i class="fa-solid fa-clock"></i> 20 giây/câu</span>
+            </div>
+            <div class="card-footer">
+              <div class="high-score">High Score: <span id="highScore3">0</span> điểm</div>
+              <button class="btn-play primary-btn">
+                <span>Bắt Đầu</span>
+                <i class="fa-solid fa-play"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 2. THEORY VIEW (MÀN HÌNH ÔN TẬP LÝ THUYẾT) -->
+    <main id="theoryView" class="view">
+      <div class="theory-header">
+        <button id="backToLobbyFromTheoryBtn" class="secondary-btn btn-sm">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Về Trang Chủ</span>
+        </button>
+
+        <div class="theory-title-group">
+          <h2><i class="fa-solid fa-book-open"></i> Tổng Hợp Lý Thuyết Kiến Trúc Máy Tính</h2>
+          <p>Tóm tắt trọng tâm 7 chương học phần Kiến Trúc Máy Tính</p>
+        </div>
+
+        <div class="theory-search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="theorySearchInput" placeholder="Tìm kiếm công thức, khái niệm (ISA, Cache, Pipeline...)...">
+        </div>
+      </div>
+
+      <div class="theory-layout">
+        <!-- Sidebar Navigation Chapters -->
+        <aside class="theory-sidebar" id="theorySidebar">
+          <!-- Dynamic Chapter Tabs -->
+        </aside>
+
+        <!-- Main Content Area -->
+        <article class="theory-content-body" id="theoryContentBody">
+          <!-- Dynamic Chapter Content Rendered Here -->
+        </article>
+      </div>
+    </main>
+
+    <!-- MODE SELECTION MODAL -->
+    <div id="modeModal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-icon"><i class="fa-solid fa-sliders"></i></div>
+          <h2 id="modalExamTitle">Chọn Chế Độ Ôn Tập</h2>
+          <p class="modal-subtitle">Hãy chọn cách bạn muốn làm đề thi này</p>
+        </div>
+        
+        <div class="mode-options">
+          <!-- Mode 1: Standard -->
+          <div class="mode-card selected" data-mode="standard">
+            <div class="mode-badge"><i class="fa-solid fa-bullseye"></i> Chế Độ Thi Thử</div>
+            <h3>1. Làm Mỗi Câu 1 Lần</h3>
+            <p>Trả lời lần lượt 65 câu hỏi từ câu 1 đến hết. Chấm điểm và tổng kết tỷ lệ đúng sau khi làm xong.</p>
+            <div class="mode-check"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+
+          <!-- Mode 2: Mastery 100% -->
+          <div class="mode-card" data-mode="mastery">
+            <div class="mode-badge badge-mastery"><i class="fa-solid fa-rotate-right"></i> Chế Độ Học Thuộc</div>
+            <h3>2. Làm Đến Khi Đúng 100%</h3>
+            <p>Những câu trả lời sai sẽ tự động xuất hiện lại ở cuối cho đến khi bạn trả lời đúng 100% tất cả các câu!</p>
+            <div class="mode-check"><i class="fa-solid fa-circle-check"></i></div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button id="closeModalBtn" class="secondary-btn">Hủy</button>
+          <button id="confirmStartBtn" class="primary-btn">
+            <span>Bắt Đầu Làm Bài</span>
+            <i class="fa-solid fa-play"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. QUIZ PLAYER VIEW (MÀN HÌNH LÀM BÀI) -->
+    <main id="quizView" class="view">
+      <!-- Quiz Header Controls & Stats -->
+      <div class="quiz-header">
+        <button id="exitQuizBtn" class="secondary-btn btn-sm">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Thoát</span>
+        </button>
+
+        <div class="quiz-progress-wrapper">
+          <div class="progress-top-info">
+            <span id="questionProgressText">Câu 1 / 65</span>
+            <span id="quizModeBadge" class="mode-pill">Thi Thử (1 lần)</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="progressBarFill" class="progress-bar-fill"></div>
+          </div>
+        </div>
+
+        <div class="quiz-stats-header">
+          <div class="streak-badge" id="streakContainer">
+            <i class="fa-solid fa-fire streak-icon"></i>
+            <span id="streakCount">0</span>
+          </div>
+          <div class="score-badge">
+            <i class="fa-solid fa-star"></i>
+            <span id="currentScore">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Time Limit Progress Bar -->
+      <div class="timer-container">
+        <div id="timerBarFill" class="timer-bar-fill"></div>
+      </div>
+
+      <!-- Question Box -->
+      <div class="quiz-card-container">
+        <div class="question-card">
+          <div class="question-header">
+            <span class="category-pill" id="questionCategory">Mã Đề 101</span>
+            <span class="points-pill" id="questionPoints">+1000 điểm</span>
+          </div>
+          <h2 class="question-text" id="questionText">Nội dung câu hỏi...</h2>
+        </div>
+
+        <!-- 4 Answer Option Grid -->
+        <div class="options-grid" id="optionsGrid">
+          <button class="option-card option-red" data-index="0">
+            <div class="option-shape"><i class="fa-solid fa-play"></i></div>
+            <span class="option-text">Đáp án A</span>
+          </button>
+          <button class="option-card option-blue" data-index="1">
+            <div class="option-shape"><i class="fa-solid fa-circle"></i></div>
+            <span class="option-text">Đáp án B</span>
+          </button>
+          <button class="option-card option-yellow" data-index="2">
+            <div class="option-shape"><i class="fa-solid fa-diamond"></i></div>
+            <span class="option-text">Đáp án C</span>
+          </button>
+          <button class="option-card option-green" data-index="3">
+            <div class="option-shape"><i class="fa-solid fa-square"></i></div>
+            <span class="option-text">Đáp án D</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Feedback Banner overlay after selecting -->
+      <div id="feedbackBanner" class="feedback-banner hidden">
+        <div class="feedback-content">
+          <div class="feedback-icon" id="feedbackIcon"><i class="fa-solid fa-check"></i></div>
+          <div class="feedback-text-group">
+            <h3 id="feedbackTitle">Chính xác!</h3>
+            <p id="feedbackExplanation">Giải thích chi tiết đáp án...</p>
+          </div>
+        </div>
+        <button id="nextQuestionBtn" class="primary-btn">
+          <span>Câu Tiếp</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+    </main>
+
+    <!-- 4. RESULT SUMMARY VIEW (KẾT QUẢ) -->
+    <main id="resultView" class="view">
+      <div class="result-card">
+        <div class="result-header">
+          <div class="trophy-wrapper">
+            <i class="fa-solid fa-trophy trophy-icon"></i>
+          </div>
+          <h1 class="result-title">Hoàn Thành Bài Thi!</h1>
+          <p class="result-subtitle" id="resultSubtitle">Bạn đã hoàn thành bài thi Kiến trúc máy tính.</p>
+        </div>
+
+        <div class="stats-overview">
+          <div class="stat-box">
+            <span class="stat-label">Tổng Điểm</span>
+            <span class="stat-value" id="finalScoreVal">0</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label" id="accuracyLabel">Tỷ Lệ Đúng</span>
+            <span class="stat-value" id="accuracyVal">0%</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label">Streak Cao Nhất</span>
+            <span class="stat-value" id="maxStreakVal">🔥 0</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-label" id="attemptsLabel">Số Câu Đúng</span>
+            <span class="stat-value" id="correctCountVal">0/65</span>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="result-actions">
+          <button id="retryBtn" class="primary-btn">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span>Làm Lại Đề Này</span>
+          </button>
+          <button id="reviewBtn" class="secondary-btn">
+            <i class="fa-solid fa-eye"></i>
+            <span>Xem Lại Đáp Án & Lời Giải</span>
+          </button>
+          <button id="backToLobbyBtn" class="outline-btn">
+            <i class="fa-solid fa-house"></i>
+            <span>Trang Chủ</span>
+          </button>
+        </div>
+
+        <!-- Detailed Question Review List -->
+        <div id="reviewContainer" class="review-container hidden">
+          <h3 class="review-title"><i class="fa-solid fa-list-check"></i> Chi Tiết Đáp Án & Lời Giải 65 Câu</h3>
+          <div id="reviewList" class="review-list">
+            <!-- Dynamic review items inserted here -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
