@@ -253,7 +253,7 @@ function generate65Questions(code) {
     'D','A','A','B','C','B','B','D','D','A','C','A','B','A','B','D','C','B','D','C',
     'C','C','C','C','A','C','A','B','C','B','B','A','A','B','D','D','A','A','C','A',
     'C','B','A','B','B','A','C','D','C','A','B','B','C','B','C','D','A','B','D','B',
-    'D','C','C','C','A'
+    'A','C','C','C','A'
   ];
 
   const answerKeys202 = [
