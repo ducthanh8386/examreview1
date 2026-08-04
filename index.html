@@ -11,7 +11,6 @@
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <!-- MathJax for rendering LaTeX math formulas -->
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -32,9 +31,9 @@
         <span class="logo-text">Wayground<span class="logo-accent">Quiz</span></span>
       </div>
       <div class="nav-controls">
-        <button id="theoryNavBtn" class="secondary-btn btn-sm">
+        <button id="theoryNavBtn" class="nav-theory-btn">
           <i class="fa-solid fa-book-open"></i>
-          <span>Ôn Lý Thuyết</span>
+          <span class="btn-label">Ôn Lý Thuyết</span>
         </button>
         <button id="soundToggleBtn" class="icon-btn" title="Bật/Tắt Âm Thanh">
           <i class="fa-solid fa-volume-high"></i>
@@ -215,11 +214,26 @@
     <main id="quizView" class="view">
       <!-- Quiz Header Controls & Stats -->
       <div class="quiz-header">
-        <button id="exitQuizBtn" class="secondary-btn btn-sm">
-          <i class="fa-solid fa-arrow-left"></i>
-          <span>Thoát</span>
-        </button>
+        <!-- Row 1 (mobile): Exit + Stats | Row 1 (desktop): Exit -->
+        <div class="quiz-header-row1">
+          <button id="exitQuizBtn" class="secondary-btn btn-sm">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Thoát</span>
+          </button>
 
+          <div class="quiz-stats-header">
+            <div class="streak-badge" id="streakContainer">
+              <i class="fa-solid fa-fire streak-icon"></i>
+              <span id="streakCount">0</span>
+            </div>
+            <div class="score-badge">
+              <i class="fa-solid fa-star"></i>
+              <span id="currentScore">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2 (mobile) / Middle (desktop): Progress -->
         <div class="quiz-progress-wrapper">
           <div class="progress-top-info">
             <span id="questionProgressText">Câu 1 / 65</span>
@@ -227,17 +241,6 @@
           </div>
           <div class="progress-bar-bg">
             <div id="progressBarFill" class="progress-bar-fill"></div>
-          </div>
-        </div>
-
-        <div class="quiz-stats-header">
-          <div class="streak-badge" id="streakContainer">
-            <i class="fa-solid fa-fire streak-icon"></i>
-            <span id="streakCount">0</span>
-          </div>
-          <div class="score-badge">
-            <i class="fa-solid fa-star"></i>
-            <span id="currentScore">0</span>
           </div>
         </div>
       </div>

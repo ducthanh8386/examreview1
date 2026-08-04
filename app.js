@@ -6,6 +6,29 @@
 // ---------------------------------------------------------
 // 1. GLOBAL STATE
 // ---------------------------------------------------------
+// ---------------------------------------------------------
+// UTILITY: Fisher-Yates Shuffle
+// ---------------------------------------------------------
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/**
+ * Nhận một câu hỏi gốc, xáo trộn các đáp án và cập nhật correctIndex.
+ * Trả về bản sao của câu hỏi với options và correctIndex đã được xáo.
+ */
+function shuffleQuestionOptions(q) {
+  const correctAnswer = q.options[q.correctIndex];
+  const shuffledOptions = shuffleArray(q.options);
+  const newCorrectIndex = shuffledOptions.indexOf(correctAnswer);
+  return { ...q, options: shuffledOptions, correctIndex: newCorrectIndex };
+}
+
 let state = {
   selectedExamId: null,
   selectedMode: 'standard', // 'standard' hoặc 'mastery'
@@ -403,7 +426,12 @@ function renderHighScores() {
 function startQuiz(examId, mode) {
   state.currentExam = EXAMS_DATA[examId];
   state.selectedMode = mode;
-  state.questionQueue = [...state.currentExam.questions];
+
+  // Xáo trộn thứ tự câu hỏi, sau đó xáo trộn đáp án của từng câu
+  const shuffledQuestions = shuffleArray(state.currentExam.questions)
+    .map(q => shuffleQuestionOptions(q));
+
+  state.questionQueue = shuffledQuestions;
   state.currentQueueIndex = 0;
   state.masteredIds = new Set();
   state.totalAttempts = 0;
