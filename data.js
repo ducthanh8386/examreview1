@@ -11,7 +11,7 @@ const THEORY_DATA = [
     chapter: 1,
     title: "Chương 1. Giới Thiệu Và Hiệu Năng",
     icon: "fa-solid fa-gauge-high",
-    content: `
+    content: String.raw`
       <div class="theory-section">
         <h3>1. Khái Niệm Cơ Bản</h3>
         <ul>
@@ -49,7 +49,7 @@ const THEORY_DATA = [
     chapter: 2,
     title: "Chương 2. Hệ Thống Máy Tính",
     icon: "fa-solid fa-microchip",
-    content: `
+    content: String.raw`
       <div class="theory-section">
         <h3>1. Khối Xử Lý Trung Tâm (CPU) và Bộ Nhớ</h3>
         <ul>
@@ -87,7 +87,7 @@ const THEORY_DATA = [
     chapter: 3,
     title: "Chương 3. Số Học Máy Tính",
     icon: "fa-solid fa-calculator",
-    content: `
+    content: String.raw`
       <div class="theory-section">
         <h3>1. Biểu Diễn Số Nguyên Nhị Phân</h3>
         <ul>
@@ -118,7 +118,7 @@ const THEORY_DATA = [
     chapter: 4,
     title: "Chương 4. Kiến Trúc Tập Lệnh",
     icon: "fa-solid fa-code",
-    content: `
+    content: String.raw`
       <div class="theory-section">
         <h3>1. Thanh Ghi Và Các Cờ Điều Kiện</h3>
         <ul>
@@ -154,7 +154,7 @@ const THEORY_DATA = [
     chapter: 5,
     title: "Chương 5. CPU Và Pipeline",
     icon: "fa-solid fa-timeline",
-    content: `
+    content: String.raw`
       <div class="theory-section">
         <h3>1. Chu Trình Thực Thi Lệnh Tăng Tiến</h3>
         <p>Các giai đoạn thực thi một lệnh bao gồm:</p>
@@ -188,7 +188,7 @@ const THEORY_DATA = [
     chapter: 6,
     title: "Chương 6. Hệ Thống Bộ Nhớ",
     icon: "fa-solid fa-memory",
-    content: `
+    content: String.raw`
       <div class="theory-section">
         <h3>1. Phân Cấp Bộ Nhớ (Memory Hierarchy)</h3>
         <p class="text-center font-bold">Thanh ghi (Register) \(\to\) Cache \(\to\) RAM chính \(\to\) Bộ nhớ ngoài (Disk)</p>
@@ -220,7 +220,7 @@ const THEORY_DATA = [
     chapter: 7,
     title: "Chương 7. Kiến Trúc Song Song",
     icon: "fa-solid fa-network-wired",
-    content: `
+    content: String.raw`
       <div class="theory-section">
         <h3>1. Phân Loại Flynn Cho Máy Tính Song Song</h3>
         <ul>

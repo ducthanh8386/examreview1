@@ -318,9 +318,29 @@ function renderChapterContent(chapterNum) {
     ${chapterData.content}
   `;
 
-  // Render LaTeX math formulas if MathJax is present
-  if (window.MathJax && window.MathJax.typeset) {
-    MathJax.typeset();
+  renderMath(elems.theoryContentBody);
+}
+
+/**
+ * Render LaTeX math an toàn — dùng typesetPromise() với element cụ thể.
+ * Xử lý cả trường hợp MathJax chưa load xong (startup.promise).
+ */
+function renderMath(container) {
+  if (!window.MathJax) return;
+
+  const doTypeset = () => {
+    if (MathJax.typesetPromise) {
+      // Reset previous renders trên element để tránh double-process
+      MathJax.typesetClear([container]);
+      MathJax.typesetPromise([container]).catch(err => console.warn('MathJax error:', err));
+    }
+  };
+
+  // Nếu MathJax chưa khởi động xong, đợi startup.promise
+  if (MathJax.startup && MathJax.startup.promise) {
+    MathJax.startup.promise.then(doTypeset);
+  } else {
+    doTypeset();
   }
 }
 
@@ -365,9 +385,7 @@ function handleTheorySearch(e) {
     `;
   }
 
-  if (window.MathJax && window.MathJax.typeset) {
-    MathJax.typeset();
-  }
+  renderMath(elems.theoryContentBody);
 }
 
 // ---------------------------------------------------------
