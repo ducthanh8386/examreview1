@@ -47,7 +47,7 @@ let state = {
   soundEnabled: true,
   isThemeDark: true,
   currentTheoryChapter: 1,
-  highScores: JSON.parse(localStorage.getItem('quiz_high_scores') || '{"1":0,"2":0,"3":0}')
+  highScores: JSON.parse(localStorage.getItem('quiz_high_scores') || '{"1":0,"2":0,"3":0,"4":0,"5":0}')
 };
 
 // ---------------------------------------------------------
@@ -162,6 +162,8 @@ const elems = {
   highScore1: document.getElementById('highScore1'),
   highScore2: document.getElementById('highScore2'),
   highScore3: document.getElementById('highScore3'),
+  highScore4: document.getElementById('highScore4'),
+  highScore5: document.getElementById('highScore5'),
   soundToggleBtn: document.getElementById('soundToggleBtn'),
   themeToggleBtn: document.getElementById('themeToggleBtn'),
   logoBtn: document.getElementById('logoBtn'),
@@ -435,6 +437,8 @@ function renderHighScores() {
   elems.highScore1.textContent = state.highScores[1] || 0;
   elems.highScore2.textContent = state.highScores[2] || 0;
   elems.highScore3.textContent = state.highScores[3] || 0;
+  if (elems.highScore4) elems.highScore4.textContent = state.highScores[4] || 0;
+  if (elems.highScore5) elems.highScore5.textContent = state.highScores[5] || 0;
 }
 
 // ---------------------------------------------------------
@@ -500,6 +504,9 @@ function renderQuestion() {
     const textSpan = btn.querySelector('.option-text');
     textSpan.textContent = q.options[idx];
   });
+
+  renderMath(elems.questionText);
+  renderMath(elems.optionsGrid);
 
   startTimer();
 }
@@ -650,6 +657,7 @@ function showFeedback(isCorrect, explanation) {
   elems.feedbackTitle.textContent = isCorrect ? 'Chính Xác! 🎉' : 'Chưa Đúng! 💡';
   elems.feedbackExplanation.textContent = explanation;
   elems.feedbackBanner.classList.remove('hidden');
+  renderMath(elems.feedbackExplanation);
 }
 
 function handleNextQuestion() {
@@ -748,6 +756,8 @@ function buildReviewList() {
 
     elems.reviewList.appendChild(reviewItem);
   });
+
+  renderMath(elems.reviewList);
 }
 
 function toggleReview() {
