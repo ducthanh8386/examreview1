@@ -1,6 +1,6 @@
 /* =========================================================
    WAYGROUND / QUIZIZZ APPLICATION LOGIC
-   Học phần: Kiến Trúc Máy Tính
+   Học phần: Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo
    ========================================================= */
 
 // ---------------------------------------------------------
@@ -47,6 +47,8 @@ let state = {
   soundEnabled: true,
   isThemeDark: true,
   currentTheoryChapter: 1,
+  currentWrongFilter: 'all',
+  wrongQuestions: JSON.parse(localStorage.getItem('quiz_wrong_questions') || '[]'),
   highScores: JSON.parse(localStorage.getItem('quiz_high_scores') || '{"1":0,"2":0,"3":0,"4":0,"5":0}')
 };
 
@@ -154,6 +156,7 @@ const sounds = new SoundFX();
 const views = {
   lobby: document.getElementById('lobbyView'),
   theory: document.getElementById('theoryView'),
+  wrong: document.getElementById('wrongView'),
   quiz: document.getElementById('quizView'),
   result: document.getElementById('resultView')
 };
@@ -170,6 +173,27 @@ const elems = {
   theoryNavBtn: document.getElementById('theoryNavBtn'),
   openTheoryBannerBtn: document.getElementById('openTheoryBannerBtn'),
   backToLobbyFromTheoryBtn: document.getElementById('backToLobbyFromTheoryBtn'),
+
+  // Wrong Questions View Elements
+  wrongBookNavBtn: document.getElementById('wrongBookNavBtn'),
+  wrongCountBadge: document.getElementById('wrongCountBadge'),
+  openWrongBannerBtn: document.getElementById('openWrongBannerBtn'),
+  wrongBannerCount: document.getElementById('wrongBannerCount'),
+  practiceWrongBtn: document.getElementById('practiceWrongBtn'),
+  viewWrongListBtn: document.getElementById('viewWrongListBtn'),
+  backToLobbyFromWrongBtn: document.getElementById('backToLobbyFromWrongBtn'),
+  clearAllWrongBtn: document.getElementById('clearAllWrongBtn'),
+  startWrongQuizFromViewBtn: document.getElementById('startWrongQuizFromViewBtn'),
+  wrongEmptyState: document.getElementById('wrongEmptyState'),
+  wrongEmptyLobbyBtn: document.getElementById('wrongEmptyLobbyBtn'),
+  wrongContentArea: document.getElementById('wrongContentArea'),
+  wrongSearchInput: document.getElementById('wrongSearchInput'),
+  wrongCardsList: document.getElementById('wrongCardsList'),
+  filterAllCount: document.getElementById('filterAllCount'),
+  filterCh1Count: document.getElementById('filterCh1Count'),
+  filterCh2Count: document.getElementById('filterCh2Count'),
+  filterCh3Count: document.getElementById('filterCh3Count'),
+  wrongFilterTabs: document.querySelectorAll('#wrongFilterTabs .filter-tab-btn'),
   
   // Theory View
   theorySidebar: document.getElementById('theorySidebar'),
@@ -222,6 +246,7 @@ const elems = {
 document.addEventListener('DOMContentLoaded', () => {
   renderHighScores();
   initTheoryView();
+  updateWrongBadges();
 
   // Open modal on exam card click
   document.querySelectorAll('.exam-card').forEach(card => {
@@ -258,6 +283,42 @@ document.addEventListener('DOMContentLoaded', () => {
   elems.openTheoryBannerBtn.addEventListener('click', () => switchView('theory'));
   elems.backToLobbyFromTheoryBtn.addEventListener('click', () => switchView('lobby'));
 
+  // Wrong Questions Notebook Navigation & Actions
+  if (elems.wrongBookNavBtn) elems.wrongBookNavBtn.addEventListener('click', openWrongView);
+  if (elems.viewWrongListBtn) elems.viewWrongListBtn.addEventListener('click', openWrongView);
+  if (elems.openWrongBannerBtn) {
+    elems.openWrongBannerBtn.addEventListener('click', (e) => {
+      if (!e.target.closest('button')) openWrongView();
+    });
+  }
+  if (elems.practiceWrongBtn) {
+    elems.practiceWrongBtn.addEventListener('click', () => {
+      if (state.wrongQuestions.length > 0) openModeModal('wrong_book');
+    });
+  }
+  if (elems.backToLobbyFromWrongBtn) elems.backToLobbyFromWrongBtn.addEventListener('click', () => switchView('lobby'));
+  if (elems.wrongEmptyLobbyBtn) elems.wrongEmptyLobbyBtn.addEventListener('click', () => switchView('lobby'));
+  if (elems.clearAllWrongBtn) elems.clearAllWrongBtn.addEventListener('click', clearAllWrongQuestions);
+  if (elems.startWrongQuizFromViewBtn) {
+    elems.startWrongQuizFromViewBtn.addEventListener('click', () => {
+      if (state.wrongQuestions.length > 0) openModeModal('wrong_book');
+    });
+  }
+
+  // Wrong Search & Filter Listeners
+  if (elems.wrongSearchInput) {
+    elems.wrongSearchInput.addEventListener('input', () => renderWrongQuestionsList());
+  }
+
+  elems.wrongFilterTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      elems.wrongFilterTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      state.currentWrongFilter = tab.dataset.filter;
+      renderWrongQuestionsList();
+    });
+  });
+
   // Quiz navigation
   elems.exitQuizBtn.addEventListener('click', () => {
     if (confirm("Bạn có chắc chắn muốn thoát bài làm không?")) {
@@ -284,6 +345,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Theory Search Listener
   elems.theorySearchInput.addEventListener('input', handleTheorySearch);
+
+  // Keyboard Shortcuts Navigation (1, 2, 3, 4 for answer selection; Enter / Space for next)
+  document.addEventListener('keydown', (e) => {
+    // Ignore when typing in input/textarea
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    // Handle Modal Escape
+    if (elems.modeModal && !elems.modeModal.classList.contains('hidden')) {
+      if (e.key === 'Escape') closeModeModal();
+      return;
+    }
+
+    // Only active in Quiz View
+    if (views.quiz && views.quiz.classList.contains('active')) {
+      if (!state.isAnswered) {
+        if (e.key === '1' || e.code === 'Digit1' || e.code === 'Numpad1') {
+          e.preventDefault();
+          selectOption(0);
+        } else if (e.key === '2' || e.code === 'Digit2' || e.code === 'Numpad2') {
+          e.preventDefault();
+          selectOption(1);
+        } else if (e.key === '3' || e.code === 'Digit3' || e.code === 'Numpad3') {
+          e.preventDefault();
+          selectOption(2);
+        } else if (e.key === '4' || e.code === 'Digit4' || e.code === 'Numpad4') {
+          e.preventDefault();
+          selectOption(3);
+        }
+      } else {
+        // Feedback banner is showing -> Enter, Space, ArrowRight or any 1-4 key proceeds to next question
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight' || ['1', '2', '3', '4'].includes(e.key)) {
+          e.preventDefault();
+          handleNextQuestion();
+        }
+      }
+    }
+  });
 });
 
 // ---------------------------------------------------------
@@ -382,7 +480,7 @@ function handleTheorySearch(e) {
       <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
         <i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; margin-bottom: 12px; color: var(--accent-pink);"></i>
         <h3>Không tìm thấy nội dung phù hợp</h3>
-        <p>Vui lòng thử từ khóa khác như "ISA", "Cache", "Pipeline", "IEEE 754", "Bù 2"...</p>
+        <p>Vui lòng thử từ khóa khác như "Canvas", "BMC", "Design Thinking", "Gassmann", "Start-up", "Shane"...</p>
       </div>
     `;
   }
@@ -396,7 +494,11 @@ function handleTheorySearch(e) {
 
 function openModeModal(examId) {
   state.selectedExamId = examId;
-  const exam = EXAMS_DATA[examId];
+  const exam = examId === 'wrong_book' ? getWrongExamData() : EXAMS_DATA[examId];
+  if (!exam || !exam.questions || exam.questions.length === 0) {
+    alert("Sổ tay câu sai đang trống! Hãy làm các đề thi để tích lũy các câu trả lời chưa đúng.");
+    return;
+  }
   elems.modalExamTitle.textContent = exam.title;
   elems.modeModal.classList.remove('hidden');
 }
@@ -446,7 +548,8 @@ function renderHighScores() {
 // ---------------------------------------------------------
 
 function startQuiz(examId, mode) {
-  state.currentExam = EXAMS_DATA[examId];
+  state.selectedExamId = examId;
+  state.currentExam = examId === 'wrong_book' ? getWrongExamData() : EXAMS_DATA[examId];
   state.selectedMode = mode;
 
   // Xáo trộn thứ tự câu hỏi, sau đó xáo trộn đáp án của từng câu
@@ -573,9 +676,18 @@ function selectOption(selectedIndex) {
     if (state.streak >= 3 && window.confetti) {
       confetti({ particleCount: 40, spread: 60, origin: { y: 0.8 } });
     }
+
+    // Nếu đang làm đề Sổ tay câu sai và trả lời đúng -> Tự động loại khỏi sổ tay
+    if (state.selectedExamId === 'wrong_book') {
+      const cleanQ = getCleanQuestionText(q.question);
+      removeWrongQuestion(cleanQ, false);
+    }
   } else {
     state.streak = 0;
     sounds.playWrong();
+
+    // Tự động lưu vào Sổ tay câu sai
+    saveWrongQuestion(q, selectedIndex);
 
     if (state.selectedMode === 'mastery') {
       state.questionQueue.push(q);
@@ -621,6 +733,9 @@ function handleTimeOut() {
   state.streak = 0;
   elems.streakCount.textContent = '0';
   sounds.playWrong();
+
+  // Lưu vào sổ tay câu sai khi hết giờ
+  saveWrongQuestion(q, -1);
 
   if (state.selectedMode === 'mastery') {
     state.questionQueue.push(q);
@@ -691,12 +806,19 @@ function finishQuiz() {
 
   const totalUnique = state.currentExam.questions.length;
 
-  if (state.selectedMode === 'mastery') {
+  if (state.selectedExamId === 'wrong_book') {
+    const correctCount = state.userAnswers.filter(a => a.isCorrect).length;
+    elems.accuracyLabel.textContent = "Sổ Câu Sai";
+    elems.accuracyVal.textContent = "Đã Khắc Phục";
+    elems.attemptsLabel.textContent = "Số Câu Đúng";
+    elems.correctCountVal.textContent = `${correctCount}/${totalUnique}`;
+    elems.resultSubtitle.textContent = `Tuyệt vời! Bạn đã hoàn thành bài ôn tập Sổ tay câu sai. Những câu làm đúng đã được loại bỏ khỏi danh sách câu sai! 🎉`;
+  } else if (state.selectedMode === 'mastery') {
     elems.accuracyLabel.textContent = "Chế Độ";
     elems.accuracyVal.textContent = "Học Thuộc 100%";
     elems.attemptsLabel.textContent = "Lượt Trả Lời";
     elems.correctCountVal.textContent = `${state.totalAttempts} lượt`;
-    elems.resultSubtitle.textContent = `Tuyệt vời! Bạn đã thuộc đúng 100% tất cả 65 câu hỏi của Mã đề ${state.currentExam.code} (sau ${state.totalAttempts} lượt thực hiện)! 🎉`;
+    elems.resultSubtitle.textContent = `Tuyệt vời! Bạn đã thuộc đúng 100% tất cả ${totalUnique} câu hỏi của Mã đề ${state.currentExam.code} (sau ${state.totalAttempts} lượt thực hiện)! 🎉`;
   } else {
     const correctCount = state.userAnswers.filter(a => a.isCorrect).length;
     const accuracy = Math.round((correctCount / totalUnique) * 100);
@@ -718,9 +840,9 @@ function finishQuiz() {
   elems.finalScoreVal.textContent = state.score;
   elems.maxStreakVal.textContent = `🔥 ${state.maxStreak}`;
 
-  // Update high score
+  // Update high score (chỉ lưu cho các đề thi chuẩn có ID số)
   const examId = state.currentExam.id;
-  if (state.score > (state.highScores[examId] || 0)) {
+  if (typeof examId === 'number' && state.score > (state.highScores[examId] || 0)) {
     state.highScores[examId] = state.score;
     localStorage.setItem('quiz_high_scores', JSON.stringify(state.highScores));
     renderHighScores();
@@ -765,4 +887,208 @@ function toggleReview() {
   if (!elems.reviewContainer.classList.contains('hidden')) {
     elems.reviewContainer.scrollIntoView({ behavior: 'smooth' });
   }
+}
+
+// ---------------------------------------------------------
+// 9. SỔ TAY CÂU SAI (WRONG QUESTIONS NOTEBOOK LOGIC)
+// ---------------------------------------------------------
+
+function getCleanQuestionText(text) {
+  if (!text) return '';
+  return text.replace(/^\[.*?\]\s*/, '').trim();
+}
+
+function getQuestionChapter(cleanText) {
+  if (typeof RAW_QUESTIONS_CH1 !== 'undefined' && RAW_QUESTIONS_CH1.some(q => q.question.trim() === cleanText)) return 1;
+  if (typeof RAW_QUESTIONS_CH2 !== 'undefined' && RAW_QUESTIONS_CH2.some(q => q.question.trim() === cleanText)) return 2;
+  if (typeof RAW_QUESTIONS_CH3 !== 'undefined' && RAW_QUESTIONS_CH3.some(q => q.question.trim() === cleanText)) return 3;
+  return 1;
+}
+
+function updateWrongBadges() {
+  const count = state.wrongQuestions.length;
+  if (elems.wrongCountBadge) {
+    elems.wrongCountBadge.textContent = count;
+    if (count > 0) {
+      elems.wrongCountBadge.classList.remove('hidden');
+    } else {
+      elems.wrongCountBadge.classList.add('hidden');
+    }
+  }
+  if (elems.wrongBannerCount) {
+    elems.wrongBannerCount.textContent = count;
+  }
+  if (elems.practiceWrongBtn) {
+    elems.practiceWrongBtn.disabled = (count === 0);
+  }
+  if (elems.filterAllCount) elems.filterAllCount.textContent = count;
+  if (elems.filterCh1Count) elems.filterCh1Count.textContent = state.wrongQuestions.filter(q => q.chapter === 1).length;
+  if (elems.filterCh2Count) elems.filterCh2Count.textContent = state.wrongQuestions.filter(q => q.chapter === 2).length;
+  if (elems.filterCh3Count) elems.filterCh3Count.textContent = state.wrongQuestions.filter(q => q.chapter === 3).length;
+}
+
+function saveWrongQuestion(q, selectedIndex) {
+  const cleanText = getCleanQuestionText(q.question);
+  const existingIdx = state.wrongQuestions.findIndex(item => item.cleanText === cleanText);
+  const chapterNum = getQuestionChapter(cleanText);
+
+  const wrongItem = {
+    id: q.id || Date.now(),
+    cleanText: cleanText,
+    chapter: chapterNum,
+    question: {
+      question: q.question,
+      options: [...q.options],
+      correctIndex: q.correctIndex,
+      explanation: q.explanation
+    },
+    userWrongOption: selectedIndex >= 0 ? q.options[selectedIndex] : 'Hết giờ (Chưa chọn)',
+    lastWrongTime: new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' }),
+    wrongCount: existingIdx >= 0 ? ((state.wrongQuestions[existingIdx].wrongCount || 1) + 1) : 1
+  };
+
+  if (existingIdx >= 0) {
+    state.wrongQuestions[existingIdx] = wrongItem;
+  } else {
+    state.wrongQuestions.unshift(wrongItem);
+  }
+
+  localStorage.setItem('quiz_wrong_questions', JSON.stringify(state.wrongQuestions));
+  updateWrongBadges();
+}
+
+function removeWrongQuestion(cleanText, shouldRerender = true) {
+  state.wrongQuestions = state.wrongQuestions.filter(item => item.cleanText !== cleanText);
+  localStorage.setItem('quiz_wrong_questions', JSON.stringify(state.wrongQuestions));
+  updateWrongBadges();
+  if (shouldRerender && views.wrong.classList.contains('active')) {
+    renderWrongQuestionsList();
+  }
+}
+
+function clearAllWrongQuestions() {
+  if (state.wrongQuestions.length === 0) return;
+  if (confirm("Bạn có chắc chắn muốn xóa tất cả câu hỏi trong Sổ tay câu sai không?")) {
+    state.wrongQuestions = [];
+    localStorage.setItem('quiz_wrong_questions', JSON.stringify([]));
+    updateWrongBadges();
+    renderWrongQuestionsList();
+  }
+}
+
+function getWrongExamData() {
+  return {
+    id: 'wrong_book',
+    code: 'SỔ-SAI',
+    title: `Sổ Tay Câu Sai (${state.wrongQuestions.length} Câu)`,
+    description: "Bộ đề gồm các câu hỏi bạn từng trả lời chưa chính xác. Khi làm đúng câu nào, câu đó sẽ tự động được xóa khỏi sổ tay!",
+    timePerQuestion: 20,
+    questions: state.wrongQuestions.map((item, idx) => ({
+      id: idx + 1,
+      question: `[Câu Sai ${idx + 1}] ${item.cleanText}`,
+      options: [...item.question.options],
+      correctIndex: item.question.correctIndex,
+      explanation: item.question.explanation
+    }))
+  };
+}
+
+function openWrongView() {
+  switchView('wrong');
+  renderWrongQuestionsList();
+}
+
+function renderWrongQuestionsList() {
+  updateWrongBadges();
+  const count = state.wrongQuestions.length;
+
+  if (count === 0) {
+    elems.wrongEmptyState.classList.remove('hidden');
+    elems.wrongContentArea.classList.add('hidden');
+    return;
+  }
+
+  elems.wrongEmptyState.classList.add('hidden');
+  elems.wrongContentArea.classList.remove('hidden');
+
+  const filter = state.currentWrongFilter;
+  const searchQuery = (elems.wrongSearchInput ? elems.wrongSearchInput.value : '').toLowerCase().trim();
+
+  let filtered = state.wrongQuestions;
+  if (filter !== 'all') {
+    const chNum = parseInt(filter);
+    filtered = filtered.filter(item => item.chapter === chNum);
+  }
+
+  if (searchQuery) {
+    filtered = filtered.filter(item => {
+      const qText = item.cleanText.toLowerCase();
+      const expText = (item.question.explanation || '').toLowerCase();
+      const optText = item.question.options.join(' ').toLowerCase();
+      return qText.includes(searchQuery) || expText.includes(searchQuery) || optText.includes(searchQuery);
+    });
+  }
+
+  elems.wrongCardsList.innerHTML = '';
+
+  if (filtered.length === 0) {
+    elems.wrongCardsList.innerHTML = `
+      <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
+        <i class="fa-solid fa-magnifying-glass" style="font-size: 2.5rem; margin-bottom: 12px; color: var(--accent-purple);"></i>
+        <h3>Không tìm thấy câu hỏi phù hợp</h3>
+        <p>Vui lòng thử từ khóa tìm kiếm khác hoặc chuyển bộ lọc chương.</p>
+      </div>
+    `;
+    return;
+  }
+
+  filtered.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'wrong-card';
+
+    const correctText = item.question.options[item.question.correctIndex];
+    const userText = item.userWrongOption || 'Chưa rõ';
+
+    card.innerHTML = `
+      <div class="wrong-card-top">
+        <div class="wrong-card-tags">
+          <span class="chapter-badge"><i class="fa-solid fa-book"></i> Chương ${item.chapter}</span>
+          <span class="wrong-count-badge"><i class="fa-solid fa-triangle-exclamation"></i> Đã sai ${item.wrongCount} lần</span>
+        </div>
+        <div class="wrong-card-actions-top">
+          <button class="btn-remove-wrong" title="Đánh dấu đã hiểu & Xóa khỏi sổ tay">
+            <i class="fa-solid fa-check"></i>
+            <span>Đã hiểu</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="wrong-card-q">${item.cleanText}</div>
+
+      <div class="wrong-card-answers">
+        <div class="wrong-ans-user">
+          <div class="wrong-ans-label"><i class="fa-solid fa-xmark"></i> Bạn từng chọn:</div>
+          <div class="wrong-ans-val">${userText}</div>
+        </div>
+        <div class="wrong-ans-correct">
+          <div class="wrong-ans-label"><i class="fa-solid fa-check"></i> Đáp án đúng:</div>
+          <div class="wrong-ans-val">${correctText}</div>
+        </div>
+      </div>
+
+      <div class="wrong-card-exp">
+        <strong><i class="fa-solid fa-lightbulb"></i> Lời giải:</strong> ${item.question.explanation}
+      </div>
+    `;
+
+    // Remove button listener
+    const removeBtn = card.querySelector('.btn-remove-wrong');
+    removeBtn.addEventListener('click', () => {
+      removeWrongQuestion(item.cleanText);
+    });
+
+    elems.wrongCardsList.appendChild(card);
+  });
+
+  renderMath(elems.wrongCardsList);
 }

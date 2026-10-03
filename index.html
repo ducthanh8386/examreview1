@@ -46,6 +46,11 @@
         <span class="logo-text">Wayground<span class="logo-accent">Quiz</span></span>
       </div>
       <div class="nav-controls">
+        <button id="wrongBookNavBtn" class="nav-wrong-btn" title="Sổ Tay Câu Sai">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span class="btn-label">Sổ Câu Sai</span>
+          <span id="wrongCountBadge" class="nav-badge-count hidden">0</span>
+        </button>
         <button id="theoryNavBtn" class="nav-theory-btn">
           <i class="fa-solid fa-book-open"></i>
           <span class="btn-label">Ôn Lý Thuyết</span>
@@ -67,19 +72,44 @@
         <p class="hero-desc">Hệ thống ôn luyện trắc nghiệm tương tác cao gồm đề thi tổng hợp, đề thi theo từng chương (Chương 1, 2, 3) kèm tổng hợp lý thuyết chi tiết.</p>
       </div>
 
-      <!-- THEORY HERO BANNER BUTTON -->
-      <div class="theory-banner" id="openTheoryBannerBtn">
-        <div class="theory-banner-content">
-          <div class="theory-banner-icon"><i class="fa-solid fa-book-bookmark"></i></div>
-          <div class="theory-banner-text">
-            <h2>Ôn Tập Lý Thuyết 3 Chương</h2>
-            <p>Bản chất khởi nghiệp, Cơ hội & Tư duy thiết kế (Design Thinking), Mô hình Canvas (BMC) và 55 mô hình kinh doanh Gassmann.</p>
+      <!-- DUAL HERO BANNER: THEORY & WRONG QUESTIONS NOTEBOOK -->
+      <div class="hero-banners-grid">
+        <!-- THEORY HERO BANNER BUTTON -->
+        <div class="theory-banner" id="openTheoryBannerBtn">
+          <div class="theory-banner-content">
+            <div class="theory-banner-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+            <div class="theory-banner-text">
+              <h2>Ôn Tập Lý Thuyết 3 Chương</h2>
+              <p>Bản chất khởi nghiệp, Cơ hội & Tư duy thiết kế (Design Thinking), Mô hình Canvas (BMC) và 55 mô hình Gassmann.</p>
+            </div>
+          </div>
+          <button class="primary-btn">
+            <span>Khám Phá</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- WRONG QUESTIONS NOTEBOOK BANNER -->
+        <div class="wrong-banner" id="openWrongBannerBtn">
+          <div class="wrong-banner-content">
+            <div class="wrong-banner-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="wrong-banner-text">
+              <div class="wrong-banner-tag"><i class="fa-solid fa-bullseye"></i> Ôn Tập Trọng Điểm</div>
+              <h2>Sổ Tay Câu Sai (<span id="wrongBannerCount">0</span> câu)</h2>
+              <p id="wrongBannerDesc">Tự động gom câu sai khi luyện đề để bạn ôn lại cho đến khi thuộc 100%.</p>
+            </div>
+          </div>
+          <div class="wrong-banner-actions">
+            <button id="practiceWrongBtn" class="primary-btn btn-wrong-practice" disabled>
+              <i class="fa-solid fa-play"></i>
+              <span>Luyện Ngay</span>
+            </button>
+            <button id="viewWrongListBtn" class="secondary-btn btn-wrong-view">
+              <i class="fa-solid fa-list-check"></i>
+              <span>Xem Lại</span>
+            </button>
           </div>
         </div>
-        <button class="primary-btn">
-          <span>Khám Phá Lý Thuyết</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
       </div>
 
       <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> Chọn Bộ Đề Luyện Tập</h2>
@@ -234,6 +264,63 @@
       </div>
     </main>
 
+    <!-- 3. WRONG QUESTIONS NOTEBOOK VIEW (SỔ TAY CÂU SAI) -->
+    <main id="wrongView" class="view">
+      <div class="wrong-header">
+        <button id="backToLobbyFromWrongBtn" class="secondary-btn btn-sm">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Về Trang Chủ</span>
+        </button>
+
+        <div class="wrong-title-group">
+          <h2><i class="fa-solid fa-triangle-exclamation"></i> Sổ Tay Câu Sai Cá Nhân</h2>
+          <p>Tập hợp những câu hỏi bạn đã từng trả lời chưa đúng để ôn luyện trọng tâm</p>
+        </div>
+
+        <div class="wrong-header-actions">
+          <button id="clearAllWrongBtn" class="danger-btn btn-sm" title="Xóa tất cả câu trong sổ tay">
+            <i class="fa-solid fa-trash-can"></i>
+            <span>Xóa Tất Cả</span>
+          </button>
+          <button id="startWrongQuizFromViewBtn" class="primary-btn btn-sm">
+            <i class="fa-solid fa-play"></i>
+            <span>Luyện Bộ Đề Này</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div id="wrongEmptyState" class="wrong-empty-state">
+        <div class="wrong-empty-icon"><i class="fa-solid fa-circle-check"></i></div>
+        <h3>Sổ Tay Đang Trống!</h3>
+        <p>Bạn chưa có câu nào làm sai hoặc đã giải quyết xong tất cả các câu trước đó. Hãy tiếp tục luyện các bộ đề thi!</p>
+        <button id="wrongEmptyLobbyBtn" class="primary-btn">
+          <i class="fa-solid fa-arrow-right"></i>
+          <span>Về Chọn Bộ Đề</span>
+        </button>
+      </div>
+
+      <!-- Content Area -->
+      <div id="wrongContentArea" class="wrong-content-area hidden">
+        <div class="wrong-controls-bar">
+          <div class="wrong-search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="wrongSearchInput" placeholder="Tìm kiếm câu hỏi, nội dung, đáp án...">
+          </div>
+          <div class="wrong-filter-tabs" id="wrongFilterTabs">
+            <button class="filter-tab-btn active" data-filter="all">Tất cả (<span id="filterAllCount">0</span>)</button>
+            <button class="filter-tab-btn" data-filter="1">Chương 1 (<span id="filterCh1Count">0</span>)</button>
+            <button class="filter-tab-btn" data-filter="2">Chương 2 (<span id="filterCh2Count">0</span>)</button>
+            <button class="filter-tab-btn" data-filter="3">Chương 3 (<span id="filterCh3Count">0</span>)</button>
+          </div>
+        </div>
+
+        <div id="wrongCardsList" class="wrong-cards-list">
+          <!-- Dynamic wrong question cards -->
+        </div>
+      </div>
+    </main>
+
     <!-- MODE SELECTION MODAL -->
     <div id="modeModal" class="modal-overlay hidden">
       <div class="modal-card">
@@ -323,22 +410,28 @@
 
         <!-- 4 Answer Option Grid -->
         <div class="options-grid" id="optionsGrid">
-          <button class="option-card option-red" data-index="0">
-            <div class="option-shape"><i class="fa-solid fa-play"></i></div>
+          <button class="option-card option-red" data-index="0" title="Nhấn phím 1 trên bàn phím">
+            <div class="option-shape"><span class="option-num">1</span></div>
             <span class="option-text">Đáp án A</span>
           </button>
-          <button class="option-card option-blue" data-index="1">
-            <div class="option-shape"><i class="fa-solid fa-circle"></i></div>
+          <button class="option-card option-blue" data-index="1" title="Nhấn phím 2 trên bàn phím">
+            <div class="option-shape"><span class="option-num">2</span></div>
             <span class="option-text">Đáp án B</span>
           </button>
-          <button class="option-card option-yellow" data-index="2">
-            <div class="option-shape"><i class="fa-solid fa-diamond"></i></div>
+          <button class="option-card option-yellow" data-index="2" title="Nhấn phím 3 trên bàn phím">
+            <div class="option-shape"><span class="option-num">3</span></div>
             <span class="option-text">Đáp án C</span>
           </button>
-          <button class="option-card option-green" data-index="3">
-            <div class="option-shape"><i class="fa-solid fa-square"></i></div>
+          <button class="option-card option-green" data-index="3" title="Nhấn phím 4 trên bàn phím">
+            <div class="option-shape"><span class="option-num">4</span></div>
             <span class="option-text">Đáp án D</span>
           </button>
+        </div>
+
+        <!-- Desktop Keyboard Shortcut Hint -->
+        <div class="quiz-keyboard-hint">
+          <i class="fa-solid fa-keyboard"></i>
+          <span>Mẹo: Bấm phím <strong>1</strong>, <strong>2</strong>, <strong>3</strong>, <strong>4</strong> để chọn nhanh • <strong>Enter</strong> / <strong>Space</strong> để qua câu tiếp</span>
         </div>
       </div>
 
