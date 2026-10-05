@@ -1,14 +1,14 @@
 /* =========================================================
-   WAYGROUND / QUIZIZZ APPLICATION LOGIC
-   Học phần: Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo
+   WAYGROUND / QUIZIZZ APPLICATION LOGIC (MULTI-SUBJECT)
+   Hỗ trợ:
+   1. Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo (startup)
+   2. English for Logistics & Supply Chain (logistics)
    ========================================================= */
 
 // ---------------------------------------------------------
-// 1. GLOBAL STATE
+// 1. GLOBAL STATE & UTILITIES
 // ---------------------------------------------------------
-// ---------------------------------------------------------
-// UTILITY: Fisher-Yates Shuffle
-// ---------------------------------------------------------
+
 function shuffleArray(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -18,10 +18,6 @@ function shuffleArray(arr) {
   return a;
 }
 
-/**
- * Nhận một câu hỏi gốc, xáo trộn các đáp án và cập nhật correctIndex.
- * Trả về bản sao của câu hỏi với options và correctIndex đã được xáo.
- */
 function shuffleQuestionOptions(q) {
   const correctAnswer = q.options[q.correctIndex];
   const shuffledOptions = shuffleArray(q.options);
@@ -29,9 +25,34 @@ function shuffleQuestionOptions(q) {
   return { ...q, options: shuffledOptions, correctIndex: newCorrectIndex };
 }
 
+// Normalize stored high scores to support per-subject high scores
+function loadStoredHighScores() {
+  const raw = localStorage.getItem('quiz_high_scores');
+  let data = {};
+  try {
+    data = JSON.parse(raw) || {};
+  } catch (e) {
+    data = {};
+  }
+
+  // If old flat format exists ({ "1": 1000 }), migrate it to startup
+  if (data["1"] !== undefined && typeof data["1"] === 'number' && !data.startup) {
+    return {
+      startup: data,
+      logistics: { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 }
+    };
+  }
+
+  return {
+    startup: data.startup || { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 },
+    logistics: data.logistics || { "1": 0, "2": 0, "3": 0, "4": 0, "5": 0 }
+  };
+}
+
 let state = {
+  currentSubjectId: localStorage.getItem('quiz_current_subject') || 'startup',
   selectedExamId: null,
-  selectedMode: 'standard', // 'standard' hoặc 'mastery'
+  selectedMode: 'standard', // 'standard' | 'mastery'
   currentExam: null,
   questionQueue: [],
   currentQueueIndex: 0,
@@ -47,9 +68,10 @@ let state = {
   soundEnabled: true,
   isThemeDark: true,
   currentTheoryChapter: 1,
-  currentWrongFilter: 'all',
+  currentWrongSubjectFilter: 'all',
+  currentWrongChapterFilter: 'all',
   wrongQuestions: JSON.parse(localStorage.getItem('quiz_wrong_questions') || '[]'),
-  highScores: JSON.parse(localStorage.getItem('quiz_high_scores') || '{"1":0,"2":0,"3":0,"4":0,"5":0}')
+  highScores: loadStoredHighScores()
 };
 
 // ---------------------------------------------------------
@@ -162,25 +184,48 @@ const views = {
 };
 
 const elems = {
-  highScore1: document.getElementById('highScore1'),
-  highScore2: document.getElementById('highScore2'),
-  highScore3: document.getElementById('highScore3'),
-  highScore4: document.getElementById('highScore4'),
-  highScore5: document.getElementById('highScore5'),
+  // Navigation & Subject Switchers
+  logoBtn: document.getElementById('logoBtn'),
+  navSubStartup: document.getElementById('navSubStartup'),
+  navSubLogistics: document.getElementById('navSubLogistics'),
+  hubCardStartup: document.getElementById('hubCardStartup'),
+  hubCardLogistics: document.getElementById('hubCardLogistics'),
   soundToggleBtn: document.getElementById('soundToggleBtn'),
   themeToggleBtn: document.getElementById('themeToggleBtn'),
-  logoBtn: document.getElementById('logoBtn'),
   theoryNavBtn: document.getElementById('theoryNavBtn'),
-  openTheoryBannerBtn: document.getElementById('openTheoryBannerBtn'),
-  backToLobbyFromTheoryBtn: document.getElementById('backToLobbyFromTheoryBtn'),
-
-  // Wrong Questions View Elements
   wrongBookNavBtn: document.getElementById('wrongBookNavBtn'),
   wrongCountBadge: document.getElementById('wrongCountBadge'),
+
+  // Lobby Dynamic Elements
+  heroBadge: document.getElementById('heroBadge'),
+  heroTitle: document.getElementById('heroTitle'),
+  heroTitleGradient: document.getElementById('heroTitleGradient'),
+  heroDesc: document.getElementById('heroDesc'),
+  theoryBannerIcon: document.getElementById('theoryBannerIcon'),
+  theoryBannerTitle: document.getElementById('theoryBannerTitle'),
+  theoryBannerDesc: document.getElementById('theoryBannerDesc'),
+  openTheoryBannerBtn: document.getElementById('openTheoryBannerBtn'),
+  exploreTheoryBtn: document.getElementById('exploreTheoryBtn'),
   openWrongBannerBtn: document.getElementById('openWrongBannerBtn'),
+  wrongBannerTitle: document.getElementById('wrongBannerTitle'),
   wrongBannerCount: document.getElementById('wrongBannerCount'),
+  wrongBannerDesc: document.getElementById('wrongBannerDesc'),
   practiceWrongBtn: document.getElementById('practiceWrongBtn'),
   viewWrongListBtn: document.getElementById('viewWrongListBtn'),
+  examSubjectLabel: document.getElementById('examSubjectLabel'),
+  examsGridContainer: document.getElementById('examsGridContainer'),
+
+  // Theory View Elements
+  backToLobbyFromTheoryBtn: document.getElementById('backToLobbyFromTheoryBtn'),
+  theoryTabStartup: document.getElementById('theoryTabStartup'),
+  theoryTabLogistics: document.getElementById('theoryTabLogistics'),
+  theoryViewTitle: document.getElementById('theoryViewTitle'),
+  theoryViewSubtitle: document.getElementById('theoryViewSubtitle'),
+  theorySearchInput: document.getElementById('theorySearchInput'),
+  theorySidebar: document.getElementById('theorySidebar'),
+  theoryContentBody: document.getElementById('theoryContentBody'),
+
+  // Wrong Questions Notebook View Elements
   backToLobbyFromWrongBtn: document.getElementById('backToLobbyFromWrongBtn'),
   clearAllWrongBtn: document.getElementById('clearAllWrongBtn'),
   startWrongQuizFromViewBtn: document.getElementById('startWrongQuizFromViewBtn'),
@@ -189,25 +234,21 @@ const elems = {
   wrongContentArea: document.getElementById('wrongContentArea'),
   wrongSearchInput: document.getElementById('wrongSearchInput'),
   wrongCardsList: document.getElementById('wrongCardsList'),
+  wrongSubjectFilterTabs: document.getElementById('wrongSubjectFilterTabs'),
+  wrongChapterFilterTabs: document.getElementById('wrongChapterFilterTabs'),
   filterAllCount: document.getElementById('filterAllCount'),
-  filterCh1Count: document.getElementById('filterCh1Count'),
-  filterCh2Count: document.getElementById('filterCh2Count'),
-  filterCh3Count: document.getElementById('filterCh3Count'),
-  wrongFilterTabs: document.querySelectorAll('#wrongFilterTabs .filter-tab-btn'),
-  
-  // Theory View
-  theorySidebar: document.getElementById('theorySidebar'),
-  theoryContentBody: document.getElementById('theoryContentBody'),
-  theorySearchInput: document.getElementById('theorySearchInput'),
+  filterStartupCount: document.getElementById('filterStartupCount'),
+  filterLogisticsCount: document.getElementById('filterLogisticsCount'),
 
-  // Modal Mode Selection
+  // Mode Selection Modal
   modeModal: document.getElementById('modeModal'),
   modalExamTitle: document.getElementById('modalExamTitle'),
+  modalExamSubtitle: document.getElementById('modalExamSubtitle'),
   closeModalBtn: document.getElementById('closeModalBtn'),
   confirmStartBtn: document.getElementById('confirmStartBtn'),
   modeCards: document.querySelectorAll('.mode-card'),
 
-  // Quiz view
+  // Quiz Player View
   exitQuizBtn: document.getElementById('exitQuizBtn'),
   questionProgressText: document.getElementById('questionProgressText'),
   quizModeBadge: document.getElementById('quizModeBadge'),
@@ -224,8 +265,8 @@ const elems = {
   feedbackTitle: document.getElementById('feedbackTitle'),
   feedbackExplanation: document.getElementById('feedbackExplanation'),
   nextQuestionBtn: document.getElementById('nextQuestionBtn'),
-  
-  // Result view
+
+  // Result View
   finalScoreVal: document.getElementById('finalScoreVal'),
   accuracyVal: document.getElementById('accuracyVal'),
   accuracyLabel: document.getElementById('accuracyLabel'),
@@ -241,49 +282,47 @@ const elems = {
 };
 
 // ---------------------------------------------------------
-// 4. EVENT LISTENERS SETUP
+// 4. INITIALIZATION & EVENT LISTENERS
 // ---------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-  renderHighScores();
-  initTheoryView();
+  // 1. Set initial subject and render lobby UI
+  selectSubject(state.currentSubjectId, false);
   updateWrongBadges();
 
-  // Open modal on exam card click
-  document.querySelectorAll('.exam-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const examId = parseInt(card.dataset.examId);
-      openModeModal(examId);
-    });
-  });
+  // 2. Setup Subject Hub Card Listeners
+  if (elems.hubCardStartup) {
+    elems.hubCardStartup.addEventListener('click', () => selectSubject('startup'));
+  }
+  if (elems.hubCardLogistics) {
+    elems.hubCardLogistics.addEventListener('click', () => selectSubject('logistics'));
+  }
 
-  // Modal interactions
-  elems.closeModalBtn.addEventListener('click', closeModeModal);
-  elems.modeModal.addEventListener('click', (e) => {
-    if (e.target === elems.modeModal) closeModeModal();
-  });
+  // 3. Setup Nav Subject Switcher
+  if (elems.navSubStartup) {
+    elems.navSubStartup.addEventListener('click', () => selectSubject('startup'));
+  }
+  if (elems.navSubLogistics) {
+    elems.navSubLogistics.addEventListener('click', () => selectSubject('logistics'));
+  }
 
-  elems.modeCards.forEach(card => {
-    card.addEventListener('click', () => {
-      elems.modeCards.forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      state.selectedMode = card.dataset.mode;
-    });
-  });
+  // 4. Theory Subject Tabs Listeners
+  if (elems.theoryTabStartup) {
+    elems.theoryTabStartup.addEventListener('click', () => selectSubject('startup', true, true));
+  }
+  if (elems.theoryTabLogistics) {
+    elems.theoryTabLogistics.addEventListener('click', () => selectSubject('logistics', true, true));
+  }
 
-  elems.confirmStartBtn.addEventListener('click', () => {
-    closeModeModal();
-    startQuiz(state.selectedExamId, state.selectedMode);
-  });
-
-  // Navigation
+  // 5. Global Nav controls
   elems.soundToggleBtn.addEventListener('click', toggleSound);
   elems.themeToggleBtn.addEventListener('click', toggleTheme);
   elems.logoBtn.addEventListener('click', () => switchView('lobby'));
-  elems.theoryNavBtn.addEventListener('click', () => switchView('theory'));
-  elems.openTheoryBannerBtn.addEventListener('click', () => switchView('theory'));
+  elems.theoryNavBtn.addEventListener('click', openTheoryView);
+  elems.openTheoryBannerBtn.addEventListener('click', openTheoryView);
+  if (elems.exploreTheoryBtn) elems.exploreTheoryBtn.addEventListener('click', openTheoryView);
   elems.backToLobbyFromTheoryBtn.addEventListener('click', () => switchView('lobby'));
 
-  // Wrong Questions Notebook Navigation & Actions
+  // 6. Wrong Questions Notebook Navigation & Actions
   if (elems.wrongBookNavBtn) elems.wrongBookNavBtn.addEventListener('click', openWrongView);
   if (elems.viewWrongListBtn) elems.viewWrongListBtn.addEventListener('click', openWrongView);
   if (elems.openWrongBannerBtn) {
@@ -305,21 +344,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Wrong Search & Filter Listeners
+  // 7. Wrong Search & Filter Listeners
   if (elems.wrongSearchInput) {
     elems.wrongSearchInput.addEventListener('input', () => renderWrongQuestionsList());
   }
 
-  elems.wrongFilterTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      elems.wrongFilterTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      state.currentWrongFilter = tab.dataset.filter;
-      renderWrongQuestionsList();
+  // Subject filter buttons inside wrong view
+  if (elems.wrongSubjectFilterTabs) {
+    elems.wrongSubjectFilterTabs.querySelectorAll('.filter-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        elems.wrongSubjectFilterTabs.querySelectorAll('.filter-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state.currentWrongSubjectFilter = btn.dataset.subjectFilter;
+        state.currentWrongChapterFilter = 'all';
+        renderWrongChapterFilterTabs();
+        renderWrongQuestionsList();
+      });
+    });
+  }
+
+  // 8. Modal interactions
+  elems.closeModalBtn.addEventListener('click', closeModeModal);
+  elems.modeModal.addEventListener('click', (e) => {
+    if (e.target === elems.modeModal) closeModeModal();
+  });
+
+  elems.modeCards.forEach(card => {
+    card.addEventListener('click', () => {
+      elems.modeCards.forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      state.selectedMode = card.dataset.mode;
     });
   });
 
-  // Quiz navigation
+  elems.confirmStartBtn.addEventListener('click', () => {
+    closeModeModal();
+    startQuiz(state.selectedExamId, state.selectedMode);
+  });
+
+  // 9. Quiz navigation
   elems.exitQuizBtn.addEventListener('click', () => {
     if (confirm("Bạn có chắc chắn muốn thoát bài làm không?")) {
       clearInterval(state.timerInterval);
@@ -329,12 +392,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   elems.nextQuestionBtn.addEventListener('click', handleNextQuestion);
 
-  // Result navigation
+  // 10. Result navigation
   elems.retryBtn.addEventListener('click', () => openModeModal(state.currentExam.id));
   elems.backToLobbyBtn.addEventListener('click', () => switchView('lobby'));
   elems.reviewBtn.addEventListener('click', toggleReview);
 
-  // Option selection
+  // 11. Option selection
   const optionBtns = elems.optionsGrid.querySelectorAll('.option-card');
   optionBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -343,21 +406,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Theory Search Listener
+  // 12. Theory Search Listener
   elems.theorySearchInput.addEventListener('input', handleTheorySearch);
 
-  // Keyboard Shortcuts Navigation (1, 2, 3, 4 for answer selection; Enter / Space for next)
+  // 13. Keyboard Shortcuts Navigation (1, 2, 3, 4, Enter, Space)
   document.addEventListener('keydown', (e) => {
-    // Ignore when typing in input/textarea
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-    // Handle Modal Escape
     if (elems.modeModal && !elems.modeModal.classList.contains('hidden')) {
       if (e.key === 'Escape') closeModeModal();
       return;
     }
 
-    // Only active in Quiz View
     if (views.quiz && views.quiz.classList.contains('active')) {
       if (!state.isAnswered) {
         if (e.key === '1' || e.code === 'Digit1' || e.code === 'Numpad1') {
@@ -374,7 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
           selectOption(3);
         }
       } else {
-        // Feedback banner is showing -> Enter, Space, ArrowRight or any 1-4 key proceeds to next question
         if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight' || ['1', '2', '3', '4'].includes(e.key)) {
           e.preventDefault();
           handleNextQuestion();
@@ -385,34 +444,211 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ---------------------------------------------------------
-// 5. THEORY VIEW LOGIC
+// 5. SUBJECT SWITCHING & RENDERING LOGIC
 // ---------------------------------------------------------
 
-function initTheoryView() {
+function selectSubject(subjectId, shouldScroll = true, keepInTheory = false) {
+  if (!SUBJECTS_DATA[subjectId]) subjectId = 'startup';
+  state.currentSubjectId = subjectId;
+  localStorage.setItem('quiz_current_subject', subjectId);
+
+  const sub = SUBJECTS_DATA[subjectId];
+
+  // 1. Update In-Nav Pill Switcher
+  if (elems.navSubStartup) elems.navSubStartup.classList.toggle('active', subjectId === 'startup');
+  if (elems.navSubLogistics) elems.navSubLogistics.classList.toggle('active', subjectId === 'logistics');
+
+  // 2. Update Hub Cards in Lobby
+  if (elems.hubCardStartup) {
+    const isStartup = (subjectId === 'startup');
+    elems.hubCardStartup.classList.toggle('active', isStartup);
+    const pill = elems.hubCardStartup.querySelector('.subject-status-pill');
+    if (pill) {
+      pill.className = isStartup ? 'subject-status-pill active-pill' : 'subject-status-pill idle-pill';
+      pill.innerHTML = isStartup ? '<i class="fa-solid fa-circle-check"></i> Đang Chọn' : '<i class="fa-solid fa-arrow-pointer"></i> Nhấn Để Chọn';
+    }
+  }
+
+  if (elems.hubCardLogistics) {
+    const isLogistics = (subjectId === 'logistics');
+    elems.hubCardLogistics.classList.toggle('active', isLogistics);
+    const pill = elems.hubCardLogistics.querySelector('.subject-status-pill');
+    if (pill) {
+      pill.className = isLogistics ? 'subject-status-pill active-pill' : 'subject-status-pill idle-pill';
+      pill.innerHTML = isLogistics ? '<i class="fa-solid fa-circle-check"></i> Đang Chọn' : '<i class="fa-solid fa-arrow-pointer"></i> Nhấn Để Chọn';
+    }
+  }
+
+  // 3. Update Hero Section
+  if (elems.heroBadge) {
+    elems.heroBadge.className = subjectId === 'logistics' ? 'badge-tag logistics-badge' : 'badge-tag';
+    elems.heroBadge.innerHTML = `<i class="${sub.icon}"></i> ${sub.badgeText}`;
+  }
+  if (elems.heroTitle) {
+    elems.heroTitle.innerHTML = `${sub.heroTitle} <span class="gradient-text ${subjectId === 'logistics' ? 'logistics-gradient-text' : ''}" id="heroTitleGradient">${sub.heroSubtitle}</span>`;
+  }
+  if (elems.heroDesc) {
+    elems.heroDesc.textContent = sub.heroDesc;
+  }
+
+  // 4. Update Hero Theory Banner
+  if (elems.theoryBannerTitle) elems.theoryBannerTitle.textContent = sub.theoryBannerTitle;
+  if (elems.theoryBannerDesc) elems.theoryBannerDesc.textContent = sub.theoryBannerDesc;
+  if (elems.theoryBannerIcon) {
+    elems.theoryBannerIcon.className = subjectId === 'logistics' ? 'theory-banner-icon logistics-icon' : 'theory-banner-icon';
+    elems.theoryBannerIcon.innerHTML = `<i class="${sub.icon}"></i>`;
+  }
+  if (elems.openTheoryBannerBtn) {
+    elems.openTheoryBannerBtn.classList.toggle('logistics-theme', subjectId === 'logistics');
+  }
+
+  // 5. Update Exam Grid Header Label
+  if (elems.examSubjectLabel) {
+    elems.examSubjectLabel.textContent = sub.name;
+    elems.examSubjectLabel.className = subjectId === 'logistics' ? 'section-subtitle-tag logistics-tag' : 'section-subtitle-tag';
+  }
+
+  // 6. Re-render the 5 exam cards for the selected subject
+  renderExamsGrid();
+
+  // 7. Update Theory View
+  updateTheoryViewForSubject();
+
+  // 8. Update Wrong View filters & badges
+  updateWrongBadges();
+
+  if (!keepInTheory && shouldScroll) {
+    // Smooth scroll down to exams if on lobby
+    if (views.lobby.classList.contains('active')) {
+      const target = document.querySelector('.exams-header-bar');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+}
+
+// Render dynamic exam cards for active subject
+function renderExamsGrid() {
+  if (!elems.examsGridContainer) return;
+  const sub = SUBJECTS_DATA[state.currentSubjectId];
+  const exams = sub.exams;
+  const subHighScores = state.highScores[state.currentSubjectId] || {};
+
+  elems.examsGridContainer.innerHTML = '';
+
+  const bannerClassesStartup = ['banner-1', 'banner-2', 'banner-3', 'banner-4', 'banner-5'];
+  const bannerClassesLogistics = ['logistics-banner-1', 'logistics-banner-2', 'logistics-banner-3', 'logistics-banner-4', 'logistics-banner-5'];
+  const bannerIcons = [
+    sub.id === 'logistics' ? 'fa-solid fa-earth-americas' : 'fa-solid fa-brain',
+    sub.id === 'logistics' ? 'fa-solid fa-ship' : 'fa-solid fa-lightbulb',
+    sub.id === 'logistics' ? 'fa-solid fa-warehouse' : 'fa-solid fa-bullseye',
+    sub.id === 'logistics' ? 'fa-solid fa-file-contract' : 'fa-solid fa-chart-pie',
+    'fa-solid fa-trophy'
+  ];
+  const bannerTags = [
+    'ĐỀ TỔNG HỢP',
+    sub.id === 'logistics' ? 'UNIT 1 & 2' : 'CHƯƠNG 1',
+    sub.id === 'logistics' ? 'UNIT 3' : 'CHƯƠNG 2',
+    sub.id === 'logistics' ? 'UNIT 4 & 5' : 'CHƯƠNG 3',
+    'THI THỬ VIP'
+  ];
+
+  Object.keys(exams).forEach((examKey, idx) => {
+    const exam = exams[examKey];
+    const bannerClass = sub.id === 'logistics' ? bannerClassesLogistics[idx % 5] : bannerClassesStartup[idx % 5];
+    const iconClass = bannerIcons[idx % 5];
+    const tagText = bannerTags[idx % 5];
+    const highScoreVal = subHighScores[exam.id] || 0;
+
+    const card = document.createElement('div');
+    card.className = 'exam-card';
+    card.dataset.examId = exam.id;
+
+    card.innerHTML = `
+      <div class="card-banner ${bannerClass}">
+        <span class="exam-tag">${tagText}</span>
+        <i class="${iconClass} card-bg-icon"></i>
+      </div>
+      <div class="card-body">
+        <h2 class="exam-title">${exam.title}</h2>
+        <p class="exam-info">${exam.description}</p>
+        <div class="exam-meta">
+          <span><i class="fa-solid fa-list-check"></i> <strong>${exam.questions.length}</strong> câu hỏi</span>
+          <span><i class="fa-solid fa-clock"></i> ${exam.timePerQuestion}s/câu</span>
+        </div>
+        <div class="card-footer">
+          <div class="high-score">High Score: <span>${highScoreVal}</span> điểm</div>
+          <button class="btn-play primary-btn">
+            <span>Bắt Đầu</span>
+            <i class="fa-solid fa-play"></i>
+          </button>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener('click', () => {
+      openModeModal(exam.id);
+    });
+
+    elems.examsGridContainer.appendChild(card);
+  });
+}
+
+// ---------------------------------------------------------
+// 6. THEORY VIEW LOGIC
+// ---------------------------------------------------------
+
+function openTheoryView() {
+  switchView('theory');
+  updateTheoryViewForSubject();
+}
+
+function updateTheoryViewForSubject() {
+  const sub = SUBJECTS_DATA[state.currentSubjectId];
+
+  // Update in-theory subject tabs
+  if (elems.theoryTabStartup) elems.theoryTabStartup.classList.toggle('active', state.currentSubjectId === 'startup');
+  if (elems.theoryTabLogistics) elems.theoryTabLogistics.classList.toggle('active', state.currentSubjectId === 'logistics');
+
+  // Update Header Text
+  if (elems.theoryViewTitle) {
+    elems.theoryViewTitle.innerHTML = `<i class="${sub.icon}"></i> ${sub.theoryTitle}`;
+  }
+  if (elems.theoryViewSubtitle) {
+    elems.theoryViewSubtitle.textContent = sub.theoryDesc;
+  }
+  if (elems.theorySearchInput) {
+    elems.theorySearchInput.placeholder = sub.theorySearchPlaceholder;
+    elems.theorySearchInput.value = '';
+  }
+
+  // Render Sidebar Chapters
   elems.theorySidebar.innerHTML = '';
-  THEORY_DATA.forEach((ch, idx) => {
+  sub.chapters.forEach((ch, idx) => {
     const btn = document.createElement('button');
-    btn.className = `chapter-tab-btn ${ch.chapter === 1 ? 'active' : ''}`;
-    btn.dataset.chapter = ch.chapter;
-    btn.innerHTML = `<i class="${ch.icon}"></i> <span>Chương ${ch.chapter}</span>`;
+    btn.className = `chapter-tab-btn ${idx === 0 ? 'active' : ''}`;
+    btn.dataset.chapter = ch.id;
+    btn.innerHTML = `<i class="${ch.icon}"></i> <span>${ch.name}</span>`;
 
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.chapter-tab-btn').forEach(b => b.classList.remove('active'));
+      elems.theorySidebar.querySelectorAll('.chapter-tab-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      state.currentTheoryChapter = ch.chapter;
-      renderChapterContent(ch.chapter);
+      state.currentTheoryChapter = ch.id;
+      renderChapterContent(ch.id);
     });
 
     elems.theorySidebar.appendChild(btn);
   });
 
-  renderChapterContent(1);
+  state.currentTheoryChapter = sub.chapters[0].id;
+  renderChapterContent(sub.chapters[0].id);
 }
 
-function renderChapterContent(chapterNum) {
-  const chapterData = THEORY_DATA.find(c => c.chapter === chapterNum) || THEORY_DATA[0];
+function renderChapterContent(chapterId) {
+  const sub = SUBJECTS_DATA[state.currentSubjectId];
+  const chapterData = sub.theoryData.find(c => c.chapter === chapterId) || sub.theoryData[0];
+
   elems.theoryContentBody.innerHTML = `
-    <h2 style="font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">
+    <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 20px;">
       <i class="${chapterData.icon}"></i> ${chapterData.title}
     </h2>
     ${chapterData.content}
@@ -421,22 +657,16 @@ function renderChapterContent(chapterNum) {
   renderMath(elems.theoryContentBody);
 }
 
-/**
- * Render LaTeX math an toàn — dùng typesetPromise() với element cụ thể.
- * Xử lý cả trường hợp MathJax chưa load xong (startup.promise).
- */
 function renderMath(container) {
   if (!window.MathJax) return;
 
   const doTypeset = () => {
     if (MathJax.typesetPromise) {
-      // Reset previous renders trên element để tránh double-process
       MathJax.typesetClear([container]);
       MathJax.typesetPromise([container]).catch(err => console.warn('MathJax error:', err));
     }
   };
 
-  // Nếu MathJax chưa khởi động xong, đợi startup.promise
   if (MathJax.startup && MathJax.startup.promise) {
     MathJax.startup.promise.then(doTypeset);
   } else {
@@ -446,6 +676,8 @@ function renderMath(container) {
 
 function handleTheorySearch(e) {
   const query = e.target.value.toLowerCase().trim();
+  const sub = SUBJECTS_DATA[state.currentSubjectId];
+
   if (!query) {
     renderChapterContent(state.currentTheoryChapter);
     return;
@@ -454,12 +686,12 @@ function handleTheorySearch(e) {
   let matchedHtml = '';
   let matchCount = 0;
 
-  THEORY_DATA.forEach(ch => {
+  sub.theoryData.forEach(ch => {
     if (ch.title.toLowerCase().includes(query) || ch.content.toLowerCase().includes(query)) {
       matchCount++;
       matchedHtml += `
         <div style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px dashed var(--border-color);">
-          <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--accent-purple); margin-bottom: 16px;">
+          <h2 style="font-size: 1.35rem; font-weight: 800; color: var(--accent-purple); margin-bottom: 16px;">
             <i class="${ch.icon}"></i> ${ch.title}
           </h2>
           ${ch.content}
@@ -471,7 +703,7 @@ function handleTheorySearch(e) {
   if (matchCount > 0) {
     elems.theoryContentBody.innerHTML = `
       <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
-        🔍 Tìm thấy <strong>${matchCount}</strong> chương chứa từ khóa "<em>${query}</em>":
+        🔍 Tìm thấy <strong>${matchCount}</strong> phần chứa từ khóa "<em>${query}</em>":
       </p>
       ${matchedHtml}
     `;
@@ -480,7 +712,7 @@ function handleTheorySearch(e) {
       <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
         <i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; margin-bottom: 12px; color: var(--accent-pink);"></i>
         <h3>Không tìm thấy nội dung phù hợp</h3>
-        <p>Vui lòng thử từ khóa khác như "Canvas", "BMC", "Design Thinking", "Gassmann", "Start-up", "Shane"...</p>
+        <p>Vui lòng thử từ khóa tìm kiếm khác (ví dụ: Canvas, Design Thinking, Incoterms, B/L, FCL, WMS, SKU...)</p>
       </div>
     `;
   }
@@ -489,17 +721,23 @@ function handleTheorySearch(e) {
 }
 
 // ---------------------------------------------------------
-// 6. CORE LOGIC & MODAL HANDLING
+// 7. CORE MODAL & VIEW SWITCHING
 // ---------------------------------------------------------
 
 function openModeModal(examId) {
   state.selectedExamId = examId;
-  const exam = examId === 'wrong_book' ? getWrongExamData() : EXAMS_DATA[examId];
+  const sub = SUBJECTS_DATA[state.currentSubjectId];
+  const exam = examId === 'wrong_book' ? getWrongExamData() : sub.exams[examId];
+
   if (!exam || !exam.questions || exam.questions.length === 0) {
-    alert("Sổ tay câu sai đang trống! Hãy làm các đề thi để tích lũy các câu trả lời chưa đúng.");
+    alert("Sổ tay câu sai đang trống! Hãy làm các bộ đề thi để tích lũy câu hỏi cần củng cố kiến thức.");
     return;
   }
+
   elems.modalExamTitle.textContent = exam.title;
+  if (elems.modalExamSubtitle) {
+    elems.modalExamSubtitle.textContent = `Học phần: ${sub.name} • ${exam.questions.length} câu hỏi`;
+  }
   elems.modeModal.classList.remove('hidden');
 }
 
@@ -512,7 +750,6 @@ function switchView(viewName) {
     views[v].classList.remove('active');
   });
   views[viewName].classList.add('active');
-
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -535,24 +772,17 @@ function toggleTheme() {
   icon.className = state.isThemeDark ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
 }
 
-function renderHighScores() {
-  elems.highScore1.textContent = state.highScores[1] || 0;
-  elems.highScore2.textContent = state.highScores[2] || 0;
-  elems.highScore3.textContent = state.highScores[3] || 0;
-  if (elems.highScore4) elems.highScore4.textContent = state.highScores[4] || 0;
-  if (elems.highScore5) elems.highScore5.textContent = state.highScores[5] || 0;
-}
-
 // ---------------------------------------------------------
-// 7. QUIZ EXECUTION LOGIC
+// 8. QUIZ EXECUTION LOGIC
 // ---------------------------------------------------------
 
 function startQuiz(examId, mode) {
   state.selectedExamId = examId;
-  state.currentExam = examId === 'wrong_book' ? getWrongExamData() : EXAMS_DATA[examId];
+  const sub = SUBJECTS_DATA[state.currentSubjectId];
+  state.currentExam = examId === 'wrong_book' ? getWrongExamData() : sub.exams[examId];
   state.selectedMode = mode;
 
-  // Xáo trộn thứ tự câu hỏi, sau đó xáo trộn đáp án của từng câu
+  // Shuffle questions and options
   const shuffledQuestions = shuffleArray(state.currentExam.questions)
     .map(q => shuffleQuestionOptions(q));
 
@@ -587,6 +817,7 @@ function renderQuestion() {
 
   const q = state.questionQueue[state.currentQueueIndex];
   const totalUnique = state.currentExam.questions.length;
+  const sub = SUBJECTS_DATA[state.currentSubjectId];
 
   if (state.selectedMode === 'mastery') {
     elems.questionProgressText.textContent = `Đã thuộc ${state.masteredIds.size} / ${totalUnique} câu`;
@@ -596,10 +827,9 @@ function renderQuestion() {
     elems.progressBarFill.style.width = `${((state.currentQueueIndex + 1) / totalUnique) * 100}%`;
   }
 
-  elems.questionCategory.textContent = `MÃ ĐỀ ${state.currentExam.code}`;
+  elems.questionCategory.textContent = `[${sub.shortName}] MÃ ĐỀ ${state.currentExam.code}`;
   elems.questionText.textContent = q.question;
 
-  // Options reset
   const optionBtns = elems.optionsGrid.querySelectorAll('.option-card');
   optionBtns.forEach((btn, idx) => {
     btn.className = getOptionBaseClass(idx);
@@ -621,7 +851,7 @@ function getOptionBaseClass(idx) {
 
 function startTimer() {
   clearInterval(state.timerInterval);
-  const duration = state.currentExam.timePerQuestion; // 20s per question
+  const duration = state.currentExam.timePerQuestion || 20;
   let startTime = Date.now();
 
   elems.timerBarFill.className = 'timer-bar-fill';
@@ -677,7 +907,7 @@ function selectOption(selectedIndex) {
       confetti({ particleCount: 40, spread: 60, origin: { y: 0.8 } });
     }
 
-    // Nếu đang làm đề Sổ tay câu sai và trả lời đúng -> Tự động loại khỏi sổ tay
+    // Auto resolve from wrong notebook if practicing wrong book
     if (state.selectedExamId === 'wrong_book') {
       const cleanQ = getCleanQuestionText(q.question);
       removeWrongQuestion(cleanQ, false);
@@ -686,7 +916,7 @@ function selectOption(selectedIndex) {
     state.streak = 0;
     sounds.playWrong();
 
-    // Tự động lưu vào Sổ tay câu sai
+    // Save to mistake notebook with active subject tag
     saveWrongQuestion(q, selectedIndex);
 
     if (state.selectedMode === 'mastery') {
@@ -694,11 +924,9 @@ function selectOption(selectedIndex) {
     }
   }
 
-  // Update UI Stats
   elems.currentScore.textContent = state.score;
   elems.streakCount.textContent = state.streak;
 
-  // Highlight options
   optionBtns.forEach((btn, idx) => {
     btn.disabled = true;
     if (idx === selectedIndex) {
@@ -710,7 +938,6 @@ function selectOption(selectedIndex) {
     }
   });
 
-  // Record answer
   state.userAnswers.push({
     question: q,
     selectedIndex: selectedIndex,
@@ -734,7 +961,6 @@ function handleTimeOut() {
   elems.streakCount.textContent = '0';
   sounds.playWrong();
 
-  // Lưu vào sổ tay câu sai khi hết giờ
   saveWrongQuestion(q, -1);
 
   if (state.selectedMode === 'mastery') {
@@ -795,7 +1021,7 @@ function handleNextQuestion() {
 }
 
 // ---------------------------------------------------------
-// 8. RESULT SUMMARY & REVIEW LOGIC
+// 9. RESULT SUMMARY & REVIEW LOGIC
 // ---------------------------------------------------------
 
 function finishQuiz() {
@@ -805,6 +1031,7 @@ function finishQuiz() {
   }
 
   const totalUnique = state.currentExam.questions.length;
+  const sub = SUBJECTS_DATA[state.currentSubjectId];
 
   if (state.selectedExamId === 'wrong_book') {
     const correctCount = state.userAnswers.filter(a => a.isCorrect).length;
@@ -812,13 +1039,13 @@ function finishQuiz() {
     elems.accuracyVal.textContent = "Đã Khắc Phục";
     elems.attemptsLabel.textContent = "Số Câu Đúng";
     elems.correctCountVal.textContent = `${correctCount}/${totalUnique}`;
-    elems.resultSubtitle.textContent = `Tuyệt vời! Bạn đã hoàn thành bài ôn tập Sổ tay câu sai. Những câu làm đúng đã được loại bỏ khỏi danh sách câu sai! 🎉`;
+    elems.resultSubtitle.textContent = `Tuyệt vời! Bạn đã hoàn thành ôn tập Sổ tay câu sai. Những câu làm đúng đã được xóa khỏi sổ! 🎉`;
   } else if (state.selectedMode === 'mastery') {
     elems.accuracyLabel.textContent = "Chế Độ";
     elems.accuracyVal.textContent = "Học Thuộc 100%";
     elems.attemptsLabel.textContent = "Lượt Trả Lời";
     elems.correctCountVal.textContent = `${state.totalAttempts} lượt`;
-    elems.resultSubtitle.textContent = `Tuyệt vời! Bạn đã thuộc đúng 100% tất cả ${totalUnique} câu hỏi của Mã đề ${state.currentExam.code} (sau ${state.totalAttempts} lượt thực hiện)! 🎉`;
+    elems.resultSubtitle.textContent = `Tuyệt vời! Bạn đã thuộc đúng 100% tất cả ${totalUnique} câu hỏi của [${sub.shortName}] Mã đề ${state.currentExam.code}! 🎉`;
   } else {
     const correctCount = state.userAnswers.filter(a => a.isCorrect).length;
     const accuracy = Math.round((correctCount / totalUnique) * 100);
@@ -829,23 +1056,29 @@ function finishQuiz() {
     elems.correctCountVal.textContent = `${correctCount}/${totalUnique}`;
 
     if (accuracy === 100) {
-      elems.resultSubtitle.textContent = "Tuyệt vời! Bạn đã đạt điểm tuyệt đối 100%! 🏆";
+      elems.resultSubtitle.textContent = `Xuất sắc! Bạn đã đạt điểm tuyệt đối 100% môn ${sub.name}! 🏆`;
     } else if (accuracy >= 80) {
-      elems.resultSubtitle.textContent = "Kết quả rất xuất sắc! Hãy thử sức ở các mã đề khác. 🌟";
+      elems.resultSubtitle.textContent = `Kết quả rất tốt! Hãy tiếp tục rèn luyện thêm các mã đề khác. 🌟`;
     } else {
-      elems.resultSubtitle.textContent = "Bạn có thể chọn 'Chế độ Học Thuộc' để luyện lại cho đến khi thuộc 100%! 💪";
+      elems.resultSubtitle.textContent = `Bạn có thể chọn 'Chế độ Học Thuộc' để luyện lại cho đến khi thuộc 100%! 💪`;
     }
   }
 
   elems.finalScoreVal.textContent = state.score;
   elems.maxStreakVal.textContent = `🔥 ${state.maxStreak}`;
 
-  // Update high score (chỉ lưu cho các đề thi chuẩn có ID số)
+  // Update High Score per subject
   const examId = state.currentExam.id;
-  if (typeof examId === 'number' && state.score > (state.highScores[examId] || 0)) {
-    state.highScores[examId] = state.score;
-    localStorage.setItem('quiz_high_scores', JSON.stringify(state.highScores));
-    renderHighScores();
+  if (typeof examId === 'number') {
+    if (!state.highScores[state.currentSubjectId]) {
+      state.highScores[state.currentSubjectId] = {};
+    }
+    const currentHigh = state.highScores[state.currentSubjectId][examId] || 0;
+    if (state.score > currentHigh) {
+      state.highScores[state.currentSubjectId][examId] = state.score;
+      localStorage.setItem('quiz_high_scores', JSON.stringify(state.highScores));
+      renderExamsGrid();
+    }
   }
 
   buildReviewList();
@@ -890,7 +1123,7 @@ function toggleReview() {
 }
 
 // ---------------------------------------------------------
-// 9. SỔ TAY CÂU SAI (WRONG QUESTIONS NOTEBOOK LOGIC)
+// 10. WRONG QUESTIONS NOTEBOOK LOGIC (MULTI-SUBJECT)
 // ---------------------------------------------------------
 
 function getCleanQuestionText(text) {
@@ -898,44 +1131,66 @@ function getCleanQuestionText(text) {
   return text.replace(/^\[.*?\]\s*/, '').trim();
 }
 
-function getQuestionChapter(cleanText) {
-  if (typeof RAW_QUESTIONS_CH1 !== 'undefined' && RAW_QUESTIONS_CH1.some(q => q.question.trim() === cleanText)) return 1;
-  if (typeof RAW_QUESTIONS_CH2 !== 'undefined' && RAW_QUESTIONS_CH2.some(q => q.question.trim() === cleanText)) return 2;
-  if (typeof RAW_QUESTIONS_CH3 !== 'undefined' && RAW_QUESTIONS_CH3.some(q => q.question.trim() === cleanText)) return 3;
-  return 1;
+function detectQuestionSubjectAndChapter(cleanText) {
+  // Check Logistics
+  if (SUBJECTS_DATA.logistics && SUBJECTS_DATA.logistics.allQuestions) {
+    const logIdx = SUBJECTS_DATA.logistics.allQuestions.findIndex(q => q.question.trim() === cleanText);
+    if (logIdx >= 0) {
+      let ch = 1;
+      if (logIdx < 15) ch = 1; // Logistics Entities & Systems (Câu 2 - 16)
+      else if (logIdx < 21) ch = 3; // Quotation Structures (Câu 17 - 22)
+      else ch = 4; // Passive Voice & Comparisons (Câu 23 - 34)
+      return { subjectId: 'logistics', chapter: ch };
+    }
+  }
+
+  // Check Startup
+  for (let ch = 1; ch <= 3; ch++) {
+    const rawList = SUBJECTS_DATA.startup.rawQuestions[ch];
+    if (rawList && rawList.some(q => q.question.trim() === cleanText)) {
+      return { subjectId: 'startup', chapter: ch };
+    }
+  }
+
+  return { subjectId: state.currentSubjectId, chapter: 1 };
 }
 
 function updateWrongBadges() {
-  const count = state.wrongQuestions.length;
+  const totalCount = state.wrongQuestions.length;
+  const startupCount = state.wrongQuestions.filter(q => (q.subjectId || 'startup') === 'startup').length;
+  const logisticsCount = state.wrongQuestions.filter(q => q.subjectId === 'logistics').length;
+
   if (elems.wrongCountBadge) {
-    elems.wrongCountBadge.textContent = count;
-    if (count > 0) {
-      elems.wrongCountBadge.classList.remove('hidden');
-    } else {
-      elems.wrongCountBadge.classList.add('hidden');
-    }
+    elems.wrongCountBadge.textContent = totalCount;
+    elems.wrongCountBadge.classList.toggle('hidden', totalCount === 0);
   }
+
   if (elems.wrongBannerCount) {
-    elems.wrongBannerCount.textContent = count;
+    // Show count for active subject in banner
+    const activeSubWrongCount = state.currentSubjectId === 'logistics' ? logisticsCount : startupCount;
+    elems.wrongBannerCount.textContent = activeSubWrongCount;
   }
+
   if (elems.practiceWrongBtn) {
-    elems.practiceWrongBtn.disabled = (count === 0);
+    const activeSubWrongCount = state.currentSubjectId === 'logistics' ? logisticsCount : startupCount;
+    elems.practiceWrongBtn.disabled = (activeSubWrongCount === 0 && totalCount === 0);
   }
-  if (elems.filterAllCount) elems.filterAllCount.textContent = count;
-  if (elems.filterCh1Count) elems.filterCh1Count.textContent = state.wrongQuestions.filter(q => q.chapter === 1).length;
-  if (elems.filterCh2Count) elems.filterCh2Count.textContent = state.wrongQuestions.filter(q => q.chapter === 2).length;
-  if (elems.filterCh3Count) elems.filterCh3Count.textContent = state.wrongQuestions.filter(q => q.chapter === 3).length;
+
+  if (elems.filterAllCount) elems.filterAllCount.textContent = totalCount;
+  if (elems.filterStartupCount) elems.filterStartupCount.textContent = startupCount;
+  if (elems.filterLogisticsCount) elems.filterLogisticsCount.textContent = logisticsCount;
 }
 
 function saveWrongQuestion(q, selectedIndex) {
   const cleanText = getCleanQuestionText(q.question);
+  const info = detectQuestionSubjectAndChapter(cleanText);
   const existingIdx = state.wrongQuestions.findIndex(item => item.cleanText === cleanText);
-  const chapterNum = getQuestionChapter(cleanText);
 
   const wrongItem = {
     id: q.id || Date.now(),
     cleanText: cleanText,
-    chapter: chapterNum,
+    subjectId: info.subjectId,
+    chapter: info.chapter,
     question: {
       question: q.question,
       options: [...q.options],
@@ -977,13 +1232,24 @@ function clearAllWrongQuestions() {
 }
 
 function getWrongExamData() {
+  let list = state.wrongQuestions;
+
+  // If filtered by subject, only quiz those questions
+  if (state.currentWrongSubjectFilter !== 'all') {
+    list = list.filter(q => (q.subjectId || 'startup') === state.currentWrongSubjectFilter);
+  } else {
+    // Default to active subject if available, or all
+    const activeList = list.filter(q => (q.subjectId || 'startup') === state.currentSubjectId);
+    if (activeList.length > 0) list = activeList;
+  }
+
   return {
     id: 'wrong_book',
     code: 'SỔ-SAI',
-    title: `Sổ Tay Câu Sai (${state.wrongQuestions.length} Câu)`,
-    description: "Bộ đề gồm các câu hỏi bạn từng trả lời chưa chính xác. Khi làm đúng câu nào, câu đó sẽ tự động được xóa khỏi sổ tay!",
-    timePerQuestion: 20,
-    questions: state.wrongQuestions.map((item, idx) => ({
+    title: `Sổ Tay Câu Sai (${list.length} Câu)`,
+    description: "Bộ đề gồm các câu bạn từng trả lời chưa chính xác. Khi trả lời đúng câu nào, câu đó sẽ tự động được xóa khỏi sổ tay!",
+    timePerQuestion: 25,
+    questions: list.map((item, idx) => ({
       id: idx + 1,
       question: `[Câu Sai ${idx + 1}] ${item.cleanText}`,
       options: [...item.question.options],
@@ -995,14 +1261,62 @@ function getWrongExamData() {
 
 function openWrongView() {
   switchView('wrong');
+  renderWrongChapterFilterTabs();
   renderWrongQuestionsList();
+}
+
+function renderWrongChapterFilterTabs() {
+  if (!elems.wrongChapterFilterTabs) return;
+  elems.wrongChapterFilterTabs.innerHTML = '';
+
+  const subFilter = state.currentWrongSubjectFilter;
+  let chapters = [];
+
+  if (subFilter === 'startup') {
+    chapters = SUBJECTS_DATA.startup.chapters;
+  } else if (subFilter === 'logistics') {
+    chapters = SUBJECTS_DATA.logistics.chapters;
+  }
+
+  if (chapters.length === 0) {
+    elems.wrongChapterFilterTabs.style.display = 'none';
+    return;
+  }
+
+  elems.wrongChapterFilterTabs.style.display = 'flex';
+
+  // All chapter tab
+  const allBtn = document.createElement('button');
+  allBtn.className = `filter-tab-btn ${state.currentWrongChapterFilter === 'all' ? 'active' : ''}`;
+  allBtn.textContent = 'Tất cả chương/unit';
+  allBtn.addEventListener('click', () => {
+    elems.wrongChapterFilterTabs.querySelectorAll('.filter-tab-btn').forEach(b => b.classList.remove('active'));
+    allBtn.classList.add('active');
+    state.currentWrongChapterFilter = 'all';
+    renderWrongQuestionsList();
+  });
+  elems.wrongChapterFilterTabs.appendChild(allBtn);
+
+  chapters.forEach(ch => {
+    const chCount = state.wrongQuestions.filter(q => (q.subjectId || 'startup') === subFilter && q.chapter === ch.id).length;
+    const btn = document.createElement('button');
+    btn.className = `filter-tab-btn ${state.currentWrongChapterFilter === String(ch.id) ? 'active' : ''}`;
+    btn.textContent = `${ch.label} (${chCount})`;
+    btn.addEventListener('click', () => {
+      elems.wrongChapterFilterTabs.querySelectorAll('.filter-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.currentWrongChapterFilter = String(ch.id);
+      renderWrongQuestionsList();
+    });
+    elems.wrongChapterFilterTabs.appendChild(btn);
+  });
 }
 
 function renderWrongQuestionsList() {
   updateWrongBadges();
-  const count = state.wrongQuestions.length;
+  const totalCount = state.wrongQuestions.length;
 
-  if (count === 0) {
+  if (totalCount === 0) {
     elems.wrongEmptyState.classList.remove('hidden');
     elems.wrongContentArea.classList.add('hidden');
     return;
@@ -1011,12 +1325,18 @@ function renderWrongQuestionsList() {
   elems.wrongEmptyState.classList.add('hidden');
   elems.wrongContentArea.classList.remove('hidden');
 
-  const filter = state.currentWrongFilter;
+  const subFilter = state.currentWrongSubjectFilter;
+  const chFilter = state.currentWrongChapterFilter;
   const searchQuery = (elems.wrongSearchInput ? elems.wrongSearchInput.value : '').toLowerCase().trim();
 
   let filtered = state.wrongQuestions;
-  if (filter !== 'all') {
-    const chNum = parseInt(filter);
+
+  if (subFilter !== 'all') {
+    filtered = filtered.filter(item => (item.subjectId || 'startup') === subFilter);
+  }
+
+  if (chFilter !== 'all') {
+    const chNum = parseInt(chFilter);
     filtered = filtered.filter(item => item.chapter === chNum);
   }
 
@@ -1036,7 +1356,7 @@ function renderWrongQuestionsList() {
       <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
         <i class="fa-solid fa-magnifying-glass" style="font-size: 2.5rem; margin-bottom: 12px; color: var(--accent-purple);"></i>
         <h3>Không tìm thấy câu hỏi phù hợp</h3>
-        <p>Vui lòng thử từ khóa tìm kiếm khác hoặc chuyển bộ lọc chương.</p>
+        <p>Vui lòng thử từ khóa tìm kiếm khác hoặc chuyển bộ lọc môn/chương.</p>
       </div>
     `;
     return;
@@ -1046,14 +1366,19 @@ function renderWrongQuestionsList() {
     const card = document.createElement('div');
     card.className = 'wrong-card';
 
+    const itemSubject = item.subjectId || 'startup';
+    const subMeta = SUBJECTS_DATA[itemSubject] || SUBJECTS_DATA.startup;
     const correctText = item.question.options[item.question.correctIndex];
     const userText = item.userWrongOption || 'Chưa rõ';
+
+    const chapterLabel = itemSubject === 'logistics' ? `Unit ${item.chapter}` : `Chương ${item.chapter}`;
 
     card.innerHTML = `
       <div class="wrong-card-top">
         <div class="wrong-card-tags">
-          <span class="chapter-badge"><i class="fa-solid fa-book"></i> Chương ${item.chapter}</span>
-          <span class="wrong-count-badge"><i class="fa-solid fa-triangle-exclamation"></i> Đã sai ${item.wrongCount} lần</span>
+          <span class="subject-badge-chip ${itemSubject}"><i class="${subMeta.icon}"></i> ${subMeta.shortName}</span>
+          <span class="chapter-badge">${chapterLabel}</span>
+          <span class="wrong-count-badge"><i class="fa-solid fa-triangle-exclamation"></i> Sai ${item.wrongCount} lần</span>
         </div>
         <div class="wrong-card-actions-top">
           <button class="btn-remove-wrong" title="Đánh dấu đã hiểu & Xóa khỏi sổ tay">
@@ -1077,11 +1402,10 @@ function renderWrongQuestionsList() {
       </div>
 
       <div class="wrong-card-exp">
-        <strong><i class="fa-solid fa-lightbulb"></i> Lời giải:</strong> ${item.question.explanation}
+        <strong><i class="fa-solid fa-lightbulb"></i> Lời giải chi tiết:</strong> ${item.question.explanation}
       </div>
     `;
 
-    // Remove button listener
     const removeBtn = card.querySelector('.btn-remove-wrong');
     removeBtn.addEventListener('click', () => {
       removeWrongQuestion(item.cleanText);

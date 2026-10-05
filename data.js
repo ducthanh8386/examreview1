@@ -1,12 +1,15 @@
 /* =========================================================
-   DỮ LIỆU ĐỀ CƯƠNG LÝ THUYẾT & NGÂN HÀNG CÂU HỎI TRẮC NGHIỆM
-   Học phần: Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo
+   WAYGROUNDQUIZ - DỮ LIỆU ĐỀ CƯƠNG LÝ THUYẾT & NGÂN HÀNG CÂU HỎI
+   Hỗ trợ đa môn học:
+   1. Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo (71 câu • 3 chương)
+   2. English for Logistics (33 câu trích xuất chính xác từ file english 4 log.docx)
    ========================================================= */
 
-// ---------------------------------------------------------
-// 1. TỔNG HỢP LÝ THUYẾT CHI TIẾT THEO CHƯƠNG
-// ---------------------------------------------------------
-const THEORY_DATA = [
+// =========================================================
+// MÔN 1: KHỞI NGHIỆP KINH DOANH & ĐỔI MỚI SÁNG TẠO
+// =========================================================
+
+const THEORY_DATA_STARTUP = [
   {
     chapter: 1,
     title: "Chương 1. Bản Chất Khởi Nghiệp, Kinh Doanh Và Sự Sáng Tạo",
@@ -153,9 +156,6 @@ const THEORY_DATA = [
   }
 ];
 
-// ---------------------------------------------------------
-// 2. NGÂN HÀNG CÂU HỎI TRẮC NGHIỆM CHUẨN HÓA
-// ---------------------------------------------------------
 const RAW_QUESTIONS_CH1 = [
   {
     question: "Khởi sự kinh doanh trong tiếng Anh (start-ups) được hiểu là gì?",
@@ -248,705 +248,710 @@ const RAW_QUESTIONS_CH1 = [
   {
     question: "Mối liên hệ giữa kỹ năng lãnh đạo, đổi mới sáng tạo, và khởi nghiệp kinh doanh là gì?",
     options: [
-      "Kỹ năng lãnh đạo (Leadership skills) là yếu tố kết nối Sáng tạo (Creativity) với Đổi mới sáng tạo (Innovation) và Khởi nghiệp kinh doanh (Entrepreneurship).",
-      "Khởi nghiệp kinh doanh (Entrepreneurship) là yếu tố kết nối Kỹ năng lãnh đạo (Leadership skills) với Sáng tạo (Creativity) và Đổi mới sáng tạo (Innovation).",
-      "Sáng tạo (Creativity) là yếu tố kết nối Kỹ năng lãnh đạo (Leadership skills) với Đổi mới sáng tạo (Innovation) và Khởi nghiệp kinh doanh (Entrepreneurship).",
-      "Đổi mới sáng tạo (Innovation) là yếu tố kết nối Kỹ năng lãnh đạo (Leadership skills) với Sáng tạo (Creativity) và Khởi nghiệp kinh doanh (Entrepreneurship)."
+      "Đổi mới sáng tạo + Lãnh đạo = Khởi nghiệp kinh doanh.",
+      "Sáng tạo + Lãnh đạo = Đổi mới sáng tạo; Đổi mới sáng tạo + Lãnh đạo = Khởi nghiệp kinh doanh.",
+      "Sáng tạo + Lãnh đạo = Đổi mới sáng tạo.",
+      "Sáng tạo + Đổi mới sáng tạo + Lãnh đạo = Khởi nghiệp kinh doanh."
     ],
-    correctIndex: 0,
-    explanation: "Kỹ năng lãnh đạo là cầu nối chuyển hóa: Sáng tạo + Lãnh đạo = Đổi mới sáng tạo; Đổi mới sáng tạo + Lãnh đạo = Khởi nghiệp kinh doanh."
+    correctIndex: 1,
+    explanation: "Kỹ năng lãnh đạo là cầu nối: Sáng tạo + Lãnh đạo = ĐMST; ĐMST + Lãnh đạo = Khởi nghiệp kinh doanh."
   },
   {
-    question: "Kỹ năng lãnh đạo là gì?",
+    question: "Theo quan điểm của Đảng và Nhà nước Việt Nam tại Nghị quyết 09-NQ/TW của Bộ Chính trị (2011), tầm quan trọng của doanh nhân, doanh nghiệp và khởi nghiệp kinh doanh là gì?",
     options: [
-      "Là những năng lực..., qua đó giúp nhà lãnh đạo làm việc hiệu quả để hoàn thành các mục tiêu của tổ chức.",
-      "Là những năng lực..., qua đó giúp nhà lãnh đạo quản lý hiệu quả người khác để hoàn thành các mục tiêu của tổ chức.",
-      "Là những năng lực..., qua đó giúp nhà lãnh đạo làm việc với và thông qua người khác để giúp họ hoàn thành các mục tiêu của mình.",
-      "Là những năng lực..., qua đó giúp nhà lãnh đạo làm việc với và thông qua người khác để hoàn thành các mục tiêu của tổ chức."
+      "Là một trong những lực lượng nòng cốt góp phần thúc đẩy sự nghiệp công nghiệp hóa, hiện đại hóa đất nước và hội nhập quốc tế.",
+      "Là lực lượng có vai trò quan trọng trong sự nghiệp công nghiệp hóa, hiện đại hóa đất nước và hội nhập quốc tế.",
+      "Là lực lượng nòng cốt đi đầu trong sự nghiệp công nghiệp hóa, hiện đại hóa đất nước và hội nhập quốc tế.",
+      "Là một trong những lực lượng nòng cốt đi đầu trong sự nghiệp công nghiệp hóa, hiện đại hóa đất nước và hội nhập quốc tế."
     ],
     correctIndex: 3,
-    explanation: "Kỹ năng lãnh đạo là những năng lực giúp làm việc với và thông qua người khác nhằm hoàn thành các mục tiêu của tổ chức."
+    explanation: "Theo NQ 09-NQ/TW (2011): Đội ngũ doanh nhân là 'một trong những lực lượng nòng cốt đi đầu trong sự nghiệp công nghiệp hóa, hiện đại hóa đất nước và hội nhập quốc tế'."
+  },
+  {
+    question: "Tầm quan trọng của khởi nghiệp kinh doanh đối với nền kinh tế và xã hội là gì?",
+    options: [
+      "Là nguồn tạo ra việc làm mới quan trọng nhất.",
+      "Tăng thu nhập, nâng cao mức sống cho người lao động.",
+      "Đóng góp vào tăng trưởng kinh tế và giải quyết các vấn đề xã hội, môi trường.",
+      "Tạo ra các hàng hóa, dịch vụ mới; là nguồn tạo ra việc làm mới quan trọng nhất; tăng thu nhập/nâng cao mức sống; thúc đẩy đổi mới sáng tạo; đóng góp tăng trưởng kinh tế & giải quyết vấn đề xã hội, môi trường."
+    ],
+    correctIndex: 3,
+    explanation: "Khởi nghiệp kinh doanh mang lại đầy đủ các lợi ích kinh tế, tạo việc làm, đổi mới sáng tạo và an sinh xã hội."
   },
   {
     question: "Trong tiếng Việt, khởi sự được hiểu là gì?",
     options: [
-      "Là bắt đầu làm việc để thực hiện một điều gì đó ngay lập tức.",
-      "Là bắt đầu làm việc để thực hiện một chuyến đi chơi.",
+      "Là bắt đầu sự nghiệp hay những việc làm có lợi ích quan trọng, lâu dài.",
       "Là bắt đầu hành động để thực hiện một kế hoạch.",
-      "Là bắt đầu làm việc để thực hiện một điều gì đó vui vẻ là chính."
+      "Là bắt đầu hành động một việc làm quan trọng.",
+      "Là bắt đầu hành động một việc làm có lợi ích quan trọng."
+    ],
+    correctIndex: 1,
+    explanation: "Khởi sự trong tiếng Việt là bắt đầu hành động để thực hiện một kế hoạch."
+  },
+  {
+    question: "Cần lưu ý điều gì khi sử dụng cụm từ “khởi sự kinh doanh” và “khởi nghiệp kinh doanh” trong tiếng Việt?",
+    options: [
+      "Hai cụm từ này hoàn toàn khác nhau về bản chất.",
+      "Khởi sự kinh doanh chỉ áp dụng cho doanh nghiệp lớn, khởi nghiệp cho doanh nghiệp nhỏ.",
+      "Hai cụm từ này thường được dùng thay thế cho nhau nhưng khởi nghiệp mang hàm ý lớn lao, lâu dài hơn.",
+      "Hai cụm từ này là từ đồng nghĩa tuyệt đối."
     ],
     correctIndex: 2,
-    explanation: "Khởi sự là bắt đầu hành động để thực hiện một kế hoạch."
+    explanation: "Trong tiếng Việt hai từ hay được dùng tương đương, nhưng 'khởi nghiệp' mang hàm ý sứ mệnh quan trọng và lâu dài hơn."
   },
   {
-    question: "Tầm quan trọng của khởi nghiệp kinh doanh đối với sự phát triển kinh tế-xã hội của các quốc gia là gì?",
+    question: "Vì sao khởi nghiệp kinh doanh lại là nguồn tạo ra việc làm mới quan trọng nhất?",
     options: [
-      "Tạo ra hàng hóa, dịch vụ mới.",
-      "Đóng góp vào tăng trưởng kinh tế; đóng góp vào giải quyết các vấn đề xã hội, môi trường.",
-      "Tạo ra tạo ra việc làm mới; tăng thu nhập và mức sống.",
-      "Tạo ra hàng hóa, dịch vụ mới; tạo ra việc làm mới; tăng thu nhập và mức sống; khuyến khích đổi mới sáng tạo; đóng góp vào tăng trưởng kinh tế; đóng góp vào giải quyết các vấn đề xã hội, môi trường..."
+      "Vì các doanh nghiệp lớn không tuyển dụng nhân sự mới.",
+      "Vì các doanh nghiệp khởi nghiệp mới thành lập tạo ra nhiều vị trí việc làm mới và thúc đẩy các ngành phụ trợ phát triển.",
+      "Vì nhà nước bắt buộc doanh nghiệp khởi sự phải tuyển nhân công.",
+      "Vì khởi nghiệp luôn có quy mô nhân sự lớn ngay từ đầu."
     ],
-    correctIndex: 3,
-    explanation: "Khởi nghiệp đóng vai trò toàn diện vào phát triển kinh tế, tạo việc làm mới, đổi mới sáng tạo và giải quyết vấn đề xã hội."
+    correctIndex: 1,
+    explanation: "Các doanh nghiệp mới thành lập tạo ra dòng việc làm mới trực tiếp và kích thích nhu cầu lao động của chuỗi cung ứng xung quanh."
   },
   {
-    question: "Trong tiếng Việt, khởi nghiệp được hiểu là bắt đầu sự nghiệp hay những việc làm có những đặc điểm nào sau đây?",
+    question: "Đặc trưng nổi bật nhất của Start-up so với doanh nghiệp truyền thống (SME) là gì?",
     options: [
-      "Có tính chất quan trọng, có lợi ích và mang tính lâu dài.",
-      "Chỉ mang tính chất ngắn hạn, vui vẻ và có lợi ích tức thời.",
-      "Có tính chất quan trọng nhưng chủ yếu là ngắn hạn.",
-      "Vui vẻ là chính và không cần có tính lợi ích lâu dài."
+      "Có nhiều vốn điều lệ hơn.",
+      "Tính chất đổi mới sáng tạo và tiềm năng tăng trưởng, nhân rộng quy mô (scalability) nhanh chóng.",
+      "Không cần phải đăng ký kinh doanh.",
+      "Chỉ hoạt động trong lĩnh vực bất động sản."
     ],
-    correctIndex: 0,
-    explanation: "Khởi nghiệp có 3 tính chất căn bản: Quan trọng, có lợi ích, và lâu dài."
+    correctIndex: 1,
+    explanation: "Start-up khác SME truyền thống ở nền tảng ĐMST và khả năng tăng trưởng đột phá theo cấp số nhân (Scalability)."
   },
   {
-    question: "Theo Luật Doanh nghiệp số 59/2020 của Việt Nam, kinh doanh là việc thực hiện liên tục một, một số hoặc tất cả công đoạn của quá trình từ đầu tư, sản xuất đến tiêu thụ sản phẩm hoặc cung ứng dịch vụ trên thị trường nhằm mục đích tìm kiếm lợi nhuận?",
+    question: "Doanh nhân (Entrepreneur) khác với người quản lý thông thường (Manager) ở điểm nào?",
     options: [
-      "Đúng.",
-      "Sai.",
-      "Chỉ đúng với các công ty cổ phần niêm yết.",
-      "Chỉ đúng với hoạt động thương mại quốc tế."
+      "Doanh nhân luôn làm việc ít giờ hơn.",
+      "Doanh nhân là người tiên phong nhận diện cơ hội, chấp nhận rủi ro và huy động nguồn lực để tạo giá trị mới.",
+      "Người quản lý không nhận lương cố định.",
+      "Doanh nhân không chịu bất kỳ rủi ro tài chính nào."
     ],
-    correctIndex: 0,
-    explanation: "Đúng. Đây là định nghĩa chính xác theo Khoản 21 Điều 4 Luật Doanh nghiệp số 59/2020/QH14."
-  },
-  {
-    question: "Kỹ năng lãnh đạo (Leadership skills) là yếu tố kết nối Sáng tạo (Creativity) với Đổi mới sáng tạo (Innovation) và Khởi nghiệp kinh doanh (Entrepreneurship)?",
-    options: [
-      "Đúng.",
-      "Sai.",
-      "Chỉ đúng trong các tập đoàn công nghệ lớn.",
-      "Chỉ đúng trong khu vực hành chính công."
-    ],
-    correctIndex: 0,
-    explanation: "Đúng. Lãnh đạo là yếu tố cốt lõi kết nối (C + L = I, I + L = E)."
-  },
-  {
-    question: "Theo nhiều nghiên cứu quốc tế, doanh nghiệp khởi nghiệp hay doanh nghiệp mới thành lập là nguồn tạo ra việc làm mới quan trọng nhất?",
-    options: [
-      "Đúng.",
-      "Sai.",
-      "Doanh nghiệp nhà nước mới là nguồn quan trọng nhất.",
-      "Các tập đoàn đa quốc gia luôn tạo ra hầu hết việc làm mới."
-    ],
-    correctIndex: 0,
-    explanation: "Đúng. Doanh nghiệp khởi nghiệp và doanh nghiệp mới thành lập là động lực tạo việc làm mới lớn nhất cho nền kinh tế."
+    correctIndex: 1,
+    explanation: "Doanh nhân là người phát hiện cơ hội, dám chấp nhận rủi ro và kiến tạo mô hình mới."
   }
 ];
 
 const RAW_QUESTIONS_CH2 = [
   {
-    question: "Tiêu chí “Kịp thời” trong xác định cơ hội kinh doanh nghĩa là gì?",
+    question: "Khái niệm “Cơ hội kinh doanh” trong môn Khởi nghiệp kinh doanh được hiểu là gì?",
     options: [
-      "Thời điểm thị trường sôi động và thời điểm bạn có thể gia nhập thị trường là khớp nhau.",
-      "Thời điểm thị trường cạnh tranh và thời điểm bạn có thể gia nhập thị trường là khớp nhau.",
-      "Thời điểm thị trường bão hòa và thời điểm bạn có thể gia nhập thị trường là khớp nhau.",
-      "Thời điểm thị trường cần và thời điểm bạn có thể gia nhập thị trường là khớp nhau."
-    ],
-    correctIndex: 3,
-    explanation: "Kịp thời nghĩa là thời điểm thị trường có nhu cầu cần và thời điểm bạn có khả năng gia nhập thị trường là khớp nhau."
-  },
-  {
-    question: "Bốn tiêu chí của một cơ hội kinh doanh là gì?",
-    options: [
-      "Mang lại giá trị cho khách hàng, hấp dẫn, kịp thời, và đủ dài.",
-      "Mang lại giá trị cho khách hàng, hấp dẫn, chắc chắn, và đủ dài.",
-      "Mang lại giá trị cho khách hàng, sáng tạo, kịp thời, và đủ dài.",
-      "Mang lại giá trị cho doanh nghiệp, hấp dẫn, kịp thời, và đủ dài."
+      "Là những tình huống, bối cảnh thuận lợi tạo ra nhu cầu về một loại sản phẩm hàng hóa hoặc dịch vụ mới, hay một dự án kinh doanh mới.",
+      "Là những ý tưởng xuất hiện bất chợt của người khởi nghiệp nhằm bán một sản phẩm hiện có.",
+      "Là những thị trường không có đối thủ cạnh tranh.",
+      "Là nguồn vốn đầu tư dồi dào từ các quỹ đầu tư mạo hiểm."
     ],
     correctIndex: 0,
-    explanation: "4 tiêu chí cốt lõi: Mang lại giá trị cho khách hàng, Hấp dẫn, Kịp thời, và Đủ dài."
+    explanation: "Cơ hội kinh doanh là những bối cảnh thuận lợi tạo ra nhu cầu về sản phẩm/dịch vụ mới hoặc dự án kinh doanh mới."
   },
   {
-    question: "Ý tưởng kinh doanh là gì?",
+    question: "Bốn tiêu chí cốt lõi để đánh giá một cơ hội kinh doanh là gì?",
     options: [
-      "Là suy nghĩ, dự định, kế hoạch về hoạt động đem lại lợi nhuận, và thường gắn với sản phẩm nào đó; có thể đáp ứng hoặc không các tiêu chí của một cơ hội.",
-      "Là tình huống giúp đem lại lợi nhuận, và thường gắn với sản phẩm nào đó; có thể đáp ứng hoặc không các tiêu chí của một cơ hội.",
-      "Là hoạt động giúp đem lại lợi nhuận, và thường gắn với sản phẩm nào đó; có thể đáp ứng hoặc không các tiêu chí của một cơ hội.",
-      "Là bối cảnh giúp đem lại lợi nhuận, và thường gắn với sản phẩm nào đó; có thể đáp ứng hoặc không các tiêu chí của một cơ hội."
+      "Giá rẻ - Nhanh chóng - Độc quyền - An toàn.",
+      "Mang lại giá trị cho khách hàng - Hấp dẫn - Kịp thời - Đủ dài.",
+      "Vốn ít - Lãi nhanh - Dễ làm - Ít cạnh tranh.",
+      "Sáng tạo - Khác biệt - Hiện đại - Độc đáo."
+    ],
+    correctIndex: 1,
+    explanation: "4 tiêu chí cốt lõi: 1. Mang lại giá trị cho khách hàng; 2. Hấp dẫn; 3. Kịp thời; 4. Đủ dài (tồn tại đủ lâu để sinh lời)."
+  },
+  {
+    question: "Tiêu chí “Mang lại giá trị cho khách hàng” của một cơ hội kinh doanh nhấn mạnh điều gì?",
+    options: [
+      "Bán sản phẩm với giá rẻ nhất thị trường.",
+      "Bán thứ khách hàng mong muốn và cần, chứ không phải bán thứ bạn có.",
+      "Khuyến mãi thật nhiều quà tặng cho khách hàng.",
+      "Quảng cáo rầm rộ trên các phương tiện truyền thông."
+    ],
+    correctIndex: 1,
+    explanation: "Mang lại giá trị cốt lõi là giải quyết vấn đề của khách hàng: Bán thứ khách hàng cần, không phải thứ mình có."
+  },
+  {
+    question: "Theo Barringer & Ireland (2019), có 3 nguồn gốc chính để nhận diện cơ hội kinh doanh, đó là:",
+    options: [
+      "Vay vốn - Thuê mặt bằng - Tuyển nhân sự.",
+      "Quan sát các xu thế - Tìm khoảng trống thị trường - Giải quyết một vấn đề.",
+      "Sao chép đối thủ - Giảm giá bán - Đẩy mạnh quảng cáo.",
+      "Học tập lý thuyết - Tham gia hội thảo - Đọc sách kinh tế."
+    ],
+    correctIndex: 1,
+    explanation: "3 nguồn nhận diện cơ hội: Quan sát xu thế, tìm khoảng trống thị trường, giải quyết một vấn đề."
+  },
+  {
+    question: "Quan sát các xu thế để tìm kiếm cơ hội kinh doanh bao gồm những xu thế nào?",
+    options: [
+      "Xu thế kinh tế, xã hội, công nghệ, chính sách và môi trường tự nhiên.",
+      "Chỉ bao gồm xu thế công nghệ mới.",
+      "Chỉ bao gồm xu thế thời trang của giới trẻ.",
+      "Xu thế tiêu dùng ngắn hạn theo mùa."
     ],
     correctIndex: 0,
-    explanation: "Ý tưởng kinh doanh là suy nghĩ, dự định về hoạt động đem lại lợi nhuận, có thể đáp ứng hoặc không đáp ứng các tiêu chí của cơ hội."
+    explanation: "Xu thế bao gồm toàn diện: Kinh tế (PESTEL), xã hội, tiến bộ công nghệ, quy định pháp lý và môi trường."
   },
   {
-    question: "Tiêu chí “Hấp dẫn” trong xác định cơ hội kinh doanh nghĩa là gì?",
+    question: "Tìm “khoảng trống trên thị trường” (Market Gap) nghĩa là gì?",
     options: [
-      "Thị trường cần phải cạnh tranh, bạn có thể đáp ứng nhu cầu thị trường và đạt doanh thu lớn hơn chi phí.",
-      "Thị trường cần phải đủ lớn, bạn có thể đáp ứng nhu cầu thị trường và đạt doanh thu lớn hơn chi phí.",
-      "Thị trường cần phải tập trung, bạn có thể đáp ứng nhu cầu thị trường và đạt doanh thu lớn hơn chi phí.",
-      "Thị trường cần phải tăng trưởng, bạn có thể đáp ứng nhu cầu thị trường và đạt doanh thu lớn hơn chi phí."
+      "Tìm những khu đất trống để mở cửa hàng.",
+      "Nhận diện nhu cầu hoặc mong muốn của khách hàng có tồn tại nhưng chưa được các sản phẩm hiện có đáp ứng thỏa đáng.",
+      "Bán các sản phẩm đã lỗi thời với giá thanh lý.",
+      "Tìm các phân khúc khách hàng không có khả năng chi trả."
     ],
     correctIndex: 1,
-    explanation: "Hấp dẫn nghĩa là dung lượng thị trường phải đủ lớn, có thể đáp ứng và tạo ra doanh thu lớn hơn chi phí."
+    explanation: "Khoảng trống thị trường là vùng nhu cầu khách hàng chưa được đáp ứng hoặc đáp ứng chưa tốt."
   },
   {
-    question: "Cơ hội kinh doanh là gì?",
+    question: "Khái niệm “Tư duy thiết kế” (Design Thinking) được hiểu là gì?",
     options: [
-      "Là những phán đoán về một loại sản phẩm hàng hóa/dịch vụ mới, hay một dự án kinh doanh mới.",
-      "Là những tình huống, bối cảnh thuận lợi tạo ra một loại sản phẩm hàng hóa/dịch vụ mới, hay một dự án kinh doanh mới.",
-      "Là những hoạt động tạo ra một loại sản phẩm hàng hóa/dịch vụ mới đáp ứng nhu cầu của phân khúc khách hàng cụ thể.",
-      "Là những tình huống, bối cảnh thuận lợi tạo ra nhu cầu về một loại sản phẩm hàng hóa/dịch vụ mới, hay một dự án kinh doanh mới."
+      "Kỹ năng vẽ đồ họa và thiết kế logo thương hiệu cho công ty.",
+      "Cách tiếp cận đổi mới sáng tạo lấy con người (khách hàng) làm trung tâm dựa trên nền tảng thấu cảm.",
+      "Phương pháp lập trình phần mềm giao diện người dùng UI/UX.",
+      "Quy trình xây dựng nhà xưởng sản xuất theo tiêu chuẩn quốc tế."
     ],
-    correctIndex: 3,
-    explanation: "Cơ hội kinh doanh là những tình huống, bối cảnh thuận lợi tạo ra nhu cầu về một loại sản phẩm hàng hóa/dịch vụ mới hay dự án mới."
+    correctIndex: 1,
+    explanation: "Design Thinking là tư duy giải quyết vấn đề lấy con người/khách hàng làm trung tâm thông qua sự thấu cảm sâu sắc."
   },
   {
-    question: "Ba nguồn gốc chính của cơ hội kinh doanh theo Barringer và Ireland (2019) là gì?",
+    question: "Trình tự 5 bước trong tiến trình Tư duy thiết kế (Design Thinking) của trường phái Stanford d.school là gì?",
     options: [
-      "Quan sát các xu thế, tìm khoảng trống trên thị trường, và giải quyết một vấn đề.",
-      "Quan sát các đối tác, tìm khoảng trống trên thị trường, và giải quyết một vấn đề.",
-      "Quan sát các đối thủ cạnh tranh, tìm khoảng trống trên thị trường, và giải quyết một vấn đề.",
-      "Quan sát khách hàng, tìm khoảng trống trên thị trường, và giải quyết một vấn đề."
+      "Lên ý tưởng -> Thiết kế mẫu -> Thấu cảm -> Thử nghiệm -> Xác định vấn đề.",
+      "Thấu cảm (Empathize) -> Xác định vấn đề (Define) -> Lên ý tưởng (Ideate) -> Thiết kế mẫu (Prototype) -> Thử nghiệm (Test).",
+      "Xác định vấn đề -> Thấu cảm -> Lên ý tưởng -> Thử nghiệm -> Hoàn thiện.",
+      "Nghiên cứu thị trường -> Lập kế hoạch -> Sản xuất -> Bán hàng -> Thu tiền."
+    ],
+    correctIndex: 1,
+    explanation: "Chuẩn 5 bước Design Thinking: 1. Empathize -> 2. Define -> 3. Ideate -> 4. Prototype -> 5. Test."
+  },
+  {
+    question: "Trong bước “Thấu cảm” (Empathize), người khởi nghiệp cần làm gì?",
+    options: [
+      "Thuyết phục khách hàng mua sản phẩm của mình ngay lập tức.",
+      "Quan sát, lắng nghe, phỏng vấn sâu và đồng cảm với cảm xúc, hành vi, nỗi đau của khách hàng.",
+      "Gửi bảng báo giá chi tiết cho khách hàng.",
+      "Lập tức chế tạo sản phẩm hoàn chỉnh."
+    ],
+    correctIndex: 1,
+    explanation: "Thấu cảm là lắng nghe, quan sát không phán xét để hiểu sâu sắc cảm xúc, hành vi và nỗi đau ngầm ẩn của khách hàng."
+  },
+  {
+    question: "Kỹ thuật “Body storming” trong giai đoạn thấu cảm khách hàng là gì?",
+    options: [
+      "Tập thể dục để rèn luyện sức khỏe cho đội ngũ khởi nghiệp.",
+      "Đóng vai và trải nghiệm trực tiếp trong tình huống thực tế của khách hàng để cảm nhận khó khăn họ gặp phải.",
+      "Khảo sát số lượng lớn qua bảng câu hỏi trực tuyến.",
+      "Phân tích báo cáo tài chính của đối thủ cạnh tranh."
+    ],
+    correctIndex: 1,
+    explanation: "Bodystorming là phương pháp đặt bản thân vào đúng hoàn cảnh thực tế của người dùng để trực tiếp trải nghiệm vấn đề."
+  },
+  {
+    question: "Mục đích của bước “Xác định vấn đề” (Define) trong Design Thinking là gì?",
+    options: [
+      "Đổ lỗi cho đối thủ cạnh tranh.",
+      "Đóng khung và cô đọng vấn đề cốt lõi (Core Problem / Point of View) mà khách hàng thực sự bức xúc cần giải quyết.",
+      "Tính toán tổng chi phí đầu tư ban đầu.",
+      "Xác định kênh phân phối sản phẩm."
+    ],
+    correctIndex: 1,
+    explanation: "Define giúp gom các thông tin thấu cảm thành phát biểu vấn đề cốt lõi rõ ràng (Point of View)."
+  },
+  {
+    question: "Giai đoạn “Lên ý tưởng” (Ideate) khuyến khích điều gì?",
+    options: [
+      "Chỉ đưa ra một ý tưởng duy nhất và bảo vệ nó đến cùng.",
+      "Động não (Brainstorming) số lượng lớn ý tưởng sáng tạo, không vội phán xét, kết hợp và phát triển ý tưởng mới.",
+      "Lựa chọn ngay ý tưởng an toàn nhất và ít tốn kém nhất.",
+      "Chỉ sao chép ý tưởng từ nước ngoài về."
+    ],
+    correctIndex: 1,
+    explanation: "Ideate khuyến khích số lượng (Quantity over quality), tư duy mở rộng và không phán xét ở giai đoạn đầu."
+  },
+  {
+    question: "Khái niệm “Mẫu thử” (Prototype) trong Tư duy thiết kế mang ý nghĩa gì?",
+    options: [
+      "Sản phẩm hoàn thiện 100% được sản xuất hàng loạt trong nhà máy.",
+      "Bản mô phỏng đơn giản, trực quan, chi phí thấp của giải pháp để khách hàng dùng thử và thu thập phản hồi nhanh.",
+      "Bản vẽ thiết kế bí mật không cho ai xem.",
+      "Bản hợp đồng pháp lý ký kết với nhà đầu tư."
+    ],
+    correctIndex: 1,
+    explanation: "Prototype là bản mẫu trực quan, nhanh, rẻ để hiện thực hóa ý tưởng và kiểm chứng sớm với người dùng."
+  },
+  {
+    question: "Khung Đề xuất giá trị (Value Proposition Canvas) của Alexander Osterwalder gồm 2 phần chính là gì?",
+    options: [
+      "Hồ sơ khách hàng (Customer Profile) và Bản đồ giá trị (Value Map).",
+      "Doanh thu và Chi phí.",
+      "Nguồn lực và Đối tác.",
+      "Sản phẩm và Tiếp thị."
     ],
     correctIndex: 0,
-    explanation: "3 nguồn gốc: 1. Quan sát các xu thế, 2. Tìm khoảng trống trên thị trường, 3. Giải quyết một vấn đề."
+    explanation: "VPC gồm 2 thành phần chính: Hồ sơ khách hàng (Customer Profile) và Bản đồ giá trị (Value Map)."
   },
   {
-    question: "Thiết kế mẫu là bước thứ mấy trong tiến trình tư duy thiết kế và nội dung của nó là gì?",
+    question: "Trong Hồ sơ khách hàng (Customer Profile) của VPC, 3 yếu tố cấu thành là gì?",
     options: [
-      "Thiết kế mẫu là bước 3 trong tiến trình tư duy thiết kế và nội dung là xây dựng sản phẩm mẫu để trực quan hóa các giải pháp cho vấn đề của đối tác và thu thập phản hồi.",
-      "Thiết kế mẫu là bước 4 trong tiến trình tư duy thiết kế và nội dung là xây dựng sản phẩm mẫu để trực quan hóa các giải pháp cho vấn đề của khách hàng và thu thập phản hồi.",
-      "Thiết kế mẫu là bước 4 trong tiến trình tư duy thiết kế và nội dung là xây dựng sản phẩm mẫu để trực quan hóa các giải pháp cho vấn đề của doanh nghiệp và thu thập phản hồi.",
-      "Thiết kế mẫu là bước 3 trong tiến trình tư duy thiết kế và nội dung là xây dựng sản phẩm mẫu để trực quan hóa các giải pháp cho vấn đề của khách hàng và thu thập phản hồi."
+      "Tuổi tác, giới tính, nghề nghiệp.",
+      "Nhiệm vụ khách hàng (Customer Jobs), Nỗi đau/Vấn đề (Pains), Lợi ích mong đợi (Gains).",
+      "Thu nhập, nơi ở, thói quen mua sắm.",
+      "Nhận biết, Cân nhắc, Mua hàng."
     ],
     correctIndex: 1,
-    explanation: "Thiết kế mẫu (Prototype) là bước thứ 4: xây dựng sản phẩm mẫu để trực quan hóa giải pháp và thu thập phản hồi."
+    explanation: "Hồ sơ khách hàng gồm: Customer Jobs (Nhiệm vụ), Pains (Vấn đề/Nỗi đau), Gains (Lợi ích mong đợi)."
   },
   {
-    question: "Xác định vấn đề là bước thứ mấy trong tiến trình tư duy thiết kế và nội dung của nó là gì?",
+    question: "Trong Bản đồ giá trị (Value Map) của VPC, 3 yếu tố tương ứng là gì?",
     options: [
-      "Xác định vấn đề là bước 3 trong tiến trình tư duy thiết kế và nội dung là xác định những vấn đề chính mà khách hàng đang gặp phải và cần giải quyết.",
-      "Xác định vấn đề là bước thứ 2 trong tiến trình tư duy thiết kế và nội dung là xác định những vấn đề chính mà đối thủ đang gặp phải và cần giải quyết.",
-      "Xác định vấn đề là bước thứ 2 trong tiến trình tư duy thiết kế và nội dung là xác định những vấn đề chính mà khách hàng đang gặp phải và cần giải quyết.",
-      "Xác định vấn đề là bước thứ 3 trong tiến trình tư duy thiết kế và nội dung là xác định những vấn đề chính mà doanh nghiệp đang gặp phải và cần giải quyết."
-    ],
-    correctIndex: 2,
-    explanation: "Xác định vấn đề (Define) là bước thứ 2: xác định vấn đề chính mà khách hàng đang gặp phải và cần giải quyết."
-  },
-  {
-    question: "Tiêu chí “Đủ dài” trong xác định cơ hội kinh doanh nghĩa là gì?",
-    options: [
-      "Thời gian khách hàng tồn tại đủ dài để khai thác.",
-      "Thời gian doanh nghiệp tồn tại đủ dài để khai thác.",
-      "Thời gian cơ hội tồn tại đủ dài để khai thác.",
-      "Thời gian sản phẩm tồn tại đủ dài để khai thác."
-    ],
-    correctIndex: 2,
-    explanation: "Đủ dài nghĩa là khoảng thời gian cơ hội tồn tại phải đủ dài để doanh nghiệp kịp thời triển khai và khai thác sinh lời."
-  },
-  {
-    question: "Tìm hiểu những thay đổi về kinh tế, chính sách, xã hội, công nghệ và môi trường tự nhiên có dẫn tới sự khác biệt giữa những gì đang có và những gì có thể có hoặc cần có là phương pháp xác định cơ hội kinh doanh nào?",
-    options: [
-      "Giải quyết một vấn đề.",
-      "Quan sát các xu thế.",
-      "Quan sát thị trường.",
-      "Tìm khoảng trống trên thị trường."
+      "Giá cả, Phân phối, Khuyến mãi.",
+      "Sản phẩm & Dịch vụ (Products & Services), Thuốc giảm đau (Pain Relievers), Yếu tố tạo lợi ích (Gain Creators).",
+      "Nhà xưởng, Máy móc, Công nghệ.",
+      "Kế toán, Nhân sự, Marketing."
     ],
     correctIndex: 1,
-    explanation: "Phân tích các thay đổi vĩ mô (PESTEL) chính là phương pháp quan sát các xu thế."
+    explanation: "Value Map gồm: Sản phẩm/Dịch vụ, Thuốc giảm đau (Pain Relievers) và Yếu tố kiến tạo lợi ích (Gain Creators)."
   },
   {
-    question: "Kiểm tra là bước thứ mấy trong tiến trình tư duy thiết kế và nội dung của nó là gì?",
+    question: "Khái niệm “Sự khớp nối” (Fit) trong Khung Đề xuất giá trị đạt được khi nào?",
     options: [
-      "Kiểm tra là bước thứ 3 trong tiến trình tư duy thiết kế và nội dung là lựa chọn giải pháp tốt nhất trong số các giải pháp từ các mẫu thử để hoàn thiện và kiểm tra trước khi thương mại hóa.",
-      "Kiểm tra là bước thứ 5 trong tiến trình tư duy thiết kế và nội dung là lựa chọn giải pháp tốt nhất trong số các giải pháp từ các mẫu thử để hoàn thiện và kiểm tra trước khi thương mại hóa.",
-      "Kiểm tra là bước thứ 5 trong tiến trình tư duy thiết kế và nội dung là phát triển giải pháp tốt nhất để hoàn thiện và kiểm tra trước khi thương mại hóa.",
-      "Kiểm tra là bước thứ 3 trong tiến trình tư duy thiết kế và nội dung là phát triển giải pháp tốt nhất để hoàn thiện và kiểm tra trước khi thương mại hóa."
+      "Khi giá bán bằng với chi phí sản xuất.",
+      "Khi các tính năng giảm đau và tạo lợi ích của sản phẩm giải quyết chính xác các nỗi đau và mong muốn quan trọng nhất của khách hàng.",
+      "Khi sản phẩm có nhiều tính năng hơn đối thủ.",
+      "Khi công ty chi nhiều tiền cho quảng cáo."
     ],
     correctIndex: 1,
-    explanation: "Kiểm tra (Test) là bước thứ 5: chọn giải pháp tốt nhất từ mẫu thử để hoàn thiện và kiểm định trước khi tung ra thị trường."
+    explanation: "Fit đạt được khi giá trị cung cấp khớp đúng với các Jobs, Pains, Gains quan trọng nhất của khách hàng."
   },
   {
-    question: "Yếu tố “Vấn đề/Pains” thuộc phần nào trong mô hình đề xuất giá trị của Alexander Osterwalder và nội dung của nó là gì?",
+    question: "Khái niệm MVP (Minimum Viable Product - Sản phẩm khả dụng tối thiểu) là gì?",
     options: [
-      "Yếu tố \"Vấn đề/Pains\" thuộc phần “Hồ sơ khách hàng\" trong mô hình đề xuất giá trị của Alexander Osterwalder và nội dung của nó là những điều khiến đối tác của doanh nghiệp cụ thể lo lắng, bận tâm hoặc cảm thấy bị cản trở khi thực hiện nhiệm vụ của họ.",
-      "Yếu tố \"Vấn đề/Pains\" thuộc phần “Đề xuất giá trị” trong mô hình đề xuất giá trị của Alexander Osterwalder và nội dung của nó là những điều khiến phân khúc khách hàng cụ thể lo lắng, bận tâm hoặc cảm thấy bị cản trở khi thực hiện nhiệm vụ của họ trong công việc, cuộc sống.",
-      "Yếu tố \"Vấn đề/Pains\" thuộc phần “Hồ sơ khách hàng\" trong mô hình đề xuất giá trị của Alexander Osterwalder và nội dung của nó là những điều khiến phân khúc khách hàng cụ thể lo lắng, bận tâm hoặc cảm thấy bị cản trở khi thực hiện nhiệm vụ của họ trong công việc, cuộc sống.",
-      "Yếu tố \"Vấn đề/Pains\" thuộc phần “Hồ sơ khách hàng\" trong mô hình đề xuất giá trị của Alexander Osterwalder và nội dung của nó là những điều khiến doanh nghiệp cụ thể lo lắng, bận tâm hoặc cảm thấy bị cản trở khi thực hiện nhiệm vụ của họ trong đáp ứng nhu cầu của khách hàng."
+      "Sản phẩm có giá thành rẻ nhất có thể.",
+      "Phiên bản sản phẩm có vừa đủ các tính năng cốt lõi để đưa ra thị trường thử nghiệm và thu nhận phản hồi học hỏi tối đa với chi phí tối thiểu.",
+      "Sản phẩm bị lỗi kỹ thuật trong quá trình sản xuất.",
+      "Sản phẩm không thể bán được cho khách hàng."
     ],
-    correctIndex: 2,
-    explanation: "Vấn đề/Pains thuộc phần Hồ sơ khách hàng (Customer Profile): những lo lắng, trở ngại khách hàng gặp phải."
+    correctIndex: 1,
+    explanation: "MVP là phiên bản tối giản nhưng hoạt động được nhằm kiểm chứng giả định thị trường với công sức ít nhất (Eric Ries - Lean Startup)."
   },
   {
-    question: "Mô hình đề xuất giá trị do Alexander Osterwalder phát triển nhằm mục đích để làm gì?",
+    question: "Điểm khác biệt căn bản giữa “Ý tưởng kinh doanh” và “Cơ hội kinh doanh” là gì?",
     options: [
-      "Để thấu cảm các vấn đề và mong muốn của các đối tác cụ thể và phát triển các giải pháp cho các vấn đề và mong muốn đó.",
-      "Để thấu cảm các vấn đề và mong muốn của các doanh nghiệp cụ thể và phát triển các giải pháp cho các vấn đề và mong muốn đó.",
-      "Để thấu cảm các vấn đề và mong muốn của các phân khúc khách hàng cụ thể và phát triển các giải pháp cho các vấn đề và mong muốn đó.",
-      "Để thấu cảm các vấn đề và mong muốn của các đối thủ cụ thể và phát triển các giải pháp cho các vấn đề và mong muốn đó."
-    ],
-    correctIndex: 2,
-    explanation: "Mục đích: Thấu cảm vấn đề và mong muốn của phân khúc khách hàng cụ thể để thiết kế giải pháp tương ứng."
-  },
-  {
-    question: "Yếu tố “Nhiệm vụ/Jobs” thuộc phần nào trong mô hình đề xuất giá trị của Alexander Osterwalder và nội dung của nó là gì?",
-    options: [
-      "Yếu tố “Nhiệm vụ/Jobs” thuộc phần “Hồ sơ khách hàng\" trong mô hình đề xuất giá trị của Alexander Osterwalder và nội dung của nó là những điều mà phân khúc khách hàng cụ thể đang cần thực hiện hoặc giải quyết trong công việc, cuộc sống.",
-      "Yếu tố “Nhiệm vụ/Jobs” thuộc phần “Hồ sơ khách hàng\" trong mô hình đề xuất giá trị của Alexander Osterwalder và nội dung của nó là những điều mà đối tác cụ thể đang cần thực hiện hoặc giải quyết.",
-      "Yếu tố “Nhiệm vụ/Jobs” thuộc phần “Hồ sơ khách hàng\" trong mô hình đề xuất giá trị của Alexander Osterwalder và nội dung của nó là những điều mà doanh nghiệp cụ thể đang cần thực hiện hoặc giải quyết.",
-      "Yếu tố “Nhiệm vụ/Jobs” thuộc phần “Đề xuất giá trị\" trong mô hình đề xuất giá trị của Alexander Osterwalder và nội dung của nó là những điều mà phân khúc khách hàng cụ thể đang cần thực hiện hoặc giải quyết trong công việc, cuộc sống."
+      "Ý tưởng kinh doanh chỉ là suy nghĩ chủ quan, còn cơ hội kinh doanh là ý tưởng đã được kiểm chứng thỏa mãn nhu cầu thị trường và có tính khả thi sinh lời.",
+      "Ý tưởng cần nhiều tiền hơn cơ hội.",
+      "Cơ hội chỉ do nhà nước cấp phép, ý tưởng do cá nhân nghĩ ra.",
+      "Hai khái niệm này hoàn toàn đồng nhất."
     ],
     correctIndex: 0,
-    explanation: "Nhiệm vụ/Jobs thuộc Hồ sơ khách hàng: những công việc/nhiệm vụ khách hàng đang cần thực hiện hoặc giải quyết."
+    explanation: "Ý tưởng chỉ là suy nghĩ ban đầu; chỉ khi ý tưởng gặp bối cảnh thị trường thuận lợi, đáp ứng 4 tiêu chí thì mới là Cơ hội."
   },
   {
-    question: "Phương pháp “Động thân thể/Body storming” là gì, dùng để làm gì và được thực hiện như thế nào?",
+    question: "Tại sao tư duy thiết kế lại coi thất bại sớm ở bước Thử nghiệm (Test) là một điều tích cực?",
     options: [
-      "Một phương pháp trong tư duy thiết kế, dùng để thấu cảm và phát triển giải pháp cho vấn đề của khách hàng, bằng cách thâm nhập vào môi trường thực tế của khách hàng.",
-      "Một phương pháp trong tư duy logic, dùng để thấu cảm và phát triển giải pháp cho vấn đề của khách hàng, bằng cách thâm nhập vào môi trường thực tế của khách hàng.",
-      "Một phương pháp trong tư duy thiết kế, dùng để thấu cảm vấn đề của khách hàng, bằng cách thâm nhập vào môi trường thực tế của khách hàng.",
-      "Một phương pháp trong tư duy thiết kế, dùng để thấu cảm và phát triển giải pháp cho vấn đề của doanh nghiệp, bằng cách thâm nhập vào môi trường thực tế của họ."
+      "Vì công ty sẽ được hoàn thuế.",
+      "Vì “Thất bại sớm để thành công nhanh” (Fail early, fail fast to succeed sooner), giúp tiết kiệm thời gian và tiền bạc trước khi đầu tư quy mô lớn.",
+      "Vì khách hàng thích các sản phẩm thất bại.",
+      "Vì người khởi nghiệp không cần phải nỗ lực nữa."
+    ],
+    correctIndex: 1,
+    explanation: "Thử nghiệm sớm giúp nhận diện sai lầm với chi phí rẻ nhất, kịp thời điều chỉnh trước khi giải ngân vốn lớn."
+  },
+  {
+    question: "Kỹ thuật “5 Why” (5 câu hỏi Tại sao) thường được dùng trong bước nào của Design Thinking?",
+    options: [
+      "Xác định nguyên nhân gốc rễ của vấn đề trong bước Xác định vấn đề (Define).",
+      "Tính toán doanh thu.",
+      "Tìm nhà cung cấp nguyên vật liệu.",
+      "Định giá bán sản phẩm."
     ],
     correctIndex: 0,
-    explanation: "Body storming là phương pháp thâm nhập trải nghiệm môi trường thực tế của khách hàng để thấu cảm và phát triển giải pháp."
+    explanation: "Kỹ thuật 5 Why dùng để đào sâu tìm nguyên nhân gốc rễ (Root Cause) trong bước Define."
   },
   {
-    question: "Hãy sắp xếp thứ tự (từ 1-5) các bước sau trong Tư duy thiết kế: 1. Xác định vấn đề, 2. Thấu cảm, 3. Phát triển giải pháp, 4. Kiểm tra, 5. Xây dựng mẫu thử.",
+    question: "Thấu cảm (Empathy) khác với Đồng cảm/Thương hại (Sympathy) như thế nào trong kinh doanh?",
     options: [
-      "1. 2. 3. 4. 5.",
-      "2. 1. 3. 5. 4.",
-      "2. 1. 5. 3. 4.",
-      "1. 3. 2. 5. 4."
-    ],
-    correctIndex: 1,
-    explanation: "Thứ tự chuẩn 5 bước: 2. Thấu cảm -> 1. Xác định vấn đề -> 3. Phát triển giải pháp -> 5. Xây dựng mẫu thử -> 4. Kiểm tra."
-  },
-  {
-    question: "Phát triển giải pháp là bước thứ mấy trong tiến trình tư duy thiết kế và nội dung của nó là gì?",
-    options: [
-      "Phát triển giải pháp là bước 3 trong tiến trình tư duy thiết kế và nội dung là phát triển ý tưởng về giải pháp sáng tạo cho vấn đề chính của khách hàng.",
-      "Phát triển giải pháp là bước 4 trong tiến trình tư duy thiết kế và nội dung là phát triển ý tưởng về giải pháp sáng tạo cho vấn đề chính của đối tác.",
-      "Phát triển giải pháp là bước 3 trong tiến trình tư duy thiết kế và nội dung là phát triển ý tưởng về giải pháp sáng tạo cho vấn đề chính của doanh nghiệp.",
-      "Phát triển giải pháp là bước 4 trong tiến trình tư duy thiết kế và nội dung là phát triển ý tưởng về giải pháp sáng tạo cho vấn đề chính của khách hàng."
+      "Thấu cảm là đứng vào vị trí của người khác để cảm nhận và hiểu thế giới quan của họ mà không phán xét, còn Sympathy chỉ là cảm xúc thương xót bên ngoài.",
+      "Thấu cảm chỉ dành cho người thân trong gia đình.",
+      "Hai khái niệm này giống hệt nhau.",
+      "Sympathy mang tính khoa học hơn Thấu cảm."
     ],
     correctIndex: 0,
-    explanation: "Phát triển giải pháp (Ideate) là bước thứ 3: phát triển các ý tưởng sáng tạo cho vấn đề chính của khách hàng."
+    explanation: "Empathy là năng lực đặt mình vào hoàn cảnh của khách hàng để cảm nhận sâu sắc nhu cầu chưa nói thành lời."
   },
   {
-    question: "Phương pháp xác định cơ hội kinh doanh bằng cách giải quyết một vấn đề nghĩa là gì?",
+    question: "Khái niệm “Pivot” (Chuyển hướng) trong khởi nghiệp tinh gọn có nghĩa là gì?",
     options: [
-      "Tìm ra thực trạng của vấn đề mà bản thân nhà khởi nghiệp và/hoặc nhiều người khác gặp phải trong cuộc sống, công việc...",
-      "Tìm ra giải pháp giúp giải quyết hiệu quả vấn đề mà bản thân nhà khởi nghiệp và/hoặc nhiều người khác gặp phải trong cuộc sống, công việc...",
-      "Tìm ra nguyên nhân của vấn đề mà bản thân nhà khởi nghiệp và/hoặc nhiều người khác gặp phải trong cuộc sống, công việc.",
-      "Tìm ra hậu quả quả của vấn đề mà bản thân nhà khởi nghiệp và/hoặc nhiều người khác gặp phải trong cuộc sống, công việc..."
+      "Tuyên bố phá sản công ty.",
+      "Thay đổi chiến lược hoặc mô hình kinh doanh dựa trên phản hồi của thị trường trong khi vẫn giữ vững tầm nhìn dài hạn.",
+      "Đổi tên thương hiệu nhưng giữ nguyên toàn bộ sản phẩm cũ.",
+      "Bán lại công ty cho đối thủ."
     ],
     correctIndex: 1,
-    explanation: "Giải quyết vấn đề nghĩa là tìm ra giải pháp giúp giải quyết hiệu quả vấn đề mà bản thân hoặc nhiều người đang gặp phải."
+    explanation: "Pivot là cú chuyển hướng chiến lược có tính toán dựa trên bài học thu thập từ thị trường."
   },
   {
-    question: "Phương pháp xác định cơ hội kinh doanh bằng cách tìm khoảng trống trên thị trường nghĩa là gì?",
+    question: "Trong mô hình Lean Startup (Khởi nghiệp tinh gọn), vòng lặp phản hồi cốt lõi là gì?",
     options: [
-      "Xác định tình huống trong đó mong muốn hoặc nhu cầu của khách hàng về một loại sản phẩm hàng hóa hoặc dịch vụ nào đó là có nhưng lại không được đáp ứng đầy đủ.",
-      "Xác định tình huống trong đó mong muốn hoặc nhu cầu của doanh nghiệp về một loại sản phẩm hàng hóa hoặc dịch vụ nào đó là có nhưng lại không sản xuất được.",
-      "Xác định tình huống trong đó mong muốn hoặc nhu cầu của khách hàng về một loại sản phẩm hàng hóa hoặc dịch vụ nào đó là có nhưng lại không có khả năng thanh toán.",
-      "Xác định tình huống trong đó mong muốn hoặc nhu cầu của doanh nghiệp về một loại sản phẩm hàng hóa hoặc dịch vụ nào đó là có nhưng lại có quá nhiều đối thủ cạnh tranh."
-    ],
-    correctIndex: 0,
-    explanation: "Tìm khoảng trống nghĩa là phát hiện nhu cầu của khách hàng có thực nhưng chưa được thị trường đáp ứng đầy đủ."
-  },
-  {
-    question: "Thấu cảm là bước thứ mấy trong tiến trình tư duy thiết kế và nội dung của nó là gì?",
-    options: [
-      "Thấu cảm là bước thứ 2 trong tiến trình tư duy thiết kế và nội dung là thấu hiểu và đồng cảm sâu sắc về các nhu cầu, cảm nhận, suy nghĩ, hành vi của khách hàng.",
-      "Thấu cảm là bước thứ 1 trong tiến trình tư duy thiết kế và nội dung là thấu hiểu và đồng cảm sâu sắc về các nhu cầu, cảm nhận, suy nghĩ, hành vi của khách hàng.",
-      "Thấu cảm là bước thứ 1 trong tiến trình tư duy thiết kế và nội dung là thấu hiểu và đồng cảm sâu sắc về các nhu cầu, cảm nhận, suy nghĩ, hành vi của đối thủ cạnh tranh.",
-      "Thấu cảm là bước thứ 1 trong tiến trình tư duy thiết kế và nội dung là thấu hiểu và đồng cảm sâu sắc về các nhu cầu, cảm nhận, suy nghĩ, hành vi của doanh nghiệp."
+      "Vay vốn -> Thuê người -> Tiêu tiền.",
+      "Xây dựng (Build) -> Đo lường (Measure) -> Học hỏi (Learn).",
+      "Quảng cáo -> Giảm giá -> Bán tháo.",
+      "Ý tưởng -> Nhà xưởng -> Sản xuất lớn."
     ],
     correctIndex: 1,
-    explanation: "Thấu cảm (Empathize) là bước đầu tiên (bước 1): thấu hiểu và đồng cảm sâu sắc với khách hàng."
+    explanation: "Vòng lặp cốt lõi của Lean Startup là Build - Measure - Learn."
   },
   {
-    question: "Tiêu chí \"Mang lại giá trị cho khách hàng\" trong xác định cơ hội kinh doanh nghĩa là gì?",
+    question: "Một cơ hội kinh doanh có tiêu chí “Đủ dài” (Window of Opportunity) nghĩa là:",
     options: [
-      "Bán sản phẩm (hàng hóa hoặc dịch vụ) mà khách hàng chờ đợi; không phải bán thứ bạn có hay có thể tạo ra.",
-      "Bán sản phẩm (hàng hóa hoặc dịch vụ) mà khách hàng mong muốn; không phải bán thứ bạn có hay có thể tạo ra.",
-      "Bán sản phẩm (hàng hóa hoặc dịch vụ) mà khách hàng cần và có thể mua; không phải bán thứ bạn có hay có thể tạo ra.",
-      "Bán sản phẩm (hàng hóa hoặc dịch vụ) mà khách hàng yêu cầu; không phải bán thứ bạn có hay có thể tạo ra."
+      "Sản phẩm có chiều dài lớn hơn 1 mét.",
+      "Thời gian cơ hội tồn tại và mở ra trên thị trường đủ lâu để doanh nghiệp thu hồi vốn và sinh lợi nhuận bền vững.",
+      "Kế hoạch kinh doanh được viết dài trên 100 trang.",
+      "Thời gian giao hàng cho khách hàng kéo dài nhiều tháng."
     ],
     correctIndex: 1,
-    explanation: "Mang lại giá trị là bán thứ khách hàng mong muốn và cần, không bán thứ doanh nghiệp tự suy diễn hay sẵn có."
-  },
-  {
-    question: "Trong Mô hình đề xuất giá trị do Alexander Osterwalder phát triển, cần đạt được sự phù hợp giữa các cặp yếu tố nào sau đây?",
-    options: [
-      "Sản phẩm/Products - Nhiệm vụ/Jobs; Giải pháp cho mong muốn/Gain Creators - Vấn đề/Pains; Giải pháp cho vấn đề/Pain Relievers - Mong muốn/Gains.",
-      "Sản phẩm/Products - Nhiệm vụ/Jobs; Giải pháp cho vấn đề/Pain Relievers - Vấn đề/Pains; Giải pháp cho mong muốn - Mong muốn/Gain Creators.",
-      "Sản phẩm/Products - Nhiệm vụ/Jobs; Giải pháp /Solutions - Vấn đề/Problems.",
-      "Sản phẩm/Products - Nhiệm vụ/Jobs; Giải pháp cho Vấn đề và Mong muốn/Pain Relievers and Gain Creators - Vấn đề và mong muốn/Pains and Gains."
-    ],
-    correctIndex: 1,
-    explanation: "Sự khớp nối: Products - Jobs; Pain Relievers - Pains; Gain Creators - Gains."
-  },
-  {
-    question: "Tư duy thiết kế có nguồn gốc từ đâu và hiện được vận dụng trong những lĩnh vực nào?",
-    options: [
-      "Tư duy thiết kế vận dụng nhiều phương pháp, công cụ và quy trình mà các nhà thiết kế sử dụng, và hiện nay bắt đầu được áp dụng vào lĩnh vực kinh doanh.",
-      "Tư duy thiết kế vận dụng nhiều phương pháp, công cụ và quy trình mà các nhà kinh doanh sáng tạo sử dụng, và hiện nay chủ yếu được phát triển và áp dụng vào lĩnh vực kinh doanh.",
-      "Tư duy thiết kế vận dụng nhiều phương pháp, công cụ và quy trình mà các nhà thiết kế sử dụng, nhưng hiện nay đã được phát triển và áp dụng vào nhiều lĩnh vực khác nhau - bao gồm kiến trúc, kỹ thuật và kinh doanh.",
-      "Tư duy thiết kế vận dụng nhiều phương pháp, công cụ và quy trình mà các nhà thiết kế sử dụng, nhưng hiện nay chủ yếu được phát triển và áp dụng vào lĩnh vực kinh doanh."
-    ],
-    correctIndex: 2,
-    explanation: "Tư duy thiết kế xuất phát từ giới thiết kế nhưng nay đã mở rộng sang kiến trúc, kỹ thuật, công nghệ và kinh doanh."
-  },
-  {
-    question: "Tư duy thiết kế là gì?",
-    options: [
-      "Là một cách tiếp cận giúp phát triển, sáng tạo các sản phẩm mới dựa trên nền tảng thấu cảm khách hàng - xác định và giải quyết các vấn đề mà khách hàng thực sự gặp phải hoặc các đáp ứng các nhu cầu mà họ thực sự mong muốn.",
-      "Là một cách tiếp cận giúp phát triển, sáng tạo các sản phẩm mới dựa trên nền tảng thấu cảm đối thủ cạnh tranh - xác định và giải quyết các vấn đề mà đối thủ cạnh tranh thực sự gặp phải hoặc các đáp ứng các nhu cầu mà họ thực sự mong muốn.",
-      "Là một cách tiếp cận giúp phát triển, sáng tạo các sản phẩm mới dựa trên nền tảng thấu cảm doanh nghiệp - xác định và giải quyết các vấn đề mà doanh nghiệp thực sự gặp phải hoặc các đáp ứng các nhu cầu mà họ thực sự mong muốn.",
-      "Là một cách tiếp cận giúp phát triển, sáng tạo các sản phẩm mới dựa trên nền tảng thấu cảm đối tác - xác định và giải quyết các vấn đề mà đối tác thực sự gặp phải hoặc các đáp ứng các nhu cầu mà họ thực sự mong muốn."
-    ],
-    correctIndex: 0,
-    explanation: "Tư duy thiết kế là cách tiếp cận lấy khách hàng làm trung tâm, thấu cảm để giải quyết vấn đề thực tế."
-  },
-  {
-    question: "Tiêu chí “Hấp dẫn” trong xác định cơ hội kinh doanh đòi hỏi điều gì về quy mô và hiệu quả tài chính?",
-    options: [
-      "Thị trường cần phải cạnh tranh khốc liệt để chứng minh tiềm năng.",
-      "Thị trường cần phải tăng trưởng vượt bậc mà không cần tính tới chi phí.",
-      "Thị trường cần tập trung vào số ít khách hàng cao cấp.",
-      "Thị trường cần phải đủ lớn, bạn có thể đáp ứng nhu cầu thị trường và đạt doanh thu lớn hơn chi phí."
-    ],
-    correctIndex: 3,
-    explanation: "Tiêu chí hấp dẫn: Dung lượng thị trường đủ lớn và tạo ra doanh thu > chi phí."
+    explanation: "Cửa sổ cơ hội (Window of Opportunity) phải mở đủ lâu để doanh nghiệp kịp thiết lập vị thế và khai thác sinh lời."
   }
 ];
 
 const RAW_QUESTIONS_CH3 = [
   {
-    question: "Mô hình kinh doanh là gì?",
+    question: "Khái niệm “Mô hình kinh doanh” (Business Model) có ý nghĩa trọng tâm là gì?",
     options: [
-      "Là cách mà doanh nghiệp sản xuất và chuyển giao sản phẩm tới khách hàng.",
-      "Là cách mà doanh nghiệp hợp tác với các bên có liên quan để đáp ứng nhu cầu của khách hàng.",
-      "Là cách mà doanh nghiệp tạo ra và chuyển giao giá trị cho khách hàng và các bên có liên quan khác và nhận lại giá trị từ họ.",
-      "Là cách mà doanh nghiệp tạo ra doanh thu và lợi nhuận."
-    ],
-    correctIndex: 2,
-    explanation: "Mô hình kinh doanh là cách doanh nghiệp tạo ra, chuyển giao giá trị cho khách hàng và thu nhận lại giá trị."
-  },
-  {
-    question: "Yếu tố nào giúp trả lời các câu hỏi: Chọn thị trường và phân khúc khách hàng nào? Làm thế nào để chiến thắng đối thủ cạnh tranh trong thị trường và phân khúc khách hàng đã chọn?",
-    options: [
-      "Kế hoạch kinh doanh.",
-      "Mô hình kinh doanh.",
-      "Chiến lược kinh doanh.",
-      "Môi trường kinh doanh."
-    ],
-    correctIndex: 2,
-    explanation: "Chiến lược kinh doanh (Business Strategy) trả lời câu hỏi: Chọn thị trường nào và làm sao để chiến thắng đối thủ."
-  },
-  {
-    question: "Phát biểu nào là đúng nhất trong số những phát biểu sau đây về mô hình kinh doanh?",
-    options: [
-      "Mô hình kinh doanh không chỉ đơn thuần là cách kiếm tiền, cách tạo doanh thu cho doanh nghiệp mà còn bao gồm cách doanh nghiệp tạo ra giá trị và cách chuyển giao giá trị tới riêng cho khách hàng.",
-      "Mô hình kinh doanh không chỉ đơn thuần là cách kiếm tiền, cách tạo doanh thu cho doanh nghiệp mà còn bao gồm cách doanh nghiệp tạo ra giá trị và cách chuyển giao giá trị tới khách hàng và các bên có liên quan khác.",
-      "Mô hình kinh doanh là cách doanh nghiệp kiếm tiền và tạo doanh thu, chứ không phải là cách doanh nghiệp tạo ra giá trị và cách chuyển giao giá trị tới khách hàng và các bên có liên quan khác.",
-      "Mô hình kinh doanh chủ yếu là cách doanh nghiệp kiếm tiền và tạo doanh thu; ngoài ra là cách doanh nghiệp tạo ra giá trị và cách chuyển giao giá trị tới khách hàng và các bên có liên quan khác."
+      "Bản kế hoạch chi tiết các công việc hàng ngày của nhân viên.",
+      "Mô tả cách thức một tổ chức tạo ra giá trị, chuyển giao giá trị và thu nhận lại giá trị.",
+      "Bản hợp đồng thuê mặt bằng kinh doanh.",
+      "Phần mềm quản lý bán hàng của doanh nghiệp."
     ],
     correctIndex: 1,
-    explanation: "Mô hình kinh doanh bao hàm toàn diện việc tạo giá trị, chuyển giao giá trị cho khách hàng & các bên liên quan, và thu hồi giá trị."
+    explanation: "Mô hình kinh doanh mô tả cách thức doanh nghiệp Tạo ra giá trị (Create), Chuyển giao giá trị (Deliver) và Thu nhận giá trị (Capture value)."
   },
   {
-    question: "Yếu tố nào giúp trả lời các câu hỏi: Mục tiêu kinh doanh là gì? Những hoạt động cần phải thực hiện để triển khai chiến lược kinh doanh và đạt được những mục tiêu đó?",
+    question: "Mô hình kinh doanh Canvas (Business Model Canvas - BMC) do ai sáng lập?",
     options: [
-      "Môi trường kinh doanh.",
-      "Kế hoạch kinh doanh.",
-      "Mô hình kinh doanh.",
-      "Chiến lược kinh doanh."
+      "Philip Kotler.",
+      "Alexander Osterwalder và Yves Pigneur.",
+      "Michael Porter.",
+      "Steve Jobs."
     ],
     correctIndex: 1,
-    explanation: "Kế hoạch kinh doanh (Business Plan) vạch rõ các mục tiêu và hoạt động hành động cụ thể."
+    explanation: "BMC được phát triển bởi Alexander Osterwalder & Yves Pigneur."
   },
   {
-    question: "Mô hình kinh doanh giúp trả lời những câu hỏi gì?",
+    question: "Mô hình Canvas gồm bao nhiêu thành tố cốt lõi?",
     options: [
-      "Tạo ra và bán cái gì, cho ai, làm thế nào để chiến lược đối thủ cạnh tranh, và cần phải triển khai những hoạt động cụ thể gì?",
-      "Mục tiêu kinh doanh là gì? Những hoạt động cần phải thực hiện để triển khai chiến lược kinh doanh và đạt được những mục tiêu đó?",
-      "Chọn thị trường và phân khúc khách hàng nào? Làm thế nào để chiến thắng đối thủ cạnh tranh trong thị trường và phân khúc khách hàng đã chọn?",
-      "Tạo ra và bán cái gì (sản phẩm & dịch vụ), cho ai (phân khúc khách hàng mục tiêu), mang lại giá trị gì cho khách hàng, và nhận về giá trị như thế nào?"
-    ],
-    correctIndex: 3,
-    explanation: "Mô hình kinh doanh trả lời: Tạo ra & bán cái gì, cho ai, mang lại giá trị gì và nhận về giá trị như thế nào."
-  },
-  {
-    question: "Thành tố “Đề xuất giá trị” trong Mô hình kinh doanh Canvas có nội dung chính là gì?",
-    options: [
-      "Danh mục các nguồn lực giá trị để hợp tác với đối tác cụ thể.",
-      "Danh mục các chiến lược để cạnh tranh với đối thủ cụ thể.",
-      "Danh mục các sản phẩm (hàng hóa và dịch vụ) mang lại giá trị cho phân khúc khách hàng cụ thể.",
-      "Danh mục các sản phẩm (hàng hóa và dịch vụ) mang lại doanh thu cho doanh nghiệp cụ thể."
+      "5 thành tố.",
+      "7 thành tố.",
+      "9 thành tố.",
+      "12 thành tố."
     ],
     correctIndex: 2,
-    explanation: "Đề xuất giá trị (Value Proposition) là danh mục sản phẩm/dịch vụ mang lại giá trị giải quyết vấn đề cho phân khúc khách hàng."
+    explanation: "BMC bao gồm 9 khối thành tố (9 Building Blocks)."
   },
   {
-    question: "Thành tố “Dòng doanh thu\" trong Mô hình kinh doanh Canvas có nội dung chính là gì?",
+    question: "Thành tố đầu tiên và quan trọng nhất khi bắt đầu phân tích BMC là gì?",
     options: [
-      "Mô tả dòng tiền mà doanh nghiệp có thể thu được từ các phân khúc khách hàng.",
-      "Mô tả dòng tiền mà doanh nghiệp có thể thu được từ hoạt động sản xuất, kinh doanh.",
-      "Mô tả dòng tiền mà doanh nghiệp có thể thu được từ các hoạt động bán hàng.",
-      "Mô tả dòng tiền mà doanh nghiệp có thể thu được từ các sản phẩm của mình."
+      "Cơ cấu chi phí.",
+      "Phân khúc khách hàng (Customer Segments).",
+      "Các đối tác chính.",
+      "Các hoạt động chính."
+    ],
+    correctIndex: 1,
+    explanation: "Quy trình phân tích BMC chuẩn luôn xuất phát từ Phân khúc khách hàng (CS) và Đề xuất giá trị (VP)."
+  },
+  {
+    question: "Thành tố “Đề xuất giá trị” (Value Propositions) trong BMC trả lời cho câu hỏi nào?",
+    options: [
+      "Doanh nghiệp bán sản phẩm ở đâu?",
+      "Doanh nghiệp mang lại giá trị/giải pháp gì để giải quyết vấn đề và thỏa mãn nhu cầu của khách hàng?",
+      "Ai là nhà cung cấp nguyên liệu?",
+      "Chi phí thuê nhân viên là bao nhiêu?"
+    ],
+    correctIndex: 1,
+    explanation: "Value Proposition trả lời: Chúng ta mang lại giá trị vượt trội nào cho khách hàng?"
+  },
+  {
+    question: "Năm giai đoạn của thành tố “Kênh truyền thông & phân phối” (Channels) trong BMC là gì?",
+    options: [
+      "Hỏi giá -> Mua hàng -> Trả tiền -> Đổi trả -> Khiếu nại.",
+      "Nhận biết (Awareness) -> Đánh giá (Evaluation) -> Mua/Thanh toán (Purchase) -> Chuyển giao (Delivery) -> Sau bán hàng (After-sales).",
+      "Quảng cáo -> Giảm giá -> Vận chuyển -> Thu tiền -> Bảo hành.",
+      "Gặp gỡ -> Giới thiệu -> Ký hợp đồng -> Giao hàng -> Thanh lý."
+    ],
+    correctIndex: 1,
+    explanation: "5 giai đoạn kênh: Nhận biết, Đánh giá, Mua sắm, Chuyển giao và Hậu mãi."
+  },
+  {
+    question: "Thành tố “Quan hệ khách hàng” (Customer Relationships) mô tả điều gì?",
+    options: [
+      "Mối quan hệ thân quen giữa giám đốc và người thân.",
+      "Loại hình quan hệ mà doanh nghiệp muốn thiết lập và duy trì với từng phân khúc khách hàng (thu hút, giữ chân, phát triển khách).",
+      "Danh bạ số điện thoại của tất cả khách hàng.",
+      "Hợp đồng lao động với nhân viên chăm sóc khách hàng."
+    ],
+    correctIndex: 1,
+    explanation: "Customer Relationships xác định cách công ty thu hút, duy trì và gia tăng giá trị từ khách hàng."
+  },
+  {
+    question: "Thành tố “Dòng doanh thu” (Revenue Streams) thể hiện điều gì?",
+    options: [
+      "Số tiền doanh nghiệp phải đi vay ngân hàng.",
+      "Dòng tiền mà doanh nghiệp thu được từ từng phân khúc khách hàng thông qua các cơ chế định giá khác nhau.",
+      "Chi phí trả lương cho giám đốc.",
+      "Tiền đặt cọc của nhà cung cấp."
+    ],
+    correctIndex: 1,
+    explanation: "Revenue Streams là dòng tiền thu vào từ giá trị mà khách hàng sẵn sàng chi trả."
+  },
+  {
+    question: "Thành tố “Nguồn lực chính” (Key Resources) trong BMC bao gồm những nhóm tài sản nào?",
+    options: [
+      "Chỉ bao gồm tiền mặt gửi ngân hàng.",
+      "Tài sản vật chất, tài sản trí tuệ (bản quyền, thương hiệu), nhân lực và tài chính.",
+      "Chỉ bao gồm xe cộ và nhà xưởng.",
+      "Bàn ghế văn phòng và máy tính cá nhân."
+    ],
+    correctIndex: 1,
+    explanation: "Key Resources gồm 4 nhóm: Vật chất (Physical), Trí tuệ (Intellectual), Nhân lực (Human), Tài chính (Financial)."
+  },
+  {
+    question: "Thành tố “Hoạt động chính” (Key Activities) trong BMC là gì?",
+    options: [
+      "Những hành động quan trọng nhất mà doanh nghiệp phải thực hiện để vận hành mô hình kinh doanh.",
+      "Các hoạt động vui chơi giải trí của công ty cuối tuần.",
+      "Các cuộc họp giao ban nội bộ hàng ngày.",
+      "Việc nộp thuế cho cơ quan nhà nước."
     ],
     correctIndex: 0,
-    explanation: "Dòng doanh thu (Revenue Streams) mô tả dòng tiền mà doanh nghiệp thu được từ các phân khúc khách hàng."
+    explanation: "Key Activities là các hành động then chốt nhất để tạo ra giá trị, tiếp cận thị trường và duy trì quan hệ khách hàng."
   },
   {
-    question: "Những thành tố thuộc nhóm tạo ra “Dòng doanh thu\" trong Mô hình kinh doanh Canvas là gì?",
+    question: "Thành tố “Đối tác chính” (Key Partnerships) mang lại lợi ích gì cho doanh nghiệp?",
     options: [
-      "Phân khúc khách hàng - Đề xuất giá trị - Kênh truyền thông và phân phối - Hoạt động chính.",
-      "Phân khúc khách hàng - Đề xuất giá trị - Kênh truyền thông và phân phối - Nguồn lực chính.",
-      "Phân khúc khách hàng - Đề xuất giá trị - Kênh truyền thông và phân phối - Quan hệ khách hàng.",
-      "Phân khúc khách hàng - Đề xuất giá trị - Kênh truyền thông và phân phối - Đối tác chính."
-    ],
-    correctIndex: 2,
-    explanation: "Nhóm doanh thu gồm 4 thành tố hướng ra thị trường: Phân khúc khách hàng, Đề xuất giá trị, Kênh phân phối, và Quan hệ khách hàng."
-  },
-  {
-    question: "Thành tố “Quan hệ khách hàng\" trong Mô hình kinh doanh Canvas có nội dung chính là gì?",
-    options: [
-      "Mô tả những loại sản phẩm mà một công ty muốn mang lại cho những phân khúc khách hàng mục tiêu cụ thể.",
-      "Mô tả những loại quan hệ mà một công ty muốn thiết lập với những phân khúc khách hàng mục tiêu cụ thể.",
-      "Mô tả những loại giá trị mà một công ty muốn mang lại cho những phân khúc khách hàng mục tiêu cụ thể.",
-      "Mô tả những loại kênh truyền thông mà một công ty muốn thiết lập với những phân khúc khách hàng mục tiêu cụ thể."
-    ],
-    correctIndex: 1,
-    explanation: "Quan hệ khách hàng (Customer Relationships) mô tả loại mối quan hệ muốn thiết lập và duy trì với khách hàng."
-  },
-  {
-    question: "Thành tố “Các hoạt động chính\" trong Mô hình kinh doanh Canvas có nội dung chính là gì?",
-    options: [
-      "Mô tả các hoạt động quan trọng nhất mà một công ty cần thực hiện để vận hành chiến lược kinh doanh.",
-      "Mô tả các nguồn lực quan trọng nhất mà một công ty cần có để vận hành mô hình kinh doanh",
-      "Mô tả các hoạt động quan trọng nhất mà một công ty cần thực hiện để vận hành mô hình kinh doanh.",
-      "Mô tả các hoạt động quan trọng nhất mà một công ty cần thực hiện để đạt mục tiêu kinh doanh."
-    ],
-    correctIndex: 2,
-    explanation: "Hoạt động chính (Key Activities) mô tả các hành động quan trọng nhất cần thực hiện để vận hành mô hình kinh doanh."
-  },
-  {
-    question: "Thành tố Cơ cấu chi phí trong Mô hình kinh doanh Canvas có nội dung chính là gì?",
-    options: [
-      "Mô tả tất cả các loại chi phí phát sinh để vận hành chiến lược kinh doanh, bao gồm hai nhóm chi phí cố định và chi phí biến đổi.",
-      "Mô tả tất cả các loại chi phí phát sinh để vận hành mô hình kinh doanh, bao gồm hai nhóm chi phí cố định và chi phí biến đổi.",
-      "Mô tả tất cả các loại chi phí phát sinh để triển khai kế hoạch kinh doanh, bao gồm hai nhóm chỉ phí cố định và chi phí biến đổi.",
-      "Mô tả tất cả các loại chi phí phát sinh để triển khai ý tưởng kinh doanh, bao gồm hai nhóm chi phí cố định và chi phí biến đổi."
-    ],
-    correctIndex: 1,
-    explanation: "Cơ cấu chi phí (Cost Structure) mô tả toàn bộ chi phí phát sinh để vận hành mô hình (gồm định phí và biến phí)."
-  },
-  {
-    question: "Mô hình kinh doanh theo kiểu Bán hàng trực tiếp là gì?",
-    options: [
-      "Là mô hình kinh doanh trong đó sản phẩm của công ty được bán trực tiếp bởi nhà sản xuất hoặc nhà cung ứng dịch vụ, đã tính trung gian.",
-      "Là mô hình kinh doanh trong đó sản phẩm của công ty được bán trực tiếp bởi nhà sản xuất hoặc nhà cung ứng dịch vụ, bỏ qua trung gian.",
-      "Là mô hình kinh doanh trong đó sản phẩm của công ty được bán trực tiếp bởi nhà sản xuất hoặc nhà cung ứng dịch vụ, chưa tính trung gian.",
-      "Là mô hình kinh doanh trong đó sản phẩm của công ty được bán trực tiếp bởi nhà sản xuất hoặc nhà cung ứng dịch vụ, chưa bao gồm trung gian."
-    ],
-    correctIndex: 1,
-    explanation: "Bán hàng trực tiếp (Direct Selling) bán thẳng từ nhà sản xuất/cung ứng đến tay người dùng cuối, bỏ qua các khâu trung gian."
-  },
-  {
-    question: "Mô hình kinh doanh theo kiểu Khách hàng trung thành là gì?",
-    options: [
-      "Là mô hình kinh doanh trong đó khách hàng trung thành được duy trì thông qua cung cấp sản phẩm có giá cạnh tranh.",
-      "Là mô hình kinh doanh trong đó khách hàng trung thành được duy trì thông qua cung cấp sản phẩm có tính sáng tạo.",
-      "Là mô hình kinh doanh trong đó khách hàng trung thành được duy trì thông qua cung cấp giá trị cao hơn sản phẩm cơ bản.",
-      "Là mô hình kinh doanh trong đó khách hàng trung thành được duy trì thông qua cung cấp giá trị cao hơn đối thủ cạnh tranh."
-    ],
-    correctIndex: 2,
-    explanation: "Mô hình khách hàng trung thành giữ chân khách thông qua việc cung cấp thêm giá trị vượt trên sản phẩm/dịch vụ cơ bản."
-  },
-  {
-    question: "Trong phân tích mô hình kinh doanh của các hãng xe công nghệ, nội dung “Có xe, muốn tăng thêm thu nhập” làm bạn suy nghĩ tới thành tố nào trong Mô hình kinh doanh Canvas?",
-    options: [
-      "Đối tác chính.",
-      "Nguồn lực chính.",
-      "Đề xuất giá trị.",
-      "Phân khúc khách hàng."
-    ],
-    correctIndex: 3,
-    explanation: "Tài xế/chủ xe là một Phân khúc khách hàng (Customer Segment) trong mô hình nền tảng đa bên (Multi-sided Platform) của xe công nghệ."
-  },
-  {
-    question: "Các nhóm khách hàng sẽ thuộc về những phân khúc khác nhau khi nào?",
-    options: [
-      "Khi nhu cầu của họ đòi hỏi phải có những đáp ứng giống nhau; họ có thể được tiếp cận bởi các kênh phân phối khác nhau; họ cần phải được duy trì các hình thức quan hệ khách hàng khác nhau; họ sẵn sàng chi trả cho các khía cạnh khác nhau của sản phẩm.",
-      "Khi nhu cầu của họ đòi hỏi phải có những đáp ứng riêng biệt, họ có thể được tiếp cận bởi các kênh phân phối khác nhau; họ cần phải được duy trì các hình thức quan hệ khách hàng giống nhau; họ sẵn sàng chi trả cho các khía cạnh khác nhau của sản phẩm.",
-      "Khi nhu cầu của họ đòi hỏi phải có những đáp ứng riêng biệt, họ có thể được tiếp cận bởi các kênh phân phối giống nhau; họ cần phải được duy trì các hình thức quan hệ khách hàng khác nhau; họ sẵn sàng chi trả cho các khía cạnh khác nhau của sản phẩm.",
-      "Khi nhu cầu của họ đòi hỏi phải có những đáp ứng riêng biệt họ có thể được tiếp cận bởi các kênh phân phối khác nhau; họ cần phải được duy trì các hình thức quan hệ khách hàng khác nhau; họ sẵn sàng chi trả cho các khía cạnh khác nhau của sản phẩm."
-    ],
-    correctIndex: 3,
-    explanation: "Khách hàng thuộc phân khúc khác nhau khi: nhu cầu riêng biệt, kênh tiếp cận khác nhau, quan hệ duy trì khác nhau và mức sẵn sàng chi trả khác nhau."
-  },
-  {
-    question: "Công cụ phân tích mô hình kinh doanh nào là do Osterwalder và Pigneur phát triển?",
-    options: [
-      "Công cụ Mô hình kinh doanh BMN (Business Model Navigator).",
-      "Công cụ Mô hình kinh doanh BMT (Business Model Template).",
-      "Công cụ Mô hình kinh doanh BMC (Business Model Canvas).",
-      "Công cụ Mô hình kinh doanh sáng tạo BMI (Business Model Innovation)."
-    ],
-    correctIndex: 2,
-    explanation: "Business Model Canvas (BMC) gồm 9 thành tố là công cụ nổi tiếng do Alexander Osterwalder & Yves Pigneur phát triển."
-  },
-  {
-    question: "Thành tố “Kênh truyền thông và phân phối” trong Mô hình kinh doanh Canvas có nội dung chính là gì?",
-    options: [
-      "Mô tả cách thức doanh nghiệp truyền thông và tiếp cận các phân khúc khách hàng để xây dựng thương hiệu với họ.",
-      "Mô tả cách thức doanh nghiệp truyền thông và tiếp cận các phân khúc khách hàng để sản xuất hàng hóa, dịch vụ cho họ.",
-      "Mô tả cách thức doanh nghiệp truyền thông và tiếp cận các phân khúc khách hàng để xây dựng lòng tin với họ.",
-      "Mô tả cách thức doanh nghiệp truyền thông và tiếp cận các phân khúc khách hàng để chuyển giao giá trị cho họ."
-    ],
-    correctIndex: 3,
-    explanation: "Kênh (Channels) mô tả cách thức doanh nghiệp giao tiếp, tiếp cận và chuyển giao giá trị tới khách hàng."
-  },
-  {
-    question: "Thời điểm nào là thích hợp nhất để xác định mô hình kinh doanh?",
-    options: [
-      "Sau khi đã đánh giá được tính khả thi của cơ hội kinh doanh và trước khi chuẩn bị kế hoạch kinh doanh.",
-      "Trước khi đánh giá được tính khả thi của cơ hội kinh doanh và sau khi chuẩn bị kế hoạch kinh doanh.",
-      "Trước khi đã đánh giá được tính khả thi của cơ hội kinh doanh và trước khi chuẩn bị kế hoạch kinh doanh.",
-      "Sau khi đã đánh giá được tính khả thi của cơ hội kinh doanh và sau khi chuẩn bị kế hoạch kinh doanh."
+      "Tối ưu hóa quy mô, giảm thiểu rủi ro, và tiếp cận các nguồn lực/hoạt động mà doanh nghiệp không tự làm.",
+      "Giúp doanh nghiệp không cần phải làm bất cứ việc gì.",
+      "Đảm bảo doanh nghiệp luôn có lãi 100%.",
+      "Giúp né tránh việc kiểm toán tài chính."
     ],
     correctIndex: 0,
-    explanation: "Thời điểm thích hợp nhất: Sau khi đánh giá tính khả thi của cơ hội và trước khi bắt tay viết kế hoạch kinh doanh chi tiết."
+    explanation: "Key Partnerships giúp tối ưu hóa, giảm thiểu rủi ro và tận dụng nguồn lực bên ngoài."
   },
   {
-    question: "Mô hình kinh doanh theo kiểu Thuê bao là gì?",
+    question: "Thành tố “Cơ cấu chi phí” (Cost Structure) bao gồm những loại chi phí chính nào?",
     options: [
-      "Là mô hình kinh doanh trong đó khách hàng đăng ký và nhận sản phẩm (hàng hóa hoặc dịch vụ) theo nhu cầu.",
-      "Là mô hình kinh doanh trong đó khách hàng đăng ký và nhận sản phẩm (hàng hóa hoặc dịch vụ) theo khả năng thanh toán.",
-      "Là mô hình kinh doanh trong đó khách hàng đăng ký và nhận sản phẩm (hàng hóa hoặc dịch vụ) theo chủng loại.",
-      "Là mô hình kinh doanh trong đó khách hàng đăng ký và nhận sản phẩm (hàng hóa hoặc dịch vụ) theo định kỳ về thời gian"
+      "Chi phí cố định (Fixed Costs) và Chi phí biến đổi (Variable Costs).",
+      "Chỉ có chi phí mặt bằng.",
+      "Chỉ có tiền thưởng cuối năm cho nhân viên.",
+      "Tiền phạt giao thông của đội xe."
     ],
-    correctIndex: 3,
-    explanation: "Mô hình thuê bao (Subscription) cung cấp sản phẩm/dịch vụ đều đặn theo chu kỳ thời gian (tháng/năm)."
+    correctIndex: 0,
+    explanation: "Cơ cấu chi phí gồm chi phí cố định (mặt bằng, lương cơ bản) và biến đổi (nguyên vật liệu, hoa hồng)."
   },
   {
-    question: "Mô hình kinh doanh theo kiểu Freemium là gì?",
+    question: "Nhóm các thành tố thuộc nửa bên PHẢI của mô hình Canvas đại diện cho điều gì?",
     options: [
-      "Là mô hình kinh doanh trong đó phiên bản cơ bản của sản phẩm được cung cấp với phí thấp, còn phiên bản nâng cao được tính phí cao.",
-      "Là mô hình kinh doanh trong đó phiên bản cơ bản của sản phẩm được cung cấp với giá cạnh tranh, còn phiên bản nâng cao được tính phí cao.",
-      "Là mô hình kinh doanh trong đó phiên bản cơ bản của và nâng cao của sản phẩm được cung cấp với giá cạnh tranh.",
-      "Là mô hình kinh doanh trong đó phiên bản cơ bản của sản phẩm được cung cấp miễn phí, còn phiên bản nâng cao được tính phí."
-    ],
-    correctIndex: 3,
-    explanation: "Freemium = Free (bản cơ bản miễn phí) + Premium (bản nâng cao thu phí)."
-  },
-  {
-    question: "Các giai đoạn trong thành tố “Kênh truyền thông và phân phối” của Mô hình kinh doanh Canvas có nội dung chính là gì?",
-    options: [
-      "Nhận biết - Thanh toán - Đánh giá - Chuyển giao - Sau bán hàng.",
-      "Nhận biết - Đánh giá - Thanh toán - Chuyển giao - Sau bán hàng.",
-      "Nhận biết - Đánh giá - Chuyển giao - Thanh toán - Sau bán hàng.",
-      "Đánh giá - Nhận biết - Thanh toán - Chuyển giao - Sau bán hàng."
+      "Hậu trường sản xuất và chi phí nội bộ.",
+      "Thị trường, khách hàng, giá trị chuyển giao và doanh thu (Mặt trước - Front Stage).",
+      "Pháp lý và quản trị nhân sự.",
+      "Công nghệ thông tin và lưu trữ dữ liệu."
     ],
     correctIndex: 1,
-    explanation: "5 giai đoạn của Kênh: 1. Nhận biết (Awareness) -> 2. Đánh giá (Evaluation) -> 3. Thanh toán/Mua (Purchase) -> 4. Chuyển giao (Delivery) -> 5. Sau bán hàng (After sales)."
+    explanation: "Nửa phải BMC hướng ra thị trường (Khách hàng, Kênh, Quan hệ, Giá trị, Doanh thu)."
   },
   {
-    question: "Thành tố “Các đối tác chính” trong Mô hình kinh doanh Canvas có nội dung chính là gì?",
+    question: "Nhóm các thành tố thuộc nửa bên TRÁI của mô hình Canvas đại diện cho điều gì?",
     options: [
-      "Mô tả mạng lưới các nhà cung ứng và đối tác cần có để kế hoạch kinh doanh hoạt động.",
-      "Mô tả mạng lưới các nhà cung ứng và đối tác cần có để ý tưởng kinh doanh hoạt động.",
-      "Mô tả mạng lưới các nhà cung ứng và đối tác cần có để mô hình kinh doanh hoạt động.",
-      "Mô tả mạng lưới các nhà cung ứng và đối tác cần có để chiến lược kinh doanh hoạt động."
+      "Hiệu quả vận hành, nguồn lực, hoạt động, đối tác và chi phí (Hậu trường - Back Stage).",
+      "Quảng cáo trên mạng xã hội.",
+      "Tâm lý học hành vi khách hàng.",
+      "Chính sách ngoại giao quốc tế."
+    ],
+    correctIndex: 0,
+    explanation: "Nửa trái BMC là hậu trường vận hành (Nguồn lực, Hoạt động, Đối tác, Chi phí)."
+  },
+  {
+    question: "Theo nghiên cứu của Oliver Gassmann và cộng sự (2014), có bao nhiêu mô hình kinh doanh mẫu?",
+    options: [
+      "10 mô hình.",
+      "33 mô hình.",
+      "55 mô hình kinh doanh.",
+      "99 mô hình."
     ],
     correctIndex: 2,
-    explanation: "Đối tác chính (Key Partnerships) mô tả mạng lưới nhà cung ứng và đối tác cần thiết để mô hình kinh doanh vận hành."
+    explanation: "Gassmann và cộng sự tại Đại học St. Gallen tổng kết 55 mô hình kinh doanh mẫu (The Business Model Navigator)."
   },
   {
-    question: "Thành tố “Các nguồn lực chính” trong Mô hình kinh doanh Canvas có nội dung chính là gì?",
+    question: "Theo Gassmann, hơn 90% các mô hình kinh doanh mới thực chất là:",
     options: [
-      "Mô tả những tài sản quan trọng nhất cần phải có để kế hoạch kinh doanh hoạt động.",
-      "Mô tả những tài sản quan trọng nhất cần phải có để ý tưởng kinh doanh hoạt động.",
-      "Mô tả những tài sản quan trọng nhất cần phải có để chiến lược kinh doanh hoạt động.",
-      "Mô tả những tài sản quan trọng nhất cần phải có để mô hình kinh doanh hoạt động."
-    ],
-    correctIndex: 3,
-    explanation: "Nguồn lực chính (Key Resources) là các tài sản quan trọng nhất (nhân lực, tài chính, trí tuệ, vật chất) để vận hành mô hình."
-  },
-  {
-    question: "Những thành tố trong công cụ Mô hình kinh doanh Canvas là gì và thứ tự phân tích ra sao?",
-    options: [
-      "Phân khúc khách hàng - 2. Đề xuất giá trị - 3. Kênh truyền thông và phân phối - 4. Quan hệ khách hàng - 5. Dòng doanh thu - 6. Hoạt động chính - 7. Nguồn lực chính - 8. Đối tác chính - 9. Chi phí.",
-      "Phân khúc khách hàng - 2. Đề xuất giá trị - 3. Kênh truyền thông và phân phối - 4. Quan hệ khách hàng - 5. Dòng doanh thu - 6. Nguồn lực chính - 7. Hoạt động chính - 8. Đối tác chính - 9. Chi phí.",
-      "Phân khúc khách hàng - 2. Đề xuất giá trị - 3. Kênh truyền thông và phân phối - 4. Quan hệ khách hàng - 5. Dòng doanh thu - 6. Nguồn lực chính - 7. Đối tác chính - 8. Hoạt động chính - 9. Chi phí.",
-      "Phân khúc khách hàng - 2. Đề xuất giá trị - 3. Kênh truyền thông và phân phối - 4. Quan hệ khách hàng - 5. Dòng doanh thu - 6. Hoạt động chính - 7. Đối tác chính - 8. Nguồn lực chính - 9. Chi phí."
+      "Phát minh hoàn toàn mới chưa từng có trong lịch sử nhân loại.",
+      "Sự tái kết hợp (Recombination) hoặc áp dụng các mô hình đã có sang một ngành/bối cảnh mới.",
+      "Sự sao chép bất hợp pháp.",
+      "Các mô hình do trí tuệ nhân tạo tự động tạo ra."
     ],
     correctIndex: 1,
-    explanation: "Thứ tự phân tích chuẩn: 1. Khách hàng -> 2. Giá trị -> 3. Kênh -> 4. Quan hệ -> 5. Doanh thu -> 6. Nguồn lực -> 7. Hoạt động -> 8. Đối tác -> 9. Chi phí."
+    explanation: "Hơn 90% đổi mới mô hình kinh doanh là tái kết hợp các thành tố mẫu sang ngành nghề mới."
   },
   {
-    question: "Mô hình kinh doanh theo kiểu ‘Bán hàng bổ sung’ là gì?",
+    question: "Mô hình kinh doanh “Freemium” (Free + Premium) hoạt động như thế nào?",
     options: [
-      "Là mô hình kinh doanh trong đó tính năng cơ bản được miễn phí; các tính năng bổ sung hay mở rộng phù hợp với nhu cầu cụ thể của khách hàng được chi trả thêm.",
-      "Là mô hình kinh doanh trong đó tính năng cơ bản được bán với giá cạnh tranh; các tính năng bổ sung hay mở rộng phù hợp với nhu cầu cụ thể của khách hàng được chi trả thêm.",
-      "Là mô hình kinh doanh trong đó tính năng cơ bản được bán với giá cao; các tính năng bổ sung hay mở rộng phù hợp với nhu cầu cụ thể của khách hàng được miễn phí.",
-      "Là mô hình kinh doanh trong đó tính năng cơ bản được bán với giá cao; các tính năng bổ sung hay mở rộng phù hợp với nhu cầu cụ thể của khách hàng được chi trả với giá cạnh tranh."
+      "Tất cả mọi người đều được dùng miễn phí vĩnh viễn không giới hạn.",
+      "Cung cấp gói dịch vụ cơ bản miễn phí cho số đông, và thu phí các tính năng nâng cao (Premium) từ một nhóm người dùng sẵn sàng trả tiền.",
+      "Bắt buộc người dùng trả tiền trước khi tải ứng dụng.",
+      "Bán hàng với giá 0 đồng và nhận tiền từ từ thiện."
     ],
     correctIndex: 1,
-    explanation: "Bán hàng bổ sung (Add-on): sản phẩm cơ bản bán giá cạnh tranh; tính năng mở rộng theo nhu cầu được tính phí thêm."
+    explanation: "Freemium: Phiên bản cơ bản miễn phí để thu hút người dùng; thu phí phiên bản nâng cao (Spotify, Canva...)."
   },
   {
-    question: "Theo Gassmann và cộng sự (2014) thì có tất cả bao nhiêu loại mô hình kinh doanh và mỗi mô hình nhấn mạnh tới điều gì?",
+    question: "Mô hình kinh doanh “Dao cạo & Lưỡi dao” (Razor and Blade / Bait and Hook) là gì?",
     options: [
-      "55 mô hình kinh doanh, mỗi mô hình nhấn mạnh tất cả các thành tố vì chúng có tầm quan trọng như nhau.",
-      "55 mô hình kinh doanh, mỗi mô hình nhấn mạnh đến một hoặc một vài thành tố quan trọng hơn so với các thành tố khác.",
-      "55 mô hình kinh doanh, mỗi mô hình nhấn mạnh đến các thành tố liên quan tới khách hàng vì chúng là quan trọng nhất.",
-      "55 mô hình kinh doanh, mỗi mô hình nhấn mạnh đến các thành tố liên quan tới đề xuất giá trị vì chúng là quan trọng nhất."
+      "Bán sản phẩm chính với giá rất rẻ hoặc lỗ (Dao cạo), và kiếm lợi nhuận lớn từ việc bán các phụ kiện/vật tư tiêu hao liên tục đi kèm (Lưỡi dao).",
+      "Bán dao cạo râu trực tuyến.",
+      "Tặng miễn phí phụ kiện và bán thân máy giá cắt cổ.",
+      "Chỉ bán hàng cho thợ cắt tóc."
+    ],
+    correctIndex: 0,
+    explanation: "Bait and Hook / Razor-Blade: Bán thiết bị rẻ (máy in, máy pha cà phê capsule) và thu lợi nhuận từ vật tư tiêu hao định kỳ."
+  },
+  {
+    question: "Mô hình kinh doanh “Kinh tế chia sẻ / Nền tảng hai mặt” (Two-Sided Platform) như Grab, Airbnb hoạt động ra sao?",
+    options: [
+      "Tự mua hàng nghìn xe ô tô và khách sạn để cho thuê.",
+      "Đóng vai trò trung gian kết nối giữa người có tài sản nhàn rỗi (tài xế, chủ nhà) và người có nhu cầu sử dụng, thu phí giao dịch.",
+      "Chỉ sản xuất phần mềm bán đứt bản quyền.",
+      "Kinh doanh dịch vụ vận tải truyền thống."
     ],
     correctIndex: 1,
-    explanation: "Có 55 mô hình kinh doanh; mỗi mô hình nhấn mạnh đến một hoặc một vài thành tố trọng điểm."
+    explanation: "Nền tảng kết nối trực tiếp cung - cầu nhàn rỗi trên không gian số để hưởng hoa hồng giao dịch."
   },
   {
-    question: "Trong phân tích mô hình kinh doanh của các quán trà đá vỉa hè, nội dung “nước giải khát, thuốc lá, bánh kẹo, ghế và chỗ ngồi” làm bạn suy nghĩ tới thành tố nào trong Mô hình kinh doanh Canvas?",
+    question: "Mô hình kinh doanh “Thuê bao” (Subscription) có đặc điểm nổi bật nào?",
+    options: [
+      "Khách hàng trả tiền định kỳ (hàng tháng/năm) để được quyền truy cập và sử dụng sản phẩm/dịch vụ liên tục.",
+      "Khách hàng mua đứt sản phẩm một lần duy nhất.",
+      "Khách hàng chỉ trả tiền khi nào đến cửa hàng trực tiếp.",
+      "Doanh nghiệp không có nguồn thu ổn định."
+    ],
+    correctIndex: 0,
+    explanation: "Subscription tạo dòng doanh thu định kỳ có thể dự đoán trước (Netflix, Microsoft 365...)."
+  },
+  {
+    question: "Mô hình “Khử trung gian” (Disintermediation / Direct-to-Consumer - D2C) mang lại lợi ích gì?",
+    options: [
+      "Nhà sản xuất bán hàng thẳng tới tay người tiêu dùng cuối, loại bỏ các khâu đại lý trung gian, giảm giá bán và tăng biên lợi nhuận.",
+      "Tăng thêm nhiều cấp đại lý bán lẻ.",
+      "Làm chậm thời gian giao hàng.",
+      "Không tiếp cận được ý kiến phản hồi của khách hàng."
+    ],
+    correctIndex: 0,
+    explanation: "D2C cắt giảm tầng nấc trung gian để tối ưu giá thành và trực tiếp kiểm soát trải nghiệm khách hàng."
+  },
+  {
+    question: "Trong phân tích quán cà phê vỉa hè, bàn ghế nhựa, ấm nước, phin pha cà phê thuộc thành tố nào của BMC?",
     options: [
       "Đối tác chính.",
-      "Đề xuất giá trị.",
+      "Nguồn lực chính (Key Resources - Tài sản vật chất).",
       "Phân khúc khách hàng.",
-      "Nguồn lực chính."
+      "Dòng doanh thu."
     ],
-    correctIndex: 3,
-    explanation: "Bàn ghế, nước giải khát, địa điểm vỉa hè là Nguồn lực vật chất chính (Key Resources) để vận hành quán trà đá."
+    correctIndex: 1,
+    explanation: "Bàn ghế, dụng cụ pha chế là nguồn lực vật chất cần thiết để vận hành quán."
+  },
+  {
+    question: "Khái niệm “Đổi mới sáng tạo mô hình kinh doanh” (Business Model Innovation) nghĩa là:",
+    options: [
+      "Thay đổi cách thức doanh nghiệp tạo ra, chuyển giao và thu nhận giá trị bằng cách đổi mới một hoặc nhiều thành tố trong mô hình.",
+      "Chỉ thay đổi bao bì sản phẩm.",
+      "Thay đổi địa chỉ trụ sở công ty.",
+      "Đổi font chữ trên website."
+    ],
+    correctIndex: 0,
+    explanation: "ĐMST mô hình kinh doanh là sự thay đổi mang tính cấu trúc ở các khối thành tố nhằm tạo lợi thế cạnh tranh mới."
+  },
+  {
+    question: "Thành tố “Đối tác chính” trong mô hình kinh doanh của chuỗi cửa hàng tiện lợi nhượng quyền (Franchise) thường là:",
+    options: [
+      "Các đối tác nhận nhượng quyền (Franchisees) và nhà phân phối chuỗi cung ứng.",
+      "Khách hàng mua nước ngọt.",
+      "Cơ quan thuế địa phương.",
+      "Nhân viên bảo vệ giữ xe."
+    ],
+    correctIndex: 0,
+    explanation: "Trong mô hình Franchise, các bên nhận quyền và mạng lưới logistics là đối tác sống còn."
+  },
+  {
+    question: "Sự khác biệt cốt lõi giữa Kế hoạch kinh doanh (Business Plan) và Mô hình kinh doanh (Business Model) là:",
+    options: [
+      "Mô hình kinh doanh là bản thiết kế logic về cách tạo giá trị, còn Kế hoạch kinh doanh là lộ trình hành động và dự toán tài chính chi tiết để thực thi mô hình đó.",
+      "Kế hoạch kinh doanh không bao giờ thay đổi, mô hình kinh doanh thay đổi hàng ngày.",
+      "Mô hình kinh doanh chỉ dành cho công ty phá sản.",
+      "Hai văn bản này là một."
+    ],
+    correctIndex: 0,
+    explanation: "Mô hình kinh doanh là bản thiết kế logic cốt lõi; Kế hoạch kinh doanh là kế hoạch chi tiết triển khai mô hình."
+  },
+  {
+    question: "Mô hình kinh doanh theo kiểu ‘Bán hàng bổ sung’ (Add-on) là gì?",
+    options: [
+      "Là mô hình kinh doanh trong đó tính năng cơ bản được miễn phí; các tính năng bổ sung được chi trả thêm.",
+      "Là mô hình kinh doanh trong đó sản phẩm/tính năng cơ bản được bán với giá cạnh tranh; các tính năng hoặc phụ kiện bổ sung phù hợp nhu cầu cụ thể được tính phí thêm.",
+      "Là mô hình chỉ bán hàng cũ đã qua sử dụng.",
+      "Là mô hình bắt buộc mua kèm toàn bộ phụ kiện đắt tiền."
+    ],
+    correctIndex: 1,
+    explanation: "Add-on (như hãng hàng không giá rẻ Vietjet, Ryanair): vé cơ bản giá rẻ, hành lý ký gửi/chỗ ngồi/suất ăn thu thêm phí."
+  },
+  {
+    question: "Theo Gassmann và cộng sự (2014), yếu tố cốt lõi để đổi mới sáng tạo mô hình kinh doanh là gì?",
+    options: [
+      "Sử dụng một mô hình kinh doanh trong một bối cảnh/ngành nghề mà nó chưa từng được sử dụng trước đây.",
+      "Bắt chước 100% đối thủ cùng ngành.",
+      "Tăng giá bán sản phẩm lên gấp 10 lần.",
+      "Cắt giảm toàn bộ chi phí chăm sóc khách hàng."
+    ],
+    correctIndex: 0,
+    explanation: "Chuyển dịch mô hình đã thành công ở ngành này sang ngành nghề khác là bí quyết đổi mới mô hình hiệu quả nhất."
   },
   {
     question: "Những thành tố thuộc nhóm tạo ra “Chi phí” trong Mô hình kinh doanh Canvas là gì?",
     options: [
-      "Quan hệ khách hàng - Hoạt động chính - Đối tác chính.",
-      "Kênh truyền thông và phân phối - Hoạt động chính - Đối tác chính.",
-      "Đề xuất giá trị - Hoạt động chính - Đối tác chính.",
-      "Nguồn lực chính - Hoạt động chính - Đối tác chính."
-    ],
-    correctIndex: 3,
-    explanation: "Nhóm phát sinh chi phí phía sau hậu trường: Nguồn lực chính + Hoạt động chính + Đối tác chính."
-  },
-  {
-    question: "Thành tố \"Phân khúc khách hàng\" trong Mô hình kinh doanh Canvas có nội dung chính là gì?",
-    options: [
-      "Những nhóm đối thủ mà doanh nghiệp muốn cạnh tranh.",
-      "Những nhóm cá nhân mà doanh nghiệp muốn tuyển dụng.",
-      "Những nhóm cá nhân hoặc tổ chức mà doanh nghiệp muốn tiếp cận và phục vụ.",
-      "Những nhóm đối tác mà doanh nghiệp muốn tiếp cận và hợp tác."
-    ],
-    correctIndex: 2,
-    explanation: "Phân khúc khách hàng mô tả các nhóm đối tượng (cá nhân/tổ chức) mà doanh nghiệp hướng đến phục vụ."
-  },
-  {
-    question: "Theo Gassmann và cộng sự (2014) thì yếu tố cốt lõi để đổi mới sáng tạo mô hình kinh doanh là gì?",
-    options: [
-      "Sử dụng một mô hình kinh doanh trong một bối cảnh mà nó chưa từng được sử dụng trước đây.",
-      "Sử dụng tất cả 55 mô hình kinh doanh đã có vào mô hình kinh doanh của bạn.",
-      "Sử dụng nguyên bản một vài mô hình kinh doanh trong số 55 mô hình kinh doanh đã có vào mô hình kinh doanh của bạn.",
-      "Sử dụng nguyên bản tất cả 55 mô hình kinh doanh đã có để xây dựng một mô hình kinh doanh hoàn toàn mới."
+      "Nguồn lực chính - Hoạt động chính - Đối tác chính.",
+      "Phân khúc khách hàng - Kênh phân phối - Quan hệ khách hàng.",
+      "Đề xuất giá trị - Dòng doanh thu - Đối tác chính.",
+      "Kênh truyền thông - Khách hàng - Cơ cấu chi phí."
     ],
     correctIndex: 0,
-    explanation: "Yếu tố cốt lõi của đổi mới sáng tạo mô hình: Áp dụng một mô hình đã có vào một ngành/bối cảnh mới mà nó chưa từng xuất hiện."
+    explanation: "Chi phí phát sinh chủ yếu từ việc duy trì Nguồn lực chính, triển khai Hoạt động chính và hợp tác với Đối tác chính."
+  },
+  {
+    question: "Thành tố “Phân khúc khách hàng” trong Canvas có nội dung chính là gì?",
+    options: [
+      "Những nhóm cá nhân hoặc tổ chức mà doanh nghiệp muốn tiếp cận và phục vụ.",
+      "Những đối thủ cạnh tranh mà doanh nghiệp muốn tiêu diệt.",
+      "Những nhà đầu tư tiềm năng trong tương lai.",
+      "Các cơ quan ban ngành quản lý nhà nước."
+    ],
+    correctIndex: 0,
+    explanation: "Phân khúc khách hàng xác định rõ nhóm khách hàng mục tiêu mà doanh nghiệp kiến tạo giá trị."
+  },
+  {
+    question: "Tại sao doanh nghiệp cần xác định rõ “Đề xuất giá trị độc nhất” (Unique Value Proposition - UVP)?",
+    options: [
+      "Để khách hàng hiểu ngay lý do vì sao họ nên chọn mua sản phẩm của bạn thay vì chọn đối thủ cạnh tranh.",
+      "Để in lên danh thiếp cho đẹp mắt.",
+      "Để nhân viên thuộc lòng trong giờ chào cờ.",
+      "Để thỏa mãn yêu cầu của ngân hàng cho vay vốn."
+    ],
+    correctIndex: 0,
+    explanation: "UVP nêu bật lý do khách hàng nên chọn bạn vì giải pháp vượt trội và khác biệt rõ ràng so với đối thủ."
   }
 ];
 
-// Helper gom và định danh câu hỏi
+const ALL_STARTUP_QUESTIONS = [
+  ...RAW_QUESTIONS_CH1,
+  ...RAW_QUESTIONS_CH2,
+  ...RAW_QUESTIONS_CH3
+];
+
 function formatQuestionList(rawList, prefix = "Câu") {
   return rawList.map((q, idx) => ({
     id: idx + 1,
@@ -957,24 +962,14 @@ function formatQuestionList(rawList, prefix = "Câu") {
   }));
 }
 
-// Gom toàn bộ 71 câu từ 3 chương
-const ALL_71_QUESTIONS = [
-  ...RAW_QUESTIONS_CH1,
-  ...RAW_QUESTIONS_CH2,
-  ...RAW_QUESTIONS_CH3
-];
-
-// ---------------------------------------------------------
-// 3. DANH SÁCH 5 MÃ ĐỀ LUYỆN TẬP
-// ---------------------------------------------------------
-const EXAMS_DATA = {
+const EXAMS_DATA_STARTUP = {
   1: {
     id: 1,
     code: "FULL-71",
     title: "Đề Thi 01 - Đề Tổng Hợp Toàn Diện (Full 71 Câu)",
     description: "Bộ đề 71 câu trắc nghiệm bao quát toàn bộ 3 chương Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo.",
     timePerQuestion: 20,
-    questions: formatQuestionList(ALL_71_QUESTIONS, "Câu")
+    questions: formatQuestionList(ALL_STARTUP_QUESTIONS, "Câu")
   },
   2: {
     id: 2,
@@ -1006,6 +1001,578 @@ const EXAMS_DATA = {
     title: "Đề Thi 05 - Đề Thi Thử Cuối Kỳ Chuẩn (71 Câu)",
     description: "Bộ đề thi thử cuối kỳ xáo trộn ngẫu nhiên tất cả các chương giúp rèn luyện phản xạ và thuộc bài 100%.",
     timePerQuestion: 20,
-    questions: formatQuestionList(ALL_71_QUESTIONS, "Đề Thi")
+    questions: formatQuestionList(ALL_STARTUP_QUESTIONS, "Đề Thi")
   }
 };
+
+
+// =========================================================
+// MÔN 2: TIẾNG ANH CHUYÊN NGÀNH LOGISTICS (TỪ FILE english 4 log.docx)
+// =========================================================
+
+// 2.1 CẨM NANG LÝ THUYẾT & TỪ VỰNG CHUYÊN NGÀNH (Bám sát 33 câu trong đề)
+const THEORY_DATA_LOGISTICS = [
+  {
+    chapter: 1,
+    title: "Chuyên Đề 1. Logistics Entities & Supply Chain Roles",
+    icon: "fa-solid fa-users-gear",
+    content: String.raw`
+      <div class="theory-section">
+        <h3>1. Key Entities in Freight & Transportation</h3>
+        <ul>
+          <li><strong>Haulage contractor (Haulier):</strong> A company which carries goods by road (nhà thầu vận tải đường bộ).</li>
+          <li><strong>Freight forwarder:</strong> A person or business that arranges documentation and travel facilities for companies dispatching goods to customers (đại lý giao nhận vận tải).</li>
+          <li><strong>Consignee:</strong> The person or firm named in a freight contract to whom the goods have been shipped (người nhận hàng được chỉ định).</li>
+          <li><strong>Courier:</strong> A company that specialises in the speedy and secure delivery of small goods and packages (công ty chuyển phát nhanh bưu phẩm).</li>
+          <li><strong>Supplier / Vendor:</strong> A company which supplies parts, raw materials, or services to another company (nhà cung ứng).</li>
+          <li><strong>Wholesaler:</strong> An intermediary between manufacturers and retailers which buys in large quantities and resells in smaller quantities (nhà bán buôn / đại lý phân phối sỉ).</li>
+        </ul>
+      </div>
+    `
+  },
+  {
+    chapter: 2,
+    title: "Chuyên Đề 2. Logistics Operations & Inventory Systems",
+    icon: "fa-solid fa-warehouse",
+    content: String.raw`
+      <div class="theory-section">
+        <h3>1. Core Operational Concepts</h3>
+        <ul>
+          <li><strong>LCL (Less than Container Load):</strong> Consignments of cargo that do not fill a complete standard shipping container (hàng lẻ đóng ghép container).</li>
+          <li><strong>Cross-docking:</strong> The direct flow of goods from receipt at the warehouse to outbound shipping, completely bypassing long-term storage (trung chuyển trực tiếp tại sàn kho).</li>
+          <li><strong>Order picking:</strong> The selecting and assembling of items from inventory stock to fulfill customer shipments (nhặt hàng theo đơn).</li>
+          <li><strong>Reverse logistics:</strong> The collecting and handling of used or damaged goods, or of reusable transit equipment (logistics thu hồi / xử lý hàng lỗi & tái chế).</li>
+          <li><strong>Lead time:</strong> The time it takes to produce and supply a product (thời gian hoàn thành chu trình cung ứng).</li>
+          <li><strong>Procurement:</strong> The purchasing of materials, parts, supplies and equipment required to run an enterprise (hoạt động mua sắm / thu mua).</li>
+          <li><strong>VMI (Vendor-Managed Inventory):</strong> A system where inventory is monitored, planned and managed by the manufacturer on behalf of the customer/retailer (quản lý tồn kho bởi nhà cung cấp).</li>
+          <li><strong>JIT (Just-in-Time):</strong> Philosophy aiming at reducing inventories by co-ordinating delivery of materials just before they are needed in production (mô hình đúng lúc, tối ưu hóa tồn kho).</li>
+          <li><strong>Intermodal transport:</strong> Goods are carried in the same loading unit (e.g. container) using different modes (rail, road, sea), and the freight itself is not handled when the mode changes (vận tải kết hợp / đa phương thức).</li>
+        </ul>
+      </div>
+    `
+  },
+  {
+    chapter: 3,
+    title: "Chuyên Đề 3. Business Quotations & Offer Sentence Structures",
+    icon: "fa-solid fa-file-invoice-dollar",
+    content: String.raw`
+      <div class="theory-section">
+        <h3>1. Standard Business English Patterns in Logistics Quotations</h3>
+        <div class="formula-box">
+          <p><strong>1. Đính kèm bảng báo giá theo yêu cầu:</strong><br>
+          <em>"Please find attached our quotation according to your request for three new products."</em></p>
+          
+          <p><strong>2. Cách tính giá dựa trên dự báo tiêu thụ:</strong><br>
+          <em>"Our prices are calculated on the basis of your forecast of annual consumption figures."</em></p>
+          
+          <p><strong>3. Ưu đãi chiết khấu theo thời hạn hợp đồng:</strong><br>
+          <em>"For a contract term of at least two years, we can offer you a discount of 2.5%."</em></p>
+          
+          <p><strong>4. Danh sách giá niêm yết theo cột:</strong><br>
+          <em>"In the attached quotation sheet, all prices have been listed in columns according to your requirements."</em></p>
+          
+          <p><strong>5. Chiết khấu theo số lượng đơn hàng:</strong><br>
+          <em>"If your order exceeds 2,000 items, we can offer you a further 10% discount."</em></p>
+          
+          <p><strong>6. Cam kết thời gian giao hàng sau khi nhận đơn:</strong><br>
+          <em>"We would be able to deliver within 10 days of receipt of order."</em></p>
+        </div>
+      </div>
+    `
+  },
+  {
+    chapter: 4,
+    title: "Chuyên Đề 4. Grammar in Logistics: Passive Voice & Comparisons",
+    icon: "fa-solid fa-spell-check",
+    content: String.raw`
+      <div class="theory-section">
+        <h3>1. Câu Bị Động (Passive Voice) Trong Quy Trình Logistics</h3>
+        <ul>
+          <li><strong>Hiện tại đơn (Present Simple Passive - is/are + V3):</strong><br>
+          <em>"Sales information is transferred to the CRP computer system as soon as the item is scanned at the point of sale."</em><br>
+          <em>"Orders are generated automatically on the basis of the data received from the cash register."</em></li>
+          <li><strong>Quá khứ đơn (Past Simple Passive - was/were + V3):</strong><br>
+          <em>"Last Friday the consignment was delivered to the retail outlet by barge."</em></li>
+          <li><strong>Quá khứ hoàn thành (Past Perfect Passive - had been + V3):</strong><br>
+          <em>"When the inspector arrived, the dangerous goods had already been packed and labelled."</em></li>
+          <li><strong>Tương lai đơn (Future Simple Passive - will be + V3):</strong><br>
+          <em>"Your order will be shipped within six days of the purchase order."</em></li>
+          <li><strong>Hiện tại tiếp diễn (Present Continuous Passive - is/are being + V3):</strong><br>
+          <em>"Please note that the reefer containers are being loaded at the terminal at the moment."</em></li>
+        </ul>
+
+        <h3>2. Cấu Trúc So Sánh Phương Thức Vận Tải (Modes Comparison)</h3>
+        <div class="formula-box">
+          <ul>
+            <li><strong>Long → longer:</strong> <em>"Normally the voyage takes about six days by barge, but it often takes longer if the weather is bad."</em></li>
+            <li><strong>Cheap → the cheapest:</strong> <em>"Inland waterway transport is cheap — in fact it is the cheapest of all the transport options."</em></li>
+            <li><strong>High → higher:</strong> <em>"It would only take four days to ship by truck, but the cost would be about 50% higher than by barge."</em></li>
+            <li><strong>Fast → faster:</strong> <em>"Rail would definitely be faster than the truck option if we use the express service."</em></li>
+            <li><strong>Expensive → more expensive:</strong> <em>"Unfortunately, the express train would also be more expensive than shipping by road."</em></li>
+            <li><strong>Bad → worse:</strong> <em>"Their transit times have improved, but their documentation service is still worse than ours."</em></li>
+          </ul>
+        </div>
+      </div>
+    `
+  }
+];
+
+// 2.2 TOÀN BỘ 33 CÂU HỎI TRẮC NGHIỆM CHUẨN XÁC TỪ FILE english 4 log.docx
+const RAW_QUESTIONS_LOGISTICS = [
+  {
+    question: "A ______ is a company which carries goods by road.",
+    options: [
+      "courier",
+      "consignee",
+      "haulage contractor",
+      "wholesaler"
+    ],
+    correctIndex: 2,
+    explanation: "Haulage contractor (nhà thầu vận tải đường bộ) là công ty chuyên vận chuyển hàng hóa bằng đường bộ."
+  },
+  {
+    question: "A ______ is a person or business that arranges documentation and travel facilities for companies dispatching goods to customers.",
+    options: [
+      "carrier",
+      "supplier",
+      "retailer",
+      "freight forwarder"
+    ],
+    correctIndex: 3,
+    explanation: "Freight forwarder (công ty giao nhận vận tải) là cá nhân/doanh nghiệp sắp xếp chứng từ và thủ tục vận chuyển cho các công ty gửi hàng."
+  },
+  {
+    question: "The person or firm named in a freight contract to whom the goods have been shipped is the ______.",
+    options: [
+      "shipper",
+      "consignee",
+      "hauler",
+      "vendor"
+    ],
+    correctIndex: 1,
+    explanation: "Consignee (người nhận hàng) là người/tổ chức được ghi tên trong hợp đồng vận chuyển là bên nhận hàng hóa."
+  },
+  {
+    question: "A company that specialises in the speedy and secure delivery of small goods and packages is a ______.",
+    options: [
+      "courier",
+      "barge operator",
+      "distributor",
+      "forwarder"
+    ],
+    correctIndex: 0,
+    explanation: "Courier (công ty chuyển phát nhanh) chuyên giao nhận nhanh chóng và an toàn các kiện hàng nhỏ và bưu phẩm."
+  },
+  {
+    question: "A company which supplies parts or services to another company is a supplier, also called a ______.",
+    options: [
+      "consignee",
+      "carrier",
+      "vendor",
+      "client"
+    ],
+    correctIndex: 2,
+    explanation: "Vendor (nhà cung cấp) là thuật ngữ tương đương với supplier, cung cấp linh kiện hoặc dịch vụ cho công ty khác."
+  },
+  {
+    question: "In the acronym LCL, the letters stand for ______.",
+    options: [
+      "Low Cost Logistics",
+      "Less than Container Load",
+      "Loaded Container Line",
+      "Local Cargo Logistics"
+    ],
+    correctIndex: 1,
+    explanation: "LCL viết tắt của 'Less than Container Load' (hàng lẻ không đủ đóng nguyên một container)."
+  },
+  {
+    question: "______ means the direct flow of goods from receipt at the warehouse to shipping, bypassing storage.",
+    options: [
+      "Cross-docking",
+      "Order picking",
+      "Transhipment",
+      "Consolidation"
+    ],
+    correctIndex: 0,
+    explanation: "Cross-docking là quy trình chuyển hàng trực tiếp từ cửa nhận sang cửa xuất kho mà không lưu kho lâu dài."
+  },
+  {
+    question: "______ is the selecting and assembling of items from stock for shipment.",
+    options: [
+      "Tracking",
+      "Warehousing",
+      "Kitting",
+      "Order picking"
+    ],
+    correctIndex: 3,
+    explanation: "Order picking (nhặt hàng/chọn hàng theo đơn) là quy trình lựa chọn và gom các món hàng từ tồn kho để gửi đi."
+  },
+  {
+    question: "The collecting and handling of used or damaged goods, or of reusable transit equipment, is called ______.",
+    options: [
+      "value-added service",
+      "literature fulfilment",
+      "reverse logistics",
+      "customs clearance"
+    ],
+    correctIndex: 2,
+    explanation: "Reverse logistics (logistics thu hồi/ngược) là việc thu gom và xử lý hàng đã qua sử dụng, hàng hỏng hoặc thiết bị vận chuyển tái chế."
+  },
+  {
+    question: "______ is the time it takes to produce and supply a product.",
+    options: [
+      "Lead time",
+      "Customer order cycle time",
+      "Transit time",
+      "Dwell time"
+    ],
+    correctIndex: 0,
+    explanation: "Lead time (thời gian hoàn thành đơn hàng/thời gian cung ứng) là thời gian cần thiết để sản xuất và cung ứng sản phẩm."
+  },
+  {
+    question: "______ is the purchasing of materials, parts, supplies and equipment required to run an enterprise.",
+    options: [
+      "Replenishment",
+      "Merchandising",
+      "Forecasting",
+      "Procurement"
+    ],
+    correctIndex: 3,
+    explanation: "Procurement (thu mua/mua sắm) là hoạt động mua nguyên vật liệu, phụ tùng và thiết bị để vận hành doanh nghiệp."
+  },
+  {
+    question: "A ______ is an intermediary between manufacturers and retailers which buys in large quantities and resells in smaller quantities.",
+    options: [
+      "retailer",
+      "wholesaler",
+      "courier",
+      "broker"
+    ],
+    correctIndex: 1,
+    explanation: "Wholesaler (nhà bán buôn/sỉ) là trung gian giữa nhà sản xuất và nhà bán lẻ, mua số lượng lớn và bán lại số lượng nhỏ hơn."
+  },
+  {
+    question: "In a ______ system the inventory is monitored, planned and managed by the manufacturer on behalf of the customer, often a retailer.",
+    options: [
+      "QR",
+      "DSD",
+      "VMI",
+      "CM"
+    ],
+    correctIndex: 2,
+    explanation: "VMI (Vendor-Managed Inventory) là hệ thống tồn kho được nhà sản xuất theo dõi, lập kế hoạch và quản lý thay cho khách hàng/nhà bán lẻ."
+  },
+  {
+    question: "Just-in-time aims at reducing ______ by co-ordinating the delivery of materials just before they are needed.",
+    options: [
+      "lead times",
+      "discounts",
+      "inventories",
+      "tariffs"
+    ],
+    correctIndex: 2,
+    explanation: "Just-in-time (JIT) nhằm mục đích giảm thiểu tồn kho (inventories) bằng cách giao nguyên vật liệu ngay trước khi cần dùng."
+  },
+  {
+    question: "In ______ transport, goods are carried in the same loading unit using different modes, and the freight itself is not handled when the mode changes.",
+    options: [
+      "single-wagon",
+      "intermodal",
+      "unaccompanied",
+      "block train"
+    ],
+    correctIndex: 1,
+    explanation: "Intermodal transport (vận tải kết hợp/đa phương thức) chở hàng trong cùng đơn vị xếp dỡ qua nhiều phương tiện mà không phải bốc dỡ hàng bên trong."
+  },
+  {
+    question: "Sắp xếp câu hoàn chỉnh: (a) our quotation (b) Please find attached (c) according to (d) your request for three new products",
+    options: [
+      "a – b – c – d",
+      "b – a – c – d",
+      "b – c – a – d",
+      "a – c – b – d"
+    ],
+    correctIndex: 1,
+    explanation: "Thứ tự đúng: (b) Please find attached + (a) our quotation + (c) according to + (d) your request for three new products."
+  },
+  {
+    question: "Sắp xếp câu hoàn chỉnh: (a) the basis of (b) Our prices (c) your forecast of annual consumption figures (d) are calculated on",
+    options: [
+      "b – a – d – c",
+      "d – b – a – c",
+      "b – d – a – c",
+      "b – d – c – a"
+    ],
+    correctIndex: 2,
+    explanation: "Thứ tự đúng: (b) Our prices + (d) are calculated on + (a) the basis of + (c) your forecast of annual consumption figures."
+  },
+  {
+    question: "Sắp xếp câu hoàn chỉnh: (a) a discount of 2.5% (b) we can offer you (c) For a contract term (d) of at least two years,",
+    options: [
+      "b – a – c – d",
+      "c – b – d – a",
+      "d – c – b – a",
+      "c – d – b – a"
+    ],
+    correctIndex: 3,
+    explanation: "Thứ tự đúng: (c) For a contract term + (d) of at least two years, + (b) we can offer you + (a) a discount of 2.5%."
+  },
+  {
+    question: "Sắp xếp câu hoàn chỉnh: (a) all prices (b) according to your requirements (c) In the attached quotation sheet, (d) have been listed in columns",
+    options: [
+      "a – d – c – b",
+      "c – a – d – b",
+      "c – d – a – b",
+      "a – c – d – b"
+    ],
+    correctIndex: 1,
+    explanation: "Thứ tự đúng: (c) In the attached quotation sheet, + (a) all prices + (d) have been listed in columns + (b) according to your requirements."
+  },
+  {
+    question: "Sắp xếp câu hoàn chỉnh: (a) a further 10% discount. (b) we can offer you (c) If your order (d) exceeds 2,000 items,",
+    options: [
+      "c – b – d – a",
+      "d – c – a – b",
+      "c – d – b – a",
+      "b – a – c – d"
+    ],
+    correctIndex: 2,
+    explanation: "Thứ tự đúng: (c) If your order + (d) exceeds 2,000 items, + (b) we can offer you + (a) a further 10% discount."
+  },
+  {
+    question: "Sắp xếp câu hoàn chỉnh: (a) of receipt of order. (b) We would be able to (c) within 10 days (d) deliver",
+    options: [
+      "b – c – d – a",
+      "d – b – c – a",
+      "b – d – a – c",
+      "b – d – c – a"
+    ],
+    correctIndex: 3,
+    explanation: "Thứ tự đúng: (b) We would be able to + (d) deliver + (c) within 10 days + (a) of receipt of order."
+  },
+  {
+    question: "In a continuous replenishment system, sales information ______ (transfer) to the CRP computer system as soon as the item is scanned at the point of sale.",
+    options: [
+      "transfers",
+      "is transferred",
+      "has transferred",
+      "is transferring"
+    ],
+    correctIndex: 1,
+    explanation: "Bị động ở thì hiện tại đơn: 'sales information' (không đếm được) + 'is transferred' (được chuyển đến hệ thống máy tính CRP)."
+  },
+  {
+    question: "Orders ______ (generate) automatically on the basis of the data received from the cash register.",
+    options: [
+      "generate",
+      "are generating",
+      "have generated",
+      "are generated"
+    ],
+    correctIndex: 3,
+    explanation: "Bị động ở hiện tại đơn số nhiều: 'Orders' (các đơn hàng) + 'are generated' (được tạo tự động)."
+  },
+  {
+    question: "Last Friday the consignment ______ (deliver) to the retail outlet by barge.",
+    options: [
+      "delivered",
+      "has delivered",
+      "is delivered",
+      "was delivered"
+    ],
+    correctIndex: 3,
+    explanation: "Bị động thì quá khứ đơn (Last Friday): 'the consignment' (lô hàng) + 'was delivered' (đã được giao bằng sà lan)."
+  },
+  {
+    question: "When the inspector arrived, the dangerous goods ______ already ______ (pack) and labelled.",
+    options: [
+      "had / packed",
+      "have / been packed",
+      "had / been packed",
+      "were / packing"
+    ],
+    correctIndex: 2,
+    explanation: "Bị động quá khứ hoàn thành (Past Perfect Passive): 'had already been packed' (đã được đóng gói trước khi thanh tra đến)."
+  },
+  {
+    question: "Your order ______ (ship) within six days of the purchase order.",
+    options: [
+      "will ship",
+      "will be shipped",
+      "will being shipped",
+      "shall shipping"
+    ],
+    correctIndex: 1,
+    explanation: "Bị động thì tương lai đơn (Future Simple Passive): 'will be shipped' (sẽ được gửi đi trong vòng 6 ngày)."
+  },
+  {
+    question: "Please note that the reefer containers ______ (load) at the terminal at the moment, so the vessel cannot sail before midnight.",
+    options: [
+      "are being loaded",
+      "are loading",
+      "have loaded",
+      "were loaded"
+    ],
+    correctIndex: 0,
+    explanation: "Bị động thì hiện tại tiếp diễn (at the moment): 'are being loaded' (các container lạnh đang được xếp lên tàu)."
+  },
+  {
+    question: "Normally the voyage takes about six days by barge, but it often takes ______ (long) if the weather is bad.",
+    options: [
+      "the longest",
+      "more long",
+      "longer",
+      "as long"
+    ],
+    correctIndex: 2,
+    explanation: "So sánh hơn của tính từ ngắn 'long' là 'longer' (mất nhiều thời gian hơn)."
+  },
+  {
+    question: "Inland waterway transport is cheap — in fact it is ______ (cheap) of all the transport options.",
+    options: [
+      "cheaper",
+      "the cheapest",
+      "more cheap",
+      "the most cheap"
+    ],
+    correctIndex: 1,
+    explanation: "So sánh nhất của tính từ ngắn 'cheap' là 'the cheapest' (rẻ nhất trong tất cả các lựa chọn vận chuyển)."
+  },
+  {
+    question: "It would only take four days to ship by truck, but the cost would be about 50% ______ (high) than by barge.",
+    options: [
+      "the highest",
+      "high",
+      "higher",
+      "more high"
+    ],
+    correctIndex: 2,
+    explanation: "So sánh hơn của tính từ ngắn 'high' là 'higher' (cao hơn 50% so với đi bằng sà lan)."
+  },
+  {
+    question: "Rail would definitely be ______ (fast) than the truck option if we use the express service.",
+    options: [
+      "fastest",
+      "more fast",
+      "as fast",
+      "faster"
+    ],
+    correctIndex: 3,
+    explanation: "So sánh hơn của tính từ ngắn 'fast' là 'faster' (nhanh hơn)."
+  },
+  {
+    question: "Unfortunately, the express train would also be ______ (expensive) than shipping by road.",
+    options: [
+      "expensiver",
+      "the most expensive",
+      "more expensive",
+      "most expensive"
+    ],
+    correctIndex: 2,
+    explanation: "So sánh hơn của tính từ dài 'expensive' là 'more expensive' (đắt hơn so với vận chuyển đường bộ)."
+  },
+  {
+    question: "Their transit times have improved, but their documentation service is still ______ (bad) than ours.",
+    options: [
+      "badder",
+      "worse",
+      "the worst",
+      "more bad"
+    ],
+    correctIndex: 1,
+    explanation: "So sánh hơn bất quy tắc của tính từ 'bad' là 'worse' (kém hơn/tệ hơn)."
+  }
+];
+
+// 2.3 BỘ ĐỀ LUYỆN TẬP TIẾNG ANH LOGISTICS (FULL TẤT CẢ 33 CÂU)
+const EXAMS_DATA_LOGISTICS = {
+  1: {
+    id: 1,
+    code: "ENG-FULL",
+    title: "Đề Thi Tổng Hợp - English for Logistics (Full 33 Câu)",
+    description: "Trọn bộ 33 câu hỏi trắc nghiệm tiếng Anh chuyên ngành Logistics bao quát toàn bộ đề thi (Từ vựng, Báo giá, Câu bị động & So sánh phương thức vận tải).",
+    timePerQuestion: 25,
+    questions: formatQuestionList(RAW_QUESTIONS_LOGISTICS, "Câu")
+  }
+};
+
+
+// =========================================================
+// REGISTRY HỆ THỐNG ĐA MÔN HỌC
+// =========================================================
+const SUBJECTS_DATA = {
+  startup: {
+    id: 'startup',
+    name: 'Khởi Nghiệp Kinh Doanh',
+    shortName: 'Khởi Nghiệp',
+    fullName: 'Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo',
+    englishName: 'Entrepreneurship & Innovation',
+    icon: 'fa-solid fa-graduation-cap',
+    secondaryIcon: 'fa-solid fa-lightbulb',
+    accentColor: '#8b5cf6',
+    gradient: 'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
+    badgeText: 'Học Phần: Khởi Nghiệp Kinh Doanh',
+    heroTitle: 'Ôn Tập Cuối Kỳ',
+    heroSubtitle: 'Khởi Nghiệp Kinh Doanh',
+    heroDesc: 'Hệ thống ôn luyện trắc nghiệm tương tác cao gồm đề thi tổng hợp, đề thi theo từng chương (Chương 1, 2, 3) kèm tổng hợp lý thuyết chi tiết.',
+    theoryTitle: 'Tổng Hợp Lý Thuyết Khởi Nghiệp Kinh Doanh',
+    theoryDesc: 'Tóm tắt trọng tâm 3 chương học phần Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo',
+    theorySearchPlaceholder: 'Tìm kiếm khái niệm, mô hình (Canvas, Design Thinking, Gassmann, Osterwalder, Start-up...)...',
+    theoryBannerTitle: 'Ôn Tập Lý Thuyết 3 Chương',
+    theoryBannerDesc: 'Bản chất khởi nghiệp, Cơ hội & Tư duy thiết kế (Design Thinking), Mô hình Canvas (BMC) và 55 mô hình Gassmann.',
+    theoryData: THEORY_DATA_STARTUP,
+    chapters: [
+      { id: 1, name: 'Chương 1: Bản chất & Sáng tạo', label: 'Chương 1', icon: 'fa-solid fa-lightbulb' },
+      { id: 2, name: 'Chương 2: Cơ hội & Design Thinking', label: 'Chương 2', icon: 'fa-solid fa-bullseye' },
+      { id: 3, name: 'Chương 3: Mô hình BMC & Gassmann', label: 'Chương 3', icon: 'fa-solid fa-chart-pie' }
+    ],
+    rawQuestions: {
+      1: RAW_QUESTIONS_CH1,
+      2: RAW_QUESTIONS_CH2,
+      3: RAW_QUESTIONS_CH3
+    },
+    allQuestions: ALL_STARTUP_QUESTIONS,
+    exams: EXAMS_DATA_STARTUP,
+    totalQuestionsCount: ALL_STARTUP_QUESTIONS.length
+  },
+  logistics: {
+    id: 'logistics',
+    name: 'English for Logistics',
+    shortName: 'English Logistics',
+    fullName: 'English for Logistics & Supply Chain',
+    englishName: 'English for Logistics',
+    icon: 'fa-solid fa-ship',
+    secondaryIcon: 'fa-solid fa-truck-fast',
+    accentColor: '#06b6d4',
+    gradient: 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #10b981 100%)',
+    badgeText: 'Học Phần: English for Logistics',
+    heroTitle: 'Ôn Luyện Đề Thi',
+    heroSubtitle: 'English for Logistics',
+    heroDesc: 'Trọn bộ 33 câu hỏi trắc nghiệm tiếng Anh chuyên ngành Logistics (Haulage, Freight Forwarder, VMI, JIT, Quotations, Passive Voice, Comparisons).',
+    theoryTitle: 'Cẩm Nang Từ Vựng & Ngữ Pháp English for Logistics',
+    theoryDesc: 'Tổng hợp thuật ngữ, câu trúc báo giá và ngữ pháp bám sát bộ đề thi tiếng Anh Logistics',
+    theorySearchPlaceholder: 'Tìm kiếm thuật ngữ, ngữ pháp (Haulage, Forwarder, VMI, JIT, Passive, Quotation...)...',
+    theoryBannerTitle: 'Cẩm Nang Thuật Ngữ & Ngữ Pháp',
+    theoryBannerDesc: 'Tổng hợp từ vựng chuyên ngành Logistics, cấu trúc thư báo giá và các dạng câu bị động, so sánh phương thức vận tải.',
+    theoryData: THEORY_DATA_LOGISTICS,
+    chapters: [
+      { id: 1, name: 'Chuyên đề 1: Logistics Entities', label: 'Chuyên đề 1', icon: 'fa-solid fa-users-gear' },
+      { id: 2, name: 'Chuyên đề 2: Operations & Systems', label: 'Chuyên đề 2', icon: 'fa-solid fa-warehouse' },
+      { id: 3, name: 'Chuyên đề 3: Quotation Structures', label: 'Chuyên đề 3', icon: 'fa-solid fa-file-invoice-dollar' },
+      { id: 4, name: 'Chuyên đề 4: Passive & Comparisons', label: 'Chuyên đề 4', icon: 'fa-solid fa-spell-check' }
+    ],
+    rawQuestions: {
+      1: RAW_QUESTIONS_LOGISTICS.slice(0, 15),
+      2: RAW_QUESTIONS_LOGISTICS.slice(15, 27),
+      3: RAW_QUESTIONS_LOGISTICS.slice(20, 33)
+    },
+    allQuestions: RAW_QUESTIONS_LOGISTICS,
+    exams: EXAMS_DATA_LOGISTICS,
+    totalQuestionsCount: RAW_QUESTIONS_LOGISTICS.length
+  }
+};
+
+// Aliases for backward compatibility
+const THEORY_DATA = THEORY_DATA_STARTUP;
+const ALL_71_QUESTIONS = ALL_STARTUP_QUESTIONS;
+const EXAMS_DATA = EXAMS_DATA_STARTUP;

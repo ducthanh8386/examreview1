@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WaygroundQuiz - Ôn Tập Khởi Nghiệp Kinh Doanh</title>
+  <title>WaygroundQuiz - Hệ Thống Ôn Thi Trắc Nghiệm Đa Môn Học</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- MathJax Configuration (must be BEFORE the script loads) -->
+  <!-- MathJax Configuration -->
   <script>
     window.MathJax = {
       tex: {
@@ -39,19 +39,32 @@
   </div>
 
   <div class="app-container">
-    <!-- TOP BAR GLOBAL CONTROLS -->
+    <!-- TOP BAR GLOBAL CONTROLS & SUBJECT SWITCHER -->
     <header class="top-nav">
-      <div class="logo-area" id="logoBtn">
+      <div class="logo-area" id="logoBtn" title="Về Trang Chủ">
         <i class="fa-solid fa-bolt logo-icon"></i>
         <span class="logo-text">Wayground<span class="logo-accent">Quiz</span></span>
       </div>
+
+      <!-- Quick Subject Switcher in Header -->
+      <div class="nav-subject-switcher" id="navSubjectSelector">
+        <button class="nav-sub-btn active" data-subject="startup" id="navSubStartup" title="Chuyển sang Khởi Nghiệp Kinh Doanh">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span class="nav-sub-name">Khởi Nghiệp</span>
+        </button>
+        <button class="nav-sub-btn" data-subject="logistics" id="navSubLogistics" title="Chuyển sang English for Logistics">
+          <i class="fa-solid fa-ship"></i>
+          <span class="nav-sub-name">English Logistics</span>
+        </button>
+      </div>
+
       <div class="nav-controls">
         <button id="wrongBookNavBtn" class="nav-wrong-btn" title="Sổ Tay Câu Sai">
           <i class="fa-solid fa-triangle-exclamation"></i>
           <span class="btn-label">Sổ Câu Sai</span>
           <span id="wrongCountBadge" class="nav-badge-count hidden">0</span>
         </button>
-        <button id="theoryNavBtn" class="nav-theory-btn">
+        <button id="theoryNavBtn" class="nav-theory-btn" title="Ôn Tập Lý Thuyết">
           <i class="fa-solid fa-book-open"></i>
           <span class="btn-label">Ôn Lý Thuyết</span>
         </button>
@@ -64,12 +77,68 @@
       </div>
     </header>
 
-    <!-- 1. LOBBY VIEW (CHỌN ĐỀ THI & LÝ THUYẾT) -->
+    <!-- 1. LOBBY VIEW (CHỌN MÔN HỌC & ĐỀ THI) -->
     <main id="lobbyView" class="view active">
+      <!-- SUBJECT SELECTION HUB (PROMINENT CARDS) -->
+      <section class="subject-hub-section">
+        <div class="subject-hub-label">
+          <i class="fa-solid fa-cubes"></i>
+          <span>CHỌN HỌC PHẦN ÔN TẬP</span>
+        </div>
+        <div class="subject-cards-grid">
+          <!-- Subject Card 1: Khởi Nghiệp Kinh Doanh -->
+          <div class="subject-card active" data-subject-id="startup" id="hubCardStartup">
+            <div class="subject-card-glow"></div>
+            <div class="subject-card-icon startup-gradient">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="subject-card-content">
+              <div class="subject-card-header-row">
+                <span class="subject-status-pill active-pill"><i class="fa-solid fa-circle-check"></i> Đang Chọn</span>
+                <span class="subject-q-pill">71 Câu Hỏi</span>
+              </div>
+              <h2 class="subject-card-title">Khởi Nghiệp Kinh Doanh & ĐMST</h2>
+              <p class="subject-card-desc">Bản chất khởi sự, 4 tiêu chí cơ hội, Design Thinking, Mô hình Canvas (BMC) & 55 mô hình Gassmann.</p>
+              <div class="subject-card-footer">
+                <span class="subject-meta-item"><i class="fa-solid fa-book-bookmark"></i> 3 Chương</span>
+                <span class="subject-meta-item"><i class="fa-solid fa-folder-open"></i> 5 Bộ đề</span>
+              </div>
+            </div>
+            <div class="subject-card-action">
+              <div class="subject-action-btn"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+          </div>
+
+          <!-- Subject Card 2: English for Logistics -->
+          <div class="subject-card" data-subject-id="logistics" id="hubCardLogistics">
+            <div class="subject-card-glow"></div>
+            <div class="subject-card-icon logistics-gradient">
+              <i class="fa-solid fa-ship"></i>
+            </div>
+            <div class="subject-card-content">
+              <div class="subject-card-header-row">
+                <span class="subject-status-pill idle-pill"><i class="fa-solid fa-arrow-pointer"></i> Nhấn Để Chọn</span>
+                <span class="subject-q-pill">33 Câu Hỏi</span>
+              </div>
+              <h2 class="subject-card-title">English for Logistics</h2>
+              <p class="subject-card-desc">33 câu trắc nghiệm tiếng Anh Logistics: Thuật ngữ, Chuỗi cung ứng, Thư báo giá, Bị động & So sánh phương thức vận tải.</p>
+              <div class="subject-card-footer">
+                <span class="subject-meta-item"><i class="fa-solid fa-book-bookmark"></i> 4 Chuyên đề</span>
+                <span class="subject-meta-item"><i class="fa-solid fa-folder-open"></i> 1 Đề Tổng Hợp</span>
+              </div>
+            </div>
+            <div class="subject-card-action">
+              <div class="subject-action-btn"><i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DYNAMIC HERO SECTION FOR ACTIVE SUBJECT -->
       <div class="hero-section">
-        <div class="badge-tag"><i class="fa-solid fa-graduation-cap"></i> Học Phần: Khởi Nghiệp Kinh Doanh</div>
-        <h1 class="hero-title">Ôn Tập Cuối Kỳ <span class="gradient-text">Khởi Nghiệp Kinh Doanh</span></h1>
-        <p class="hero-desc">Hệ thống ôn luyện trắc nghiệm tương tác cao gồm đề thi tổng hợp, đề thi theo từng chương (Chương 1, 2, 3) kèm tổng hợp lý thuyết chi tiết.</p>
+        <div class="badge-tag" id="heroBadge"><i class="fa-solid fa-graduation-cap"></i> Học Phần: Khởi Nghiệp Kinh Doanh</div>
+        <h1 class="hero-title" id="heroTitle">Ôn Tập Cuối Kỳ <span class="gradient-text" id="heroTitleGradient">Khởi Nghiệp Kinh Doanh</span></h1>
+        <p class="hero-desc" id="heroDesc">Hệ thống ôn luyện trắc nghiệm tương tác cao gồm đề thi tổng hợp, đề thi theo từng chương (Chương 1, 2, 3) kèm tổng hợp lý thuyết chi tiết.</p>
       </div>
 
       <!-- DUAL HERO BANNER: THEORY & WRONG QUESTIONS NOTEBOOK -->
@@ -77,13 +146,13 @@
         <!-- THEORY HERO BANNER BUTTON -->
         <div class="theory-banner" id="openTheoryBannerBtn">
           <div class="theory-banner-content">
-            <div class="theory-banner-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+            <div class="theory-banner-icon" id="theoryBannerIcon"><i class="fa-solid fa-book-bookmark"></i></div>
             <div class="theory-banner-text">
-              <h2>Ôn Tập Lý Thuyết 3 Chương</h2>
-              <p>Bản chất khởi nghiệp, Cơ hội & Tư duy thiết kế (Design Thinking), Mô hình Canvas (BMC) và 55 mô hình Gassmann.</p>
+              <h2 id="theoryBannerTitle">Ôn Tập Lý Thuyết 3 Chương</h2>
+              <p id="theoryBannerDesc">Bản chất khởi nghiệp, Cơ hội & Tư duy thiết kế (Design Thinking), Mô hình Canvas (BMC) và 55 mô hình Gassmann.</p>
             </div>
           </div>
-          <button class="primary-btn">
+          <button class="primary-btn" id="exploreTheoryBtn">
             <span>Khám Phá</span>
             <i class="fa-solid fa-arrow-right"></i>
           </button>
@@ -95,7 +164,7 @@
             <div class="wrong-banner-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
             <div class="wrong-banner-text">
               <div class="wrong-banner-tag"><i class="fa-solid fa-bullseye"></i> Ôn Tập Trọng Điểm</div>
-              <h2>Sổ Tay Câu Sai (<span id="wrongBannerCount">0</span> câu)</h2>
+              <h2 id="wrongBannerTitle">Sổ Tay Câu Sai (<span id="wrongBannerCount">0</span> câu)</h2>
               <p id="wrongBannerDesc">Tự động gom câu sai khi luyện đề để bạn ôn lại cho đến khi thuộc 100%.</p>
             </div>
           </div>
@@ -112,149 +181,58 @@
         </div>
       </div>
 
-      <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> Chọn Bộ Đề Luyện Tập</h2>
+      <!-- EXAMS GRID SECTION HEADER -->
+      <div class="exams-header-bar">
+        <h2 class="section-title">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Chọn Bộ Đề Luyện Tập</span>
+          <span class="section-subtitle-tag" id="examSubjectLabel">Khởi Nghiệp Kinh Doanh</span>
+        </h2>
+      </div>
 
-      <div class="exams-grid">
-        <!-- ĐỀ FULL CARD -->
-        <div class="exam-card" data-exam-id="1">
-          <div class="card-banner banner-1">
-            <span class="exam-tag">ĐỀ TỔNG HỢP</span>
-            <i class="fa-solid fa-brain card-bg-icon"></i>
-          </div>
-          <div class="card-body">
-            <h2 class="exam-title">Đề Thi 01 - Tổng Hợp Toàn Diện</h2>
-            <p class="exam-info">71 câu trắc nghiệm bao quát toàn bộ 3 chương Khởi nghiệp kinh doanh & Đổi mới sáng tạo.</p>
-            <div class="exam-meta">
-              <span><i class="fa-solid fa-list-check"></i> <strong class="q-count-1">71</strong> câu hỏi</span>
-              <span><i class="fa-solid fa-clock"></i> 20 giây/câu</span>
-            </div>
-            <div class="card-footer">
-              <div class="high-score">High Score: <span id="highScore1">0</span> điểm</div>
-              <button class="btn-play primary-btn">
-                <span>Bắt Đầu</span>
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ĐỀ CH1 CARD -->
-        <div class="exam-card" data-exam-id="2">
-          <div class="card-banner banner-2">
-            <span class="exam-tag">CHƯƠNG 1</span>
-            <i class="fa-solid fa-lightbulb card-bg-icon"></i>
-          </div>
-          <div class="card-body">
-            <h2 class="exam-title">Đề Thi 02 - Khởi Nghiệp & Sáng Tạo</h2>
-            <p class="exam-info">16 câu trắc nghiệm: Khái niệm Start-ups, Luật DN 2020, Sáng tạo, ĐMST & Kỹ năng lãnh đạo.</p>
-            <div class="exam-meta">
-              <span><i class="fa-solid fa-list-check"></i> <strong class="q-count-2">16</strong> câu hỏi</span>
-              <span><i class="fa-solid fa-clock"></i> 20 giây/câu</span>
-            </div>
-            <div class="card-footer">
-              <div class="high-score">High Score: <span id="highScore2">0</span> điểm</div>
-              <button class="btn-play primary-btn">
-                <span>Bắt Đầu</span>
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ĐỀ CH2 CARD -->
-        <div class="exam-card" data-exam-id="3">
-          <div class="card-banner banner-3">
-            <span class="exam-tag">CHƯƠNG 2</span>
-            <i class="fa-solid fa-bullseye card-bg-icon"></i>
-          </div>
-          <div class="card-body">
-            <h2 class="exam-title">Đề Thi 03 - Cơ Hội & Design Thinking</h2>
-            <p class="exam-info">25 câu trắc nghiệm: 4 tiêu chí cơ hội, 5 bước Tư duy thiết kế & Khung đề xuất giá trị Osterwalder.</p>
-            <div class="exam-meta">
-              <span><i class="fa-solid fa-list-check"></i> <strong class="q-count-3">25</strong> câu hỏi</span>
-              <span><i class="fa-solid fa-clock"></i> 20 giây/câu</span>
-            </div>
-            <div class="card-footer">
-              <div class="high-score">High Score: <span id="highScore3">0</span> điểm</div>
-              <button class="btn-play primary-btn">
-                <span>Bắt Đầu</span>
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ĐỀ CH3 CARD -->
-        <div class="exam-card" data-exam-id="4">
-          <div class="card-banner banner-4">
-            <span class="exam-tag">CHƯƠNG 3</span>
-            <i class="fa-solid fa-chart-pie card-bg-icon"></i>
-          </div>
-          <div class="card-body">
-            <h2 class="exam-title">Đề Thi 04 - Mô Hình Kinh Doanh & BMC</h2>
-            <p class="exam-info">30 câu trắc nghiệm: 9 thành tố Canvas, 55 mô hình kinh doanh Gassmann và đổi mới mô hình.</p>
-            <div class="exam-meta">
-              <span><i class="fa-solid fa-list-check"></i> <strong class="q-count-4">30</strong> câu hỏi</span>
-              <span><i class="fa-solid fa-clock"></i> 20 giây/câu</span>
-            </div>
-            <div class="card-footer">
-              <div class="high-score">High Score: <span id="highScore4">0</span> điểm</div>
-              <button class="btn-play primary-btn">
-                <span>Bắt Đầu</span>
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- ĐỀ THI THỬ VIP CARD -->
-        <div class="exam-card" data-exam-id="5">
-          <div class="card-banner banner-5">
-            <span class="exam-tag">THI THỬ VIP</span>
-            <i class="fa-solid fa-trophy card-bg-icon"></i>
-          </div>
-          <div class="card-body">
-            <h2 class="exam-title">Đề Thi 05 - Thi Thử Cuối Kỳ Chuẩn</h2>
-            <p class="exam-info">71 câu hỏi xáo trộn toàn bộ ngân hàng câu hỏi, hỗ trợ chế độ Học Thuộc 100% luyện phản xạ đỉnh cao.</p>
-            <div class="exam-meta">
-              <span><i class="fa-solid fa-list-check"></i> <strong class="q-count-5">71</strong> câu hỏi</span>
-              <span><i class="fa-solid fa-clock"></i> 20 giây/câu</span>
-            </div>
-            <div class="card-footer">
-              <div class="high-score">High Score: <span id="highScore5">0</span> điểm</div>
-              <button class="btn-play primary-btn">
-                <span>Bắt Đầu</span>
-                <i class="fa-solid fa-play"></i>
-              </button>
-            </div>
-          </div>
-        </div>
+      <!-- DYNAMIC EXAMS GRID (Rendered by JS) -->
+      <div class="exams-grid" id="examsGridContainer">
+        <!-- Dynamic exam cards injected here by renderExamsGrid() -->
       </div>
     </main>
 
-    <!-- 2. THEORY VIEW (MÀN HÌNH ÔN TẬP LÝ THUYẾT) -->
+    <!-- 2. THEORY VIEW (MÀN HÌNH ÔN TẬP LÝ THUYẾT ĐA MÔN) -->
     <main id="theoryView" class="view">
       <div class="theory-header">
-        <button id="backToLobbyFromTheoryBtn" class="secondary-btn btn-sm">
-          <i class="fa-solid fa-arrow-left"></i>
-          <span>Về Trang Chủ</span>
-        </button>
+        <div class="theory-header-left">
+          <button id="backToLobbyFromTheoryBtn" class="secondary-btn btn-sm">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Về Trang Chủ</span>
+          </button>
+
+          <!-- Subject Switcher inside Theory View -->
+          <div class="theory-subject-tabs" id="theorySubjectTabs">
+            <button class="theory-sub-tab active" data-subject="startup" id="theoryTabStartup">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>Khởi Nghiệp</span>
+            </button>
+            <button class="theory-sub-tab" data-subject="logistics" id="theoryTabLogistics">
+              <i class="fa-solid fa-ship"></i>
+              <span>English Logistics</span>
+            </button>
+          </div>
+        </div>
 
         <div class="theory-title-group">
-          <h2><i class="fa-solid fa-book-open"></i> Tổng Hợp Lý Thuyết Khởi Nghiệp Kinh Doanh</h2>
-          <p>Tóm tắt trọng tâm 3 chương học phần Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo</p>
+          <h2 id="theoryViewTitle"><i class="fa-solid fa-book-open"></i> Tổng Hợp Lý Thuyết Khởi Nghiệp Kinh Doanh</h2>
+          <p id="theoryViewSubtitle">Tóm tắt trọng tâm 3 chương học phần Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo</p>
         </div>
 
         <div class="theory-search-box">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input type="text" id="theorySearchInput" placeholder="Tìm kiếm khái niệm, mô hình (Canvas, Design Thinking, Gassmann, Osterwalder, Start-up...)...">
+          <input type="text" id="theorySearchInput" placeholder="Tìm kiếm khái niệm, mô hình (Canvas, Design Thinking, Incoterms, B/L, WMS...)...">
         </div>
       </div>
 
       <div class="theory-layout">
         <!-- Sidebar Navigation Chapters -->
         <aside class="theory-sidebar" id="theorySidebar">
-          <!-- Dynamic Chapter Tabs -->
+          <!-- Dynamic Chapter Tabs Rendered Here -->
         </aside>
 
         <!-- Main Content Area -->
@@ -264,7 +242,7 @@
       </div>
     </main>
 
-    <!-- 3. WRONG QUESTIONS NOTEBOOK VIEW (SỔ TAY CÂU SAI) -->
+    <!-- 3. WRONG QUESTIONS NOTEBOOK VIEW (SỔ TAY CÂU SAI ĐA MÔN) -->
     <main id="wrongView" class="view">
       <div class="wrong-header">
         <button id="backToLobbyFromWrongBtn" class="secondary-btn btn-sm">
@@ -274,7 +252,7 @@
 
         <div class="wrong-title-group">
           <h2><i class="fa-solid fa-triangle-exclamation"></i> Sổ Tay Câu Sai Cá Nhân</h2>
-          <p>Tập hợp những câu hỏi bạn đã từng trả lời chưa đúng để ôn luyện trọng tâm</p>
+          <p>Tập hợp những câu hỏi bạn đã từng trả lời chưa đúng của tất cả các môn để ôn luyện trọng tâm</p>
         </div>
 
         <div class="wrong-header-actions">
@@ -305,13 +283,22 @@
         <div class="wrong-controls-bar">
           <div class="wrong-search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="wrongSearchInput" placeholder="Tìm kiếm câu hỏi, nội dung, đáp án...">
+            <input type="text" id="wrongSearchInput" placeholder="Tìm kiếm câu hỏi, nội dung, từ vựng, đáp án...">
           </div>
-          <div class="wrong-filter-tabs" id="wrongFilterTabs">
-            <button class="filter-tab-btn active" data-filter="all">Tất cả (<span id="filterAllCount">0</span>)</button>
-            <button class="filter-tab-btn" data-filter="1">Chương 1 (<span id="filterCh1Count">0</span>)</button>
-            <button class="filter-tab-btn" data-filter="2">Chương 2 (<span id="filterCh2Count">0</span>)</button>
-            <button class="filter-tab-btn" data-filter="3">Chương 3 (<span id="filterCh3Count">0</span>)</button>
+
+          <!-- Dual Filter Bar: Subject & Chapter/Unit -->
+          <div class="wrong-filter-container">
+            <!-- Subject Filter Row -->
+            <div class="wrong-filter-tabs subject-filters" id="wrongSubjectFilterTabs">
+              <button class="filter-tab-btn active" data-subject-filter="all">Tất Cả Môn (<span id="filterAllCount">0</span>)</button>
+              <button class="filter-tab-btn" data-subject-filter="startup">Khởi Nghiệp (<span id="filterStartupCount">0</span>)</button>
+              <button class="filter-tab-btn" data-subject-filter="logistics">English Logistics (<span id="filterLogisticsCount">0</span>)</button>
+            </div>
+
+            <!-- Chapter Filter Row -->
+            <div class="wrong-filter-tabs chapter-filters" id="wrongChapterFilterTabs">
+              <!-- Dynamically populated based on subject filter -->
+            </div>
           </div>
         </div>
 
@@ -327,7 +314,7 @@
         <div class="modal-header">
           <div class="modal-icon"><i class="fa-solid fa-sliders"></i></div>
           <h2 id="modalExamTitle">Chọn Chế Độ Ôn Tập</h2>
-          <p class="modal-subtitle">Hãy chọn cách bạn muốn làm đề thi này</p>
+          <p class="modal-subtitle" id="modalExamSubtitle">Hãy chọn cách bạn muốn làm đề thi này</p>
         </div>
         
         <div class="mode-options">
@@ -335,7 +322,7 @@
           <div class="mode-card selected" data-mode="standard">
             <div class="mode-badge"><i class="fa-solid fa-bullseye"></i> Chế Độ Thi Thử</div>
             <h3>1. Làm Mỗi Câu 1 Lần</h3>
-            <p>Trả lời lần lượt các câu hỏi từ câu 1 đến hết. Chấm điểm và tổng kết tỷ lệ đúng sau khi làm xong.</p>
+            <p>Trả lời lần lượt các câu hỏi từ câu 1 đến hết. Chấm điểm, tính streak và tổng kết tỷ lệ đúng sau khi làm xong.</p>
             <div class="mode-check"><i class="fa-solid fa-circle-check"></i></div>
           </div>
 
@@ -358,11 +345,10 @@
       </div>
     </div>
 
-    <!-- 3. QUIZ PLAYER VIEW (MÀN HÌNH LÀM BÀI) -->
+    <!-- 4. QUIZ PLAYER VIEW (MÀN HÌNH LÀM BÀI) -->
     <main id="quizView" class="view">
       <!-- Quiz Header Controls & Stats -->
       <div class="quiz-header">
-        <!-- Row 1 (mobile): Exit + Stats | Row 1 (desktop): Exit -->
         <div class="quiz-header-row1">
           <button id="exitQuizBtn" class="secondary-btn btn-sm">
             <i class="fa-solid fa-arrow-left"></i>
@@ -381,7 +367,6 @@
           </div>
         </div>
 
-        <!-- Row 2 (mobile) / Middle (desktop): Progress -->
         <div class="quiz-progress-wrapper">
           <div class="progress-top-info">
             <span id="questionProgressText">Câu 1 / 71</span>
@@ -451,7 +436,7 @@
       </div>
     </main>
 
-    <!-- 4. RESULT SUMMARY VIEW (KẾT QUẢ) -->
+    <!-- 5. RESULT SUMMARY VIEW (KẾT QUẢ) -->
     <main id="resultView" class="view">
       <div class="result-card">
         <div class="result-header">
@@ -459,7 +444,7 @@
             <i class="fa-solid fa-trophy trophy-icon"></i>
           </div>
           <h1 class="result-title">Hoàn Thành Bài Thi!</h1>
-          <p class="result-subtitle" id="resultSubtitle">Bạn đã hoàn thành bài thi Khởi nghiệp kinh doanh & Đổi mới sáng tạo.</p>
+          <p class="result-subtitle" id="resultSubtitle">Bạn đã hoàn thành bài thi.</p>
         </div>
 
         <div class="stats-overview">
