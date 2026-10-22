@@ -188,8 +188,10 @@ const elems = {
   logoBtn: document.getElementById('logoBtn'),
   navSubStartup: document.getElementById('navSubStartup'),
   navSubLogistics: document.getElementById('navSubLogistics'),
+  navSubHochiminh: document.getElementById('navSubHochiminh'),
   hubCardStartup: document.getElementById('hubCardStartup'),
   hubCardLogistics: document.getElementById('hubCardLogistics'),
+  hubCardHochiminh: document.getElementById('hubCardHochiminh'),
   soundToggleBtn: document.getElementById('soundToggleBtn'),
   themeToggleBtn: document.getElementById('themeToggleBtn'),
   theoryNavBtn: document.getElementById('theoryNavBtn'),
@@ -219,6 +221,7 @@ const elems = {
   backToLobbyFromTheoryBtn: document.getElementById('backToLobbyFromTheoryBtn'),
   theoryTabStartup: document.getElementById('theoryTabStartup'),
   theoryTabLogistics: document.getElementById('theoryTabLogistics'),
+  theoryTabHochiminh: document.getElementById('theoryTabHochiminh'),
   theoryViewTitle: document.getElementById('theoryViewTitle'),
   theoryViewSubtitle: document.getElementById('theoryViewSubtitle'),
   theorySearchInput: document.getElementById('theorySearchInput'),
@@ -239,6 +242,7 @@ const elems = {
   filterAllCount: document.getElementById('filterAllCount'),
   filterStartupCount: document.getElementById('filterStartupCount'),
   filterLogisticsCount: document.getElementById('filterLogisticsCount'),
+  filterHochiminhCount: document.getElementById('filterHochiminhCount'),
 
   // Mode Selection Modal
   modeModal: document.getElementById('modeModal'),
@@ -296,6 +300,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (elems.hubCardLogistics) {
     elems.hubCardLogistics.addEventListener('click', () => selectSubject('logistics'));
   }
+  if (elems.hubCardHochiminh) {
+    elems.hubCardHochiminh.addEventListener('click', () => selectSubject('hochiminh'));
+  }
 
   // 3. Setup Nav Subject Switcher
   if (elems.navSubStartup) {
@@ -304,6 +311,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (elems.navSubLogistics) {
     elems.navSubLogistics.addEventListener('click', () => selectSubject('logistics'));
   }
+  if (elems.navSubHochiminh) {
+    elems.navSubHochiminh.addEventListener('click', () => selectSubject('hochiminh'));
+  }
 
   // 4. Theory Subject Tabs Listeners
   if (elems.theoryTabStartup) {
@@ -311,6 +321,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if (elems.theoryTabLogistics) {
     elems.theoryTabLogistics.addEventListener('click', () => selectSubject('logistics', true, true));
+  }
+  if (elems.theoryTabHochiminh) {
+    elems.theoryTabHochiminh.addEventListener('click', () => selectSubject('hochiminh', true, true));
   }
 
   // 5. Global Nav controls
@@ -457,6 +470,7 @@ function selectSubject(subjectId, shouldScroll = true, keepInTheory = false) {
   // 1. Update In-Nav Pill Switcher
   if (elems.navSubStartup) elems.navSubStartup.classList.toggle('active', subjectId === 'startup');
   if (elems.navSubLogistics) elems.navSubLogistics.classList.toggle('active', subjectId === 'logistics');
+  if (elems.navSubHochiminh) elems.navSubHochiminh.classList.toggle('active', subjectId === 'hochiminh');
 
   // 2. Update Hub Cards in Lobby
   if (elems.hubCardStartup) {
@@ -479,13 +493,29 @@ function selectSubject(subjectId, shouldScroll = true, keepInTheory = false) {
     }
   }
 
+  if (elems.hubCardHochiminh) {
+    const isHochiminh = (subjectId === 'hochiminh');
+    elems.hubCardHochiminh.classList.toggle('active', isHochiminh);
+    const pill = elems.hubCardHochiminh.querySelector('.subject-status-pill');
+    if (pill) {
+      pill.className = isHochiminh ? 'subject-status-pill active-pill' : 'subject-status-pill idle-pill';
+      pill.innerHTML = isHochiminh ? '<i class="fa-solid fa-circle-check"></i> Đang Chọn' : '<i class="fa-solid fa-arrow-pointer"></i> Nhấn Để Chọn';
+    }
+  }
+
   // 3. Update Hero Section
   if (elems.heroBadge) {
-    elems.heroBadge.className = subjectId === 'logistics' ? 'badge-tag logistics-badge' : 'badge-tag';
+    let badgeClass = 'badge-tag';
+    if (subjectId === 'logistics') badgeClass = 'badge-tag logistics-badge';
+    else if (subjectId === 'hochiminh') badgeClass = 'badge-tag hochiminh-badge';
+    elems.heroBadge.className = badgeClass;
     elems.heroBadge.innerHTML = `<i class="${sub.icon}"></i> ${sub.badgeText}`;
   }
   if (elems.heroTitle) {
-    elems.heroTitle.innerHTML = `${sub.heroTitle} <span class="gradient-text ${subjectId === 'logistics' ? 'logistics-gradient-text' : ''}" id="heroTitleGradient">${sub.heroSubtitle}</span>`;
+    let gradientClass = '';
+    if (subjectId === 'logistics') gradientClass = 'logistics-gradient-text';
+    else if (subjectId === 'hochiminh') gradientClass = 'hochiminh-gradient-text';
+    elems.heroTitle.innerHTML = `${sub.heroTitle} <span class="gradient-text ${gradientClass}" id="heroTitleGradient">${sub.heroSubtitle}</span>`;
   }
   if (elems.heroDesc) {
     elems.heroDesc.textContent = sub.heroDesc;
@@ -495,17 +525,24 @@ function selectSubject(subjectId, shouldScroll = true, keepInTheory = false) {
   if (elems.theoryBannerTitle) elems.theoryBannerTitle.textContent = sub.theoryBannerTitle;
   if (elems.theoryBannerDesc) elems.theoryBannerDesc.textContent = sub.theoryBannerDesc;
   if (elems.theoryBannerIcon) {
-    elems.theoryBannerIcon.className = subjectId === 'logistics' ? 'theory-banner-icon logistics-icon' : 'theory-banner-icon';
+    let iconClass = 'theory-banner-icon';
+    if (subjectId === 'logistics') iconClass = 'theory-banner-icon logistics-icon';
+    else if (subjectId === 'hochiminh') iconClass = 'theory-banner-icon hochiminh-icon';
+    elems.theoryBannerIcon.className = iconClass;
     elems.theoryBannerIcon.innerHTML = `<i class="${sub.icon}"></i>`;
   }
   if (elems.openTheoryBannerBtn) {
     elems.openTheoryBannerBtn.classList.toggle('logistics-theme', subjectId === 'logistics');
+    elems.openTheoryBannerBtn.classList.toggle('hochiminh-theme', subjectId === 'hochiminh');
   }
 
   // 5. Update Exam Grid Header Label
   if (elems.examSubjectLabel) {
     elems.examSubjectLabel.textContent = sub.name;
-    elems.examSubjectLabel.className = subjectId === 'logistics' ? 'section-subtitle-tag logistics-tag' : 'section-subtitle-tag';
+    let tagClass = 'section-subtitle-tag';
+    if (subjectId === 'logistics') tagClass = 'section-subtitle-tag logistics-tag';
+    else if (subjectId === 'hochiminh') tagClass = 'section-subtitle-tag hochiminh-tag';
+    elems.examSubjectLabel.className = tagClass;
   }
 
   // 6. Re-render the 5 exam cards for the selected subject
@@ -537,24 +574,29 @@ function renderExamsGrid() {
 
   const bannerClassesStartup = ['banner-1', 'banner-2', 'banner-3', 'banner-4', 'banner-5'];
   const bannerClassesLogistics = ['logistics-banner-1', 'logistics-banner-2', 'logistics-banner-3', 'logistics-banner-4', 'logistics-banner-5'];
-  const bannerIcons = [
-    sub.id === 'logistics' ? 'fa-solid fa-earth-americas' : 'fa-solid fa-brain',
-    sub.id === 'logistics' ? 'fa-solid fa-ship' : 'fa-solid fa-lightbulb',
-    sub.id === 'logistics' ? 'fa-solid fa-warehouse' : 'fa-solid fa-bullseye',
-    sub.id === 'logistics' ? 'fa-solid fa-file-contract' : 'fa-solid fa-chart-pie',
-    'fa-solid fa-trophy'
-  ];
-  const bannerTags = [
-    'ĐỀ TỔNG HỢP',
-    sub.id === 'logistics' ? 'UNIT 1 & 2' : 'CHƯƠNG 1',
-    sub.id === 'logistics' ? 'UNIT 3' : 'CHƯƠNG 2',
-    sub.id === 'logistics' ? 'UNIT 4 & 5' : 'CHƯƠNG 3',
-    'THI THỬ VIP'
-  ];
+  const bannerClassesHochiminh = ['hcm-banner-1', 'hcm-banner-2', 'hcm-banner-3', 'hcm-banner-4', 'hcm-banner-5'];
+
+  let bannerClasses = bannerClassesStartup;
+  if (sub.id === 'logistics') bannerClasses = bannerClassesLogistics;
+  else if (sub.id === 'hochiminh') bannerClasses = bannerClassesHochiminh;
+
+  let bannerIcons = ['fa-solid fa-brain', 'fa-solid fa-lightbulb', 'fa-solid fa-bullseye', 'fa-solid fa-chart-pie', 'fa-solid fa-trophy'];
+  if (sub.id === 'logistics') {
+    bannerIcons = ['fa-solid fa-earth-americas', 'fa-solid fa-ship', 'fa-solid fa-warehouse', 'fa-solid fa-file-contract', 'fa-solid fa-trophy'];
+  } else if (sub.id === 'hochiminh') {
+    bannerIcons = ['fa-solid fa-star', 'fa-solid fa-landmark', 'fa-solid fa-flag', 'fa-solid fa-users', 'fa-solid fa-trophy'];
+  }
+
+  let bannerTags = ['ĐỀ TỔNG HỢP', 'CHƯƠNG 1', 'CHƯƠNG 2', 'CHƯƠNG 3', 'THI THỬ VIP'];
+  if (sub.id === 'logistics') {
+    bannerTags = ['ĐỀ TỔNG HỢP', 'UNIT 1 & 2', 'UNIT 3', 'UNIT 4 & 5', 'THI THỬ VIP'];
+  } else if (sub.id === 'hochiminh') {
+    bannerTags = ['ĐỀ TỔNG HỢP', 'PHẦN 1', 'PHẦN 2', 'PHẦN 3', 'THI THỬ VIP'];
+  }
 
   Object.keys(exams).forEach((examKey, idx) => {
     const exam = exams[examKey];
-    const bannerClass = sub.id === 'logistics' ? bannerClassesLogistics[idx % 5] : bannerClassesStartup[idx % 5];
+    const bannerClass = bannerClasses[idx % 5];
     const iconClass = bannerIcons[idx % 5];
     const tagText = bannerTags[idx % 5];
     const highScoreVal = subHighScores[exam.id] || 0;
@@ -608,6 +650,7 @@ function updateTheoryViewForSubject() {
   // Update in-theory subject tabs
   if (elems.theoryTabStartup) elems.theoryTabStartup.classList.toggle('active', state.currentSubjectId === 'startup');
   if (elems.theoryTabLogistics) elems.theoryTabLogistics.classList.toggle('active', state.currentSubjectId === 'logistics');
+  if (elems.theoryTabHochiminh) elems.theoryTabHochiminh.classList.toggle('active', state.currentSubjectId === 'hochiminh');
 
   // Update Header Text
   if (elems.theoryViewTitle) {
@@ -1132,6 +1175,16 @@ function getCleanQuestionText(text) {
 }
 
 function detectQuestionSubjectAndChapter(cleanText) {
+  // Check Ho Chi Minh
+  if (SUBJECTS_DATA.hochiminh && SUBJECTS_DATA.hochiminh.rawQuestions) {
+    for (let ch = 1; ch <= 3; ch++) {
+      const rawList = SUBJECTS_DATA.hochiminh.rawQuestions[ch];
+      if (rawList && rawList.some(q => q.question.trim() === cleanText)) {
+        return { subjectId: 'hochiminh', chapter: ch };
+      }
+    }
+  }
+
   // Check Logistics
   if (SUBJECTS_DATA.logistics && SUBJECTS_DATA.logistics.allQuestions) {
     const logIdx = SUBJECTS_DATA.logistics.allQuestions.findIndex(q => q.question.trim() === cleanText);
@@ -1159,26 +1212,29 @@ function updateWrongBadges() {
   const totalCount = state.wrongQuestions.length;
   const startupCount = state.wrongQuestions.filter(q => (q.subjectId || 'startup') === 'startup').length;
   const logisticsCount = state.wrongQuestions.filter(q => q.subjectId === 'logistics').length;
+  const hochiminhCount = state.wrongQuestions.filter(q => q.subjectId === 'hochiminh').length;
 
   if (elems.wrongCountBadge) {
     elems.wrongCountBadge.textContent = totalCount;
     elems.wrongCountBadge.classList.toggle('hidden', totalCount === 0);
   }
 
+  let activeSubWrongCount = startupCount;
+  if (state.currentSubjectId === 'logistics') activeSubWrongCount = logisticsCount;
+  else if (state.currentSubjectId === 'hochiminh') activeSubWrongCount = hochiminhCount;
+
   if (elems.wrongBannerCount) {
-    // Show count for active subject in banner
-    const activeSubWrongCount = state.currentSubjectId === 'logistics' ? logisticsCount : startupCount;
     elems.wrongBannerCount.textContent = activeSubWrongCount;
   }
 
   if (elems.practiceWrongBtn) {
-    const activeSubWrongCount = state.currentSubjectId === 'logistics' ? logisticsCount : startupCount;
     elems.practiceWrongBtn.disabled = (activeSubWrongCount === 0 && totalCount === 0);
   }
 
   if (elems.filterAllCount) elems.filterAllCount.textContent = totalCount;
   if (elems.filterStartupCount) elems.filterStartupCount.textContent = startupCount;
   if (elems.filterLogisticsCount) elems.filterLogisticsCount.textContent = logisticsCount;
+  if (elems.filterHochiminhCount) elems.filterHochiminhCount.textContent = hochiminhCount;
 }
 
 function saveWrongQuestion(q, selectedIndex) {
@@ -1276,6 +1332,8 @@ function renderWrongChapterFilterTabs() {
     chapters = SUBJECTS_DATA.startup.chapters;
   } else if (subFilter === 'logistics') {
     chapters = SUBJECTS_DATA.logistics.chapters;
+  } else if (subFilter === 'hochiminh') {
+    chapters = SUBJECTS_DATA.hochiminh.chapters;
   }
 
   if (chapters.length === 0) {
@@ -1288,7 +1346,7 @@ function renderWrongChapterFilterTabs() {
   // All chapter tab
   const allBtn = document.createElement('button');
   allBtn.className = `filter-tab-btn ${state.currentWrongChapterFilter === 'all' ? 'active' : ''}`;
-  allBtn.textContent = 'Tất cả chương/unit';
+  allBtn.textContent = 'Tất cả chương/unit/phần';
   allBtn.addEventListener('click', () => {
     elems.wrongChapterFilterTabs.querySelectorAll('.filter-tab-btn').forEach(b => b.classList.remove('active'));
     allBtn.classList.add('active');
@@ -1371,7 +1429,9 @@ function renderWrongQuestionsList() {
     const correctText = item.question.options[item.question.correctIndex];
     const userText = item.userWrongOption || 'Chưa rõ';
 
-    const chapterLabel = itemSubject === 'logistics' ? `Unit ${item.chapter}` : `Chương ${item.chapter}`;
+    let chapterLabel = `Chương ${item.chapter}`;
+    if (itemSubject === 'logistics') chapterLabel = `Unit ${item.chapter}`;
+    else if (itemSubject === 'hochiminh') chapterLabel = `Phần ${item.chapter}`;
 
     card.innerHTML = `
       <div class="wrong-card-top">
