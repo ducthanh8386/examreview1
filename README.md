@@ -1,41 +1,37 @@
-# WaygroundQuiz - Hệ Thống Ôn Thi Trắc Nghiệm Đa Môn Học
+# ExamMaster - Hệ Thống Ôn Thi Trắc Nghiệm Đa Môn Học
 
 Hệ thống ôn luyện trắc nghiệm tương tác cao (Gamified Quiz Web App) và tra cứu cẩm nang lý thuyết đa môn học, bao gồm:
-1. **Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo** (Entrepreneurship & Innovation)
-2. **Tiếng Anh Chuyên Ngành Logistics & Chuỗi Cung Ứng** (English for Logistics & Supply Chain)
-3. **Tư Tưởng Hồ Chí Minh** (Ho Chi Minh Ideology)
+1. **Chủ Nghĩa Xã Hội Khoa Học (Giữa Kỳ)** (Scientific Socialism)
+2. **Tư Tưởng Hồ Chí Minh** (Ho Chi Minh Ideology)
+3. **Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo** (Entrepreneurship & Innovation)
+4. **Tiếng Anh Chuyên Ngành Logistics & Chuỗi Cung Ứng** (English for Logistics & Supply Chain)
 
 ---
 
 ## Tính Năng Nổi Bật
 
 ### 1. Hỗ Trợ Đa Học Phần (Multi-Subject Hub)
-- **Chuyển đổi môn học tức thì**: Thanh điều hướng trên Header và 3 Hub Card nổi bật tại sảnh chính cho phép chuyển đổi mượt mà giữa **Khởi Nghiệp Kinh Doanh**, **English for Logistics** và **Tư Tưởng Hồ Chí Minh**.
+- **Chuyển đổi môn học tức thì**: Thanh điều hướng trên Header và 4 Hub Card nổi bật tại sảnh chính cho phép chuyển đổi mượt mà giữa **Chủ Nghĩa Xã Hội Khoa Học**, **Tư Tưởng Hồ Chí Minh**, **Khởi Nghiệp Kinh Doanh** và **English for Logistics**.
 - **Giao diện & Theme theo từng môn học**: 
+  - *Chủ Nghĩa Xã Hội Khoa Học*: Tone màu Đỏ Hồng Scarlet / Cam Lửa / Ánh Kim (Rose Crimson & Flame Amber).
+  - *Tư Tưởng Hồ Chí Minh*: Tone màu Đỏ Ruby / Vàng Ánh Kim (Revolutionary Red & Amber Gold).
   - *Khởi Nghiệp Kinh Doanh*: Tone màu Tím / Hồng Neon (Purple & Pink Cyberpunk).
   - *English for Logistics*: Tone màu Xanh Biển / Ngọc Lam / Lục Bảo (Cyan, Emerald & Electric Ocean Blue).
-  - *Tư Tưởng Hồ Chí Minh*: Tone màu Đỏ Ruby / Vàng Ánh Kim (Revolutionary Red & Amber Gold).
 - **Lưu trữ điểm cao (High Scores) riêng biệt** cho từng môn học và từng bộ đề.
 
 ---
 
 ### 2. Ngân Hàng Câu Hỏi & Bộ Đề Luyện Tập
 
-#### Môn 1: Khởi Nghiệp Kinh Doanh & Đổi Mới Sáng Tạo (71 Câu Hỏi)
-- **Đề 01 - Đề Tổng Hợp Toàn Diện**: 71 câu trắc nghiệm bao quát trọn vẹn 3 chương.
-- **Đề 02 - Chuyên Đề Chương 1**: 16 câu (Bản chất khởi nghiệp, Luật DN 2020, Sáng tạo & ĐMST).
-- **Đề 03 - Chuyên Đề Chương 2**: 25 câu (4 tiêu chí cơ hội kinh doanh, Design Thinking 5 bước, Value Proposition Canvas).
-- **Đề 04 - Chuyên Đề Chương 3**: 30 câu (9 thành tố Canvas BMC, 55 mô hình kinh doanh Gassmann).
-- **Đề 05 - Đề Thi Thử Cuối Kỳ Chuẩn VIP**: 71 câu xáo trộn ngẫu nhiên.
+#### Môn 1: Chủ Nghĩa Xã Hội Khoa Học - Giữa Kỳ (86 Câu Hỏi Chuẩn Giáo Trình & Slide)
+- **Đề 01 - Đề Tổng Hợp Toàn Diện (Full 86 Câu)**: Toàn bộ 86 câu trắc nghiệm bao quát trọn vẹn 4 chương thi giữa kỳ.
+- **Đề 02 - Chương 1: Nhập Môn CNXHKH (19 Câu)**: Hoàn cảnh lịch sử thế kỷ XIX, tiền đề KHTN và tư tưởng lý luận, 3 phát kiến vĩ đại, đối tượng & phương pháp nghiên cứu.
+- **Đề 03 - Chương 2: Sứ Mệnh Lịch Sử Giai Cấp Công Nhân (24 Câu)**: Khái niệm 2 phương diện, 3 nội dung sứ mệnh, điều kiện khách quan - chủ quan và đặc điểm GCCN Việt Nam.
+- **Đề 04 - Chương 3: CNXH & Thời Kỳ Quá Độ (21 Câu)**: Hình thái KT-XH CSCN, 6 đặc trưng Mác - Lênin, 8 đặc trưng ở VN, 2 hình thức quá độ và quá độ bỏ qua CNTB.
+- **Đề 05 - Chương 4: Dân Chủ XHCN & Nhà Nước XHCN (22 Câu)**: Bản chất nền dân chủ XHCN, chức năng và bản chất nhà nước XHCN, xây dựng nhà nước pháp quyền XHCN Việt Nam.
+- **Đề 06 - Thi Thử Giữa Kỳ Chuẩn VIP (86 Câu Xáo Trộn)**: Bộ đề xáo trộn ngẫu nhiên giúp phản xạ nhanh và thuộc lòng 100%.
 
-#### Môn 2: Tiếng Anh Chuyên Ngành Logistics (English for Logistics • 33 Câu Hỏi)
-- **Đề Thi Tổng Hợp - English for Logistics**: Trọn bộ 33 câu trắc nghiệm chuẩn xác trích xuất từ đề thi `english 4 log.docx`, bao quát:
-  - *Thuật ngữ & Vai trò trong Logistics*: Haulage contractor, Freight forwarder, Consignee, Courier, Vendor, Wholesaler.
-  - *Vận hành & Hệ thống chuỗi cung ứng*: LCL, Cross-docking, Order picking, Reverse logistics, Lead time, Procurement, VMI, JIT, Intermodal transport.
-  - *Cấu trúc thư báo giá thương mại*: Please find attached quotation, prices calculation, volume discount, contract term, delivery time.
-  - *Ngữ pháp chuyên ngành*: Câu bị động các thì (Passive Voice) & So sánh các phương thức vận tải (Barge, Truck, Rail).
-
-#### Môn 3: Tư Tưởng Hồ Chí Minh (113 Câu Hỏi Chuẩn Văn Kiện)
+#### Môn 2: Tư Tưởng Hồ Chí Minh (113 Câu Hỏi Chuẩn Văn Kiện)
 - **Đề 01 - Đề Tổng Hợp Toàn Diện (Full 113 Câu)**: Trọn bộ 113 câu hỏi trắc nghiệm bao quát toàn diện cả 3 phần ôn tập.
 - **Đề 02 - Phần 1: Khái Niệm, Cơ Sở & Quá Trình Hình Thành (36 Câu)**: Khái niệm tư tưởng HCM, Văn kiện Đại hội VII & IX, cơ sở thực tiễn - lý luận và 5 thời kỳ hình thành, phát triển tư tưởng.
 - **Đề 03 - Phần 2: Độc Lập Dân Tộc, CNXH, Đảng & Nhà Nước (52 Câu)**: Cách mạng giải phóng dân tộc, CNXH và thời kỳ quá độ, bản chất và quy luật ra đời Đảng CSVN, xây dựng Nhà nước của dân, do dân, vì dân và phòng chống giặc nội xâm.
